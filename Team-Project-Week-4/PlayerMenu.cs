@@ -8,23 +8,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 
 
-public class TestPlayerAttribs
-{
-    public int playerSecurity = 5;       //chance to defend self
-    public int playerSpeech = 5;        //Price multiplier
-    public int playerMaintenance = 5;    //Likelyness to break 
-    public int playerLuck = 5;          //likelieness subtracted from bad stuff, added to good stuff
-    public int playerPiloting = 5;       //static distance multiplier
-    public int pointsAvail = 7;
-    public string FirstName;
-    public string Profession;
-    public string LastName;
-    public double playerMoney = 250000;
-    // public object ship  = NoobShip;
-    //public object List<>(); = InventoryItems;
-}
-
-
 public class SkillTooLow : Exception
 {
 
@@ -34,12 +17,19 @@ public class NoAtribPoints : Exception
 {
 }
 
+
+//public class InitNewPlayer
+//{ 
+//    public SetAttribMenu StartPlayerMaker = new SetAttribMenu();
+//}
+
 public class SetAttribMenu
 {
-    TestPlayerAttribs playerAttribs = new TestPlayerAttribs();
-
+    //make this not make a new player each time its called
+    public CurrentPlayer playerAttribs = new CurrentPlayer();
     public void TestPlayerMakerXML()
     {
+        
 
         Console.WriteLine("What is your name?");
         Console.WriteLine("First Name:");
@@ -405,58 +395,6 @@ public class SetAttribMenu
 
     }
 
-
+    
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//player.FirstName;
-//playerAttribs;
-//player.LastName;
-//player.Profession;
-//playerAttribs.playerSecurity;
-//playerAttribs.playerSpeech;
-//playerAttribs.playerMaintenance;
-//playerAttribs.playerLuck;
-//playerAttribs.playerPiloting;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

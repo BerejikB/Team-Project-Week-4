@@ -13,25 +13,25 @@ using Team_Project_Week_4;
 public class Menu 
     {
 
-        ProgramRun RunGame = new ProgramRun();
-        SetAttribMenu playerMake = new SetAttribMenu();
-        MapGen mapGenerator = new MapGen();
+    //ProgramRun RunGame = new ProgramRun();
         
+        MapGen mapGenerator = new MapGen();
+        xmlLoader LoadPlayer = new xmlLoader();
+
+    
     public void GameStart()
         {
-            //SLFL.FileLoad();
-            StartMenu();
+           StartMenu();
         }
 
     public void StartMenu()
 
     {
-
-            Console.WriteLine("1 New Player TEST");
+            Console.WriteLine("1 New Player");
             Console.WriteLine("2 Map Generator TEST");
             Console.WriteLine("3 Load Player TEST");
             Console.WriteLine("4 Start Game TEST");
-            Console.WriteLine("5 TestPlayerInitalize");
+            Console.WriteLine("5 Show Player Stats");
             Console.WriteLine("1 TestPlayerInitalize");
             Console.WriteLine("1 TestPlayerInitalize");
 
@@ -45,14 +45,12 @@ public class Menu
         catch (Exception){ Console.WriteLine("try again"); }
 
 
-
-
         switch (mainMenuSelect)
         {
             case 1:
                 {
-                   
-                    playerMake.TestPlayerMakerXML();
+                    SetAttribMenu NewPlayer = new SetAttribMenu();
+                    NewPlayer.TestPlayerMakerXML();
                 }
 
                 break;
@@ -64,19 +62,40 @@ public class Menu
                 break;
 
             case 3:
+                {
+                    LoadPlayer.LoadXML(SaveSlot());
+                    StartMenu();
+                }
                 break;
             case 4:
-                { RunGame.MainRunLoop(); }
+                {
+                    SaveSlot();
+                    Console.WriteLine($"Slot{SaveSlot()}Selected");
+                    
+                   // RunGame.MainRunLoop();
+                }
+                break;
+
+            case 5:
+                {
+                    LoadPlayer.LoadXML(SaveSlot());
+
+                    
+                    PrintStats();
+
+
+
+                }
                 break;
 
             default:
+
                 StartMenu();
                 break;
 
         }
 
     }
-
 
     public int SaveSlot()
     {
@@ -94,6 +113,25 @@ public class Menu
     }
 
 
+    public void PrintStats()
+    { }
+
+    public void PrintStats(xmlLoader LoadSave)
+    {
+        Console.WriteLine($"  {LoadSave.playerSpeech} ");
+        Console.WriteLine($"  {LoadSave.playerSecurity} ");
+        Console.WriteLine($"  { LoadSave.playerMaintenance} ");
+        Console.WriteLine($"  {LoadSave.playerLuck} ");
+        Console.WriteLine($"  {LoadSave.playerPiloting} ");
+        Console.WriteLine($"  {LoadSave.FirstName} ");
+        Console.WriteLine($"  {LoadSave.LastName} ");
+        Console.WriteLine($"  {LoadSave.Profession} ");
+        Console.ReadKey();
+        Console.WriteLine();
+        StartMenu();
+
+
+    }
 }
 
 
