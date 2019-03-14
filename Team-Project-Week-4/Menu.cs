@@ -13,10 +13,11 @@ using Team_Project_Week_4;
 public class Menu 
     {
 
-    ProgramRun RunGame = new ProgramRun();
+        ProgramRun RunGame = new ProgramRun();
         SetAttribMenu playerMake = new SetAttribMenu();
         MapGen mapGenerator = new MapGen();
-        public void GameStart()
+        
+    public void GameStart()
         {
             //SLFL.FileLoad();
             StartMenu();
@@ -41,42 +42,60 @@ public class Menu
         {
             mainMenuSelect = int.Parse(Console.ReadLine());
         }
-        catch (Exception){ Console.WriteLine("try again"); }  
-        
-        
-    
-                switch (mainMenuSelect)
-                         {
-                       
-                             case 1:
-                                 {
-                                   playerMake.TestPlayerMakerXML();
-                                 }
+        catch (Exception){ Console.WriteLine("try again"); }
 
-                             break;
-    
-                             case 2:
-                                 {
-                                     mapGenerator.MakeMap();
-                                 }
-                             break;
 
-                             case 3:
-                             break;
 
-                                case 4:
-                                { RunGame.MainRunLoop(); }
-                                break;
 
-                            default:
-                             StartMenu();
-                            break;
+        switch (mainMenuSelect)
+        {
+            case 1:
+                {
+                   
+                    playerMake.TestPlayerMakerXML();
+                }
 
-                          }
+                break;
 
-                 }
-                
+            case 2:
+                {
+                    mapGenerator.MakeMap();
+                }
+                break;
+
+            case 3:
+                break;
+            case 4:
+                { RunGame.MainRunLoop(); }
+                break;
+
+            default:
+                StartMenu();
+                break;
+
+        }
+
     }
+
+
+    public int SaveSlot()
+    {
+        int saveSlot = 0;
+        try
+        {
+            Console.WriteLine("Select Save Slot");
+            saveSlot = int.Parse(Console.ReadLine());
+            return saveSlot;
+        }
+        catch (Exception) { Console.WriteLine("try again"); }
+        return saveSlot;
+
+
+    }
+
+
+}
+
 
 
 

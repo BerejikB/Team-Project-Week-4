@@ -8,42 +8,45 @@ using Team_Project_Week_4;
 using System.Xml.Serialization;
 
 
-public class xmlHelper
+public class xmlSaver
 {
-
+    Menu MainMenu = new Menu();
     public void WriteXML(TestPlayerAttribs playerStats)
     {
         try
         {
-            Console.WriteLine("Select a save slot");
-            int userInput = int.Parse(Console.ReadLine());
 
-            XmlSerializer writer =  new XmlSerializer(typeof(TestPlayerAttribs));
+            Menu MainMenu = new Menu();
 
-            System.IO.StreamWriter file = new StreamWriter($"Player{userInput}.xml");
+            XmlSerializer writer = new XmlSerializer(typeof(TestPlayerAttribs));
+
+            System.IO.StreamWriter file = new StreamWriter($"Player{MainMenu.SaveSlot()}.xml");
             writer.Serialize(file, playerStats);
 
 
             file.Close();
         }
         catch (Exception) { WriteXML(playerStats); }
+        Console.WriteLine("Character created! Start the game!");
+        MainMenu.StartMenu();
     }
-//Read XML code example:
-
-//public void Read(string fileName)
-//{
-//    XDocument doc = XDocument.Load(fileName);
-
-//    foreach (XElement el in doc.Root.Elements())
-//    {
-//        Console.WriteLine("{0} {1}", el.Name, el.Attribute("id").Value);
-//        Console.WriteLine("  Attributes:");
-//        foreach (XAttribute attr in el.Attributes())
-//            Console.WriteLine("    {0}", attr);
-//        Console.WriteLine("  Elements:");
-
-//        foreach (XElement element in el.Elements())
-//            Console.WriteLine("    {0}: {1}", element.Name, element.Value);
-//    }
-//}
 }
+/// <summary>
+/// /HELP MAKE WORK HALP HALP HALP WHAT DO
+/// </summary>
+    //public class xmlLoader
+    //{
+    //    Menu saveSlotSelect = new Menu();
+    //    Player PlayerStatus = new Player();
+    //    public void LoadXML()
+
+
+    //    {
+    //        XmlSerializer reader = new XmlSerializer(typeof(TestPlayerAttribs));
+    //        System.IO.StreamReader file = new StreamReader($"Player{saveSlotSelect.SaveSlot()}.xml");
+    //        reader.Serialize(file, PlayerStatus);
+    //    }
+
+
+    //}
+ 

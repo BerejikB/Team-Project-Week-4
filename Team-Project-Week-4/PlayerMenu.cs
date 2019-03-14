@@ -19,6 +19,9 @@ public class TestPlayerAttribs
     public string FirstName;
     public string Profession;
     public string LastName;
+    public double playerMoney = 250000;
+    // public object ship  = NoobShip;
+    //public object List<>(); = InventoryItems;
 }
 
 
@@ -371,7 +374,7 @@ public class SetAttribMenu
 
     public void Review()
     {
-        xmlHelper SaveFunct = new xmlHelper();
+        xmlSaver SaveFunct = new xmlSaver();
 
         Console.Clear();
 
@@ -405,18 +408,6 @@ public class SetAttribMenu
 
 
 }
-
-public class PlayerStats
-{
-    TestPlayerAttribs playerAttribs = new TestPlayerAttribs();
-
-
-
-
-
-
-}
-
 
 
 
