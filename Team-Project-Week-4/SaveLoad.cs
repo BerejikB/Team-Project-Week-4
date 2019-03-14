@@ -11,24 +11,22 @@ using System.Xml.Serialization;
 public class xmlHelper
 {
 
-    public void WriteXML()
+    public void WriteXML(TestPlayerAttribs playerStats)
     {
-        int userInput;
-        userInput = 1;
         try
         {
             Console.WriteLine("Select a save slot");
-            userInput = int.Parse(Console.ReadLine());
+            int userInput = int.Parse(Console.ReadLine());
+
+            XmlSerializer writer =  new XmlSerializer(typeof(TestPlayerAttribs));
+
+            System.IO.StreamWriter file = new StreamWriter($"Player{userInput}.xml");
+            writer.Serialize(file, playerStats);
+
+
+            file.Close();
         }
-        catch (Exception) { WriteXML(); }
-
-        TestPlayerAttribs playerStats = new TestPlayerAttribs();
-
-        XmlSerializer writer =  new XmlSerializer(typeof(TestPlayerAttribs));
-        System.IO.StreamWriter file = new StreamWriter($"Player{userInput}.xml");
-        writer.Serialize(file, playerStats);
-        file.Close();
-
+        catch (Exception) { WriteXML(playerStats); }
     }
 //Read XML code example:
 

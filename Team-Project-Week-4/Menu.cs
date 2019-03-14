@@ -12,10 +12,10 @@ using Team_Project_Week_4;
 
 public class Menu 
     {
-        
-        
-        TestPlayerMake playerMake = new TestPlayerMake();
 
+    ProgramRun RunGame = new ProgramRun();
+        SetAttribMenu playerMake = new SetAttribMenu();
+        MapGen mapGenerator = new MapGen();
         public void GameStart()
         {
             //SLFL.FileLoad();
@@ -26,6 +26,12 @@ public class Menu
 
     {
 
+            Console.WriteLine("1 New Player TEST");
+            Console.WriteLine("2 Map Generator TEST");
+            Console.WriteLine("3 Load Player TEST");
+            Console.WriteLine("4 Start Game TEST");
+            Console.WriteLine("5 TestPlayerInitalize");
+            Console.WriteLine("1 TestPlayerInitalize");
             Console.WriteLine("1 TestPlayerInitalize");
 
 
@@ -50,13 +56,21 @@ public class Menu
                              break;
     
                              case 2:
+                                 {
+                                     mapGenerator.MakeMap();
+                                 }
                              break;
 
                              case 3:
                              break;
-                default:
-                StartMenu();
-                break;
+
+                                case 4:
+                                { RunGame.MainRunLoop(); }
+                                break;
+
+                            default:
+                             StartMenu();
+                            break;
 
                           }
 

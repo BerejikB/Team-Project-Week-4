@@ -22,16 +22,21 @@ public class TestPlayerAttribs
 }
 
 
-public class TestPlayerMake
-  {
+public class SkillTooLow : Exception
+{
+
+}
+
+public class NoAtribPoints : Exception
+{
+}
+
+public class SetAttribMenu
+{
     TestPlayerAttribs playerAttribs = new TestPlayerAttribs();
-    
-    SetAttribMenu makePlayerAttribs = new SetAttribMenu();
- 
+
     public void TestPlayerMakerXML()
-        {
-        TestPlayerAttribs playerAttribs = new TestPlayerAttribs();
-        
+    {
 
         Console.WriteLine("What is your name?");
         Console.WriteLine("First Name:");
@@ -48,48 +53,32 @@ public class TestPlayerMake
 
         {
 
-                case 'y':
+            case 'y':
                 {
                     Console.WriteLine($"Welcome {playerAttribs.FirstName}, Time to begin your adveture.");
                 }
                 break;
-           
-                
-                case 'n':
+
+
+            case 'n':
                 {
                     TestPlayerMakerXML();
                 }
                 break;
 
-                default:
+            default:
                 {
                     TestPlayerMakerXML();
                 }
                 break;
 
-            
-         }
-           
-        Console.WriteLine();
-                Console.ReadKey();
-        makePlayerAttribs.SetSecurity();
+
         }
 
-}
-
-public class SkillTooLow : Exception
-{
-    
-}
-
-public class NoAtribPoints : Exception
-{
-}
-
-public class SetAttribMenu
-{
-    TestPlayerAttribs playerAttribs = new TestPlayerAttribs();
- 
+        Console.WriteLine();
+        Console.ReadKey();
+        SetSecurity();
+    }
 
     public void SetSecurity()
     {
@@ -148,7 +137,8 @@ public class SetAttribMenu
 
     public void SetSpeech()
     {
-        try {
+        try
+        {
 
 
 
@@ -210,7 +200,8 @@ public class SetAttribMenu
 
     public void SetMaintenance()
     {
-        try {
+        try
+        {
 
             Console.Clear();
             Console.WriteLine($"Press Up Arrow to add a point, press Down Arrow to subract a point, and Right Arrow to go to next Attribute ");
@@ -321,7 +312,8 @@ public class SetAttribMenu
 
     public void SetPiloting()
     {
-        try {
+        try
+        {
 
 
             Console.Clear();
@@ -397,7 +389,7 @@ public class SetAttribMenu
         switch (userInput)
         {
             case 'y':
-                { SaveFunct.WriteXML(); }
+                { SaveFunct.WriteXML(playerAttribs); }
                 break;
             case 'n':
                 { SetPiloting(); }
@@ -415,14 +407,14 @@ public class SetAttribMenu
 }
 
 public class PlayerStats
-{ 
+{
     TestPlayerAttribs playerAttribs = new TestPlayerAttribs();
 
 
-    
 
 
-    
+
+
 }
 
 
@@ -436,10 +428,6 @@ public class PlayerStats
 
 
 
-     
-    
-
-   
 
 
 
@@ -448,17 +436,19 @@ public class PlayerStats
 
 
 
-    //player.FirstName;
-    //playerAttribs;
-    //player.LastName;
-    //player.Profession;
-    //playerAttribs.playerSecurity;
-    //playerAttribs.playerSpeech;
-    //playerAttribs.playerMaintenance;
-    //playerAttribs.playerLuck;
-    //playerAttribs.playerPiloting;
 
 
+
+
+//player.FirstName;
+//playerAttribs;
+//player.LastName;
+//player.Profession;
+//playerAttribs.playerSecurity;
+//playerAttribs.playerSpeech;
+//playerAttribs.playerMaintenance;
+//playerAttribs.playerLuck;
+//playerAttribs.playerPiloting;
 
 
 
@@ -472,9 +462,10 @@ public class PlayerStats
 
 
 
-   
 
 
 
 
-   
+
+
+

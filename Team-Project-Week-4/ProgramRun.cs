@@ -18,10 +18,15 @@ public class ProgramRun
     {
         //SaveLoad SLFL = new SaveLoad();
         Menu menu = new Menu();
-     ;
+     
         menu.GameStart();
 
+
     }
+
+
+        public void MainRunLoop()
+        { }
 }
 
 
