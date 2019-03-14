@@ -1,0 +1,61 @@
+Project
+	
+	Class - Load/Save file 
+		(Starts on game run, initalizes game)
+	
+	Class - Inventory/Player running stats
+		(loads from save file)
+	
+	Class - Player attributes
+		(loads from save file)
+	Class - Menu
+		(New  game - create player)
+		(Save / quit)
+		(Start game)
+		(New game, overwrite/or make new save?)
+		
+	
+	Class - Random Events
+		Free stuff 
+			Free items or money
+		Attacks
+			Defend self
+				Chance for success
+				Chance to die
+			Give up % of money or goods
+		Repairs
+			Cost random amount of $$
+	
+		
+	Class - Items
+		Beer - price - capacty
+		Gold
+		Drugs
+		Goats
+		Canned Air
+		Spice
+		
+	
+	Class - Planets - Run on file load, save
+		Location (random gen)
+		Name (random gen)
+		Economy multiplier amount	
+			Rich	 - 1.2x to buy from player price    
+			Good 	 - 1.1x to buy from player price
+			Average	 - 1.0x to buy from player price
+			Poor 	 - 0.7x  to buy from player price
+			Awful	 - 0.5x  to buy from player price
+		
+		
+		*COSMETIC* All random gen with constraints
+		Type of planet
+			List: Gas, Desert, earthlike, rock, ice, ect
+		Mass
+		Gravity
+		Orbital period
+	
+	End condition
+		Purchase DopeAssCrib on resort world
+		Get killed
+		Get broke
+		Display stats at end
