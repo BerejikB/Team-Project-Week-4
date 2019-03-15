@@ -25,11 +25,17 @@ public class NoAtribPoints : Exception
 
 public class SetAttribMenu
 {
-    //make this not make a new player each time its called
-    public CurrentPlayer playerAttribs = new CurrentPlayer();
+    
+    public NewPlayer playerAttribs = new NewPlayer();
     public void TestPlayerMakerXML()
     {
-        
+        playerAttribs.playerSecurity = 5;
+        playerAttribs.playerSpeech = 5;
+        playerAttribs.playerMaintenance = 5;
+        playerAttribs.playerPiloting = 5;
+        playerAttribs.playerLuck = 5;
+        playerAttribs.playerMoney = 250000;
+        playerAttribs.pointsAvail = 7;
 
         Console.WriteLine("What is your name?");
         Console.WriteLine("First Name:");
@@ -307,8 +313,6 @@ public class SetAttribMenu
     {
         try
         {
-
-
             Console.Clear();
             Console.WriteLine($"Press Up Arrow to add a point, press Down Arrow to subract a point, and Right Arrow to go to FINISH ");
             Console.WriteLine($"Press Left Arrow to go back ");

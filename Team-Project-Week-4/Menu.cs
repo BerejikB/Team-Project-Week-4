@@ -10,30 +10,20 @@ using Team_Project_Week_4;
 
 
 
-public class Menu 
-    {
+public class Menu
 
-    //ProgramRun RunGame = new ProgramRun();
-        
-        MapGen mapGenerator = new MapGen();
-        xmlLoader LoadPlayer = new xmlLoader();
-
+{
     
-    public void GameStart()
-        {
-           StartMenu();
-        }
-
     public void StartMenu()
 
     {
-            Console.WriteLine("1 New Player");
-            Console.WriteLine("2 Map Generator TEST");
-            Console.WriteLine("3 Load Player TEST");
-            Console.WriteLine("4 Start Game TEST");
-            Console.WriteLine("5 Show Player Stats");
-            Console.WriteLine("1 TestPlayerInitalize");
-            Console.WriteLine("1 TestPlayerInitalize");
+            Console.WriteLine("1) New Player");
+            Console.WriteLine("2) Map Generator NOT IMPLIMENTED");
+            Console.WriteLine("3) Load Player NOT IMPLIMENTED");
+            Console.WriteLine("4) Start Game NOT IMPLIMENTED");
+            Console.WriteLine("5) Show Player Stats");
+            Console.WriteLine("6) Quit");
+            
 
 
         //User input for main menu
@@ -57,35 +47,29 @@ public class Menu
 
             case 2:
                 {
-                    mapGenerator.MakeMap();
+                    StartMenu();
                 }
                 break;
 
             case 3:
                 {
-                    LoadPlayer.LoadXML(SaveSlot());
                     StartMenu();
                 }
                 break;
             case 4:
                 {
-                    SaveSlot();
-                    Console.WriteLine($"Slot{SaveSlot()}Selected");
-                    
-                   // RunGame.MainRunLoop();
+                    GameManager GM = new GameManager();
+                    GM.GameRun();
+                    StartMenu();
                 }
                 break;
 
             case 5:
                 {
-                    LoadPlayer.LoadXML(SaveSlot());
-
-                    
-                    PrintStats();
-
-
-
+                    PrintStat();
+                    StartMenu();
                 }
+
                 break;
 
             default:
@@ -112,26 +96,17 @@ public class Menu
 
     }
 
-
-    public void PrintStats()
-    { }
-
-    public void PrintStats(xmlLoader LoadSave)
+    public void PrintStat()
     {
-        Console.WriteLine($"  {LoadSave.playerSpeech} ");
-        Console.WriteLine($"  {LoadSave.playerSecurity} ");
-        Console.WriteLine($"  { LoadSave.playerMaintenance} ");
-        Console.WriteLine($"  {LoadSave.playerLuck} ");
-        Console.WriteLine($"  {LoadSave.playerPiloting} ");
-        Console.WriteLine($"  {LoadSave.FirstName} ");
-        Console.WriteLine($"  {LoadSave.LastName} ");
-        Console.WriteLine($"  {LoadSave.Profession} ");
-        Console.ReadKey();
-        Console.WriteLine();
-        StartMenu();
+        CurrentPlayer boi = new CurrentPlayer();
+        boi.printCurrentPlayer();
 
-
+            
     }
+
+
+
+
 }
 
 

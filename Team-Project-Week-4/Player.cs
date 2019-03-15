@@ -9,42 +9,56 @@ using Team_Project_Week_4;
 
 
 
-public class CurrentPlayer
+public class NewPlayer
 {
-    public int playerSecurity = 5;       //chance to defend self
-    public int playerSpeech = 5;        //Price multiplier
-    public int playerMaintenance = 5;    //Likelyness to break 
-    public int playerLuck = 5;          //likelieness subtracted from bad stuff, added to good stuff
-    public int playerPiloting = 5;       //static distance multiplier
-    public int pointsAvail = 7;
-    public string FirstName;
-    public string Profession;
-    public string LastName;
-    public double playerMoney = 250000;
+    public int playerSecurity  {get; set; }        //chance to defend self
+    public int playerSpeech { get; set; }       //Price multiplier
+    public int playerMaintenance { get; set; }    //Likelyness to break 
+    public int playerLuck { get; set; }          //likelieness subtracted from bad stuff, added to good stuff
+    public int playerPiloting { get; set; }       //static distance multiplier
+    public int pointsAvail { get; set; }
+    public string FirstName { get; set; }
+    public string Profession { get; set; }
+    public string LastName { get; set; }
+    public double playerMoney { get; set; }
     // public object ship  = NoobShip;
     //public object List<>(); = InventoryItems;
+}
 
-    public CurrentPlayer()
-    { }
+
+
+
+
+    public class CurrentPlayer : NewPlayer
+{
+    Menu mainmen = new Menu();
+    xmlLoader playerStats = new xmlLoader();
 
     
-    public CurrentPlayer(xmlLoader LoadSave)
-    {
-        playerSpeech = LoadSave.playerSpeech;
-        playerSecurity = LoadSave.playerSecurity;
-        playerMaintenance = LoadSave.playerMaintenance;
-        playerLuck = LoadSave.playerLuck;
-        playerPiloting = LoadSave.playerPiloting;
-        FirstName = LoadSave.FirstName;
-        LastName = LoadSave.LastName;
-        Profession = LoadSave.Profession;
-       //playerShip = LoadSave.playerShip
-       //playerInventory = LoadSave.playerInventory
-        
        
+    public void printCurrentPlayer()
+    {
+        int savenum = mainmen.SaveSlot();
 
+        playerStats.LoadXML(savenum);
+
+        Console.WriteLine($"You are {playerStats.FirstName} {playerStats.LastName}, the {playerStats.Profession}");
+        Console.WriteLine($"Your curent attributes are:");
+        Console.WriteLine($"Wallet : ${playerStats.playerMoney}");
+        Console.WriteLine($"Security : {playerStats.playerSecurity}");
+        Console.WriteLine($"Speech : {playerStats.playerSpeech}");
+        Console.WriteLine($"Maintenance : {playerStats.playerMaintenance}");
+        Console.WriteLine($"Luck : {playerStats.playerLuck}");
+        Console.WriteLine($"Piloting : {playerStats.playerPiloting}");
+        Console.ReadKey();
+        
     }
 
-
+   
 
 }
+
+
+
+
+
