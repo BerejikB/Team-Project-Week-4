@@ -17,10 +17,11 @@ public class Menu
     public void StartMenu()
 
     {
-            Console.WriteLine("1) New Player");
+        Console.Clear();
+        Console.WriteLine("1) New Player");
             Console.WriteLine("2) Map Generator NOT IMPLIMENTED");
             Console.WriteLine("3) Load Player NOT IMPLIMENTED");
-            Console.WriteLine("4) Start Game NOT IMPLIMENTED");
+            Console.WriteLine("4) Start WORK IN PROGRESS");
             Console.WriteLine("5) Show Player Stats");
             Console.WriteLine("6) Quit");
             
@@ -28,15 +29,16 @@ public class Menu
 
         //User input for main menu
         int mainMenuSelect = 0;
+        
         try
         {
             mainMenuSelect = int.Parse(Console.ReadLine());
         }
         catch (Exception){ Console.WriteLine("try again"); }
 
-
         switch (mainMenuSelect)
         {
+           
             case 1:
                 {
                     SetAttribMenu NewPlayer = new SetAttribMenu();
@@ -66,7 +68,9 @@ public class Menu
 
             case 5:
                 {
-                    PrintStat();
+                    GameManager GM = new GameManager();
+                    GM.PrintStat();
+                    Console.ReadKey();
                     StartMenu();
                 }
 
@@ -76,33 +80,12 @@ public class Menu
 
                 StartMenu();
                 break;
-
+               
         }
 
     }
 
-    public int SaveSlot()
-    {
-        int saveSlot = 0;
-        try
-        {
-            Console.WriteLine("Select Save Slot");
-            saveSlot = int.Parse(Console.ReadLine());
-            return saveSlot;
-        }
-        catch (Exception) { Console.WriteLine("try again"); }
-        return saveSlot;
-
-
-    }
-
-    public void PrintStat()
-    {
-        CurrentPlayer boi = new CurrentPlayer();
-        boi.printCurrentPlayer();
-
-            
-    }
+   
 
 
 

@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 public class xmlSaver
 {
-    Menu MainMenu = new Menu();
+    GameManager GM = new GameManager();
     public void WriteXML(NewPlayer playerStats)
     {
         try
@@ -20,7 +20,7 @@ public class xmlSaver
 
             XmlSerializer writer = new XmlSerializer(typeof(NewPlayer));
 
-            System.IO.StreamWriter file = new StreamWriter($"Player{MainMenu.SaveSlot()}.xml");
+            System.IO.StreamWriter file = new StreamWriter($"Player{GM.SaveSlot()}.xml");
             writer.Serialize(file, playerStats);
 
 
@@ -28,7 +28,7 @@ public class xmlSaver
         }
         catch (Exception) { WriteXML(playerStats); }
         Console.WriteLine("Character created! Start the game!");
-        MainMenu.StartMenu();
+        
     }
 }
 

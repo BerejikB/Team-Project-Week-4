@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameManager.cs" />
+    <Compile Include="GameRun.cs" />
     <Compile Include="InventoryItems.CS" />
     <Compile Include="MapGen.cs" />
     <Compile Include="Menu.cs" />

@@ -31,14 +31,14 @@ public class NewPlayer
 
     public class CurrentPlayer : NewPlayer
 {
-    Menu mainmen = new Menu();
+    GameManager GM = new GameManager();
     xmlLoader playerStats = new xmlLoader();
 
     
        
     public void printCurrentPlayer()
     {
-        int savenum = mainmen.SaveSlot();
+        int savenum = GM.SaveSlot();
 
         playerStats.LoadXML(savenum);
 

@@ -16,6 +16,7 @@ public class ProgramRun
         static void Main(string[] args)
 
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             GameManager MainProgramRun = new GameManager();
             MainProgramRun.GameStartMenu();
         }
