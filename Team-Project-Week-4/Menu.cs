@@ -43,6 +43,7 @@ public class Menu
                 {
                     SetAttribMenu NewPlayer = new SetAttribMenu();
                     NewPlayer.TestPlayerMakerXML();
+                    StartMenu();
                 }
 
                 break;

@@ -21,19 +21,19 @@ namespace Team_Project_Week_4
             ConsoleKeyInfo userKey;
             int locationX = 24;
             int locationY = 24;
+            
+     
 
             while (gameRunning)
             {
-                // Begin with processing input
+                
                 if (Console.KeyAvailable)
                 {
                     Console.Clear();
-
                     Console.Write($" Name : {status.FirstName}   Wallet : {status.playerMoney}");
-
-                    Console.SetCursorPosition(locationX, locationY);
-                    Console.Write("||");
                     userKey = Console.ReadKey(true);
+
+
 
                     switch (userKey.Key)
                     {
@@ -77,7 +77,17 @@ namespace Team_Project_Week_4
                             
                             gameRunning = false;
                             break;
+
+
+
                     }
+
+
+                    Console.SetCursorPosition(locationX, locationY);
+                    Console.Write("||");
+                   
+
+
                 }
 
                 
