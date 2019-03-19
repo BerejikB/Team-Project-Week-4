@@ -10,11 +10,10 @@ namespace Team_Project_Week_4
 
     public class GameManager
     {
-       
 
+        xmlSaver save = new xmlSaver();
         xmlLoader load = new xmlLoader();
         Player boi = new Player();
-        GameRun GameLoop = new GameRun();
         MapGen Cartographer = new MapGen();
 
         public string WriteCenterScreen(string textToEnter)
@@ -36,7 +35,6 @@ namespace Team_Project_Week_4
             Console.ReadKey();
 
         }
-
 
         public void NumOfPlanets()
         {
@@ -81,13 +79,6 @@ namespace Team_Project_Week_4
             Console.SetCursorPosition(LocationX, LocationY);
             Console.Write('?');
         }
-
-
-
-
-
-
-
 
         public void StartMenu()
 
@@ -145,14 +136,14 @@ namespace Team_Project_Week_4
                 case 4:
                     {
                         
-                        GameLoop.RunLoop();
+                        RunLoop();
                         StartMenu();
                     }
                      break;
 
                 case 5:
                     {
-                        boi.printCurrentPlayer();
+                        PrintStat();
                         Console.ReadKey();
                         StartMenu();
                     }
@@ -180,12 +171,23 @@ namespace Team_Project_Week_4
 
         public void PrintStat()
         {
-            boi.printCurrentPlayer();
+            this.boi = load.LoadXML(load.SaveSlot());
+            Console.WriteLine($"You are {boi.FirstName} {boi.LastName}, the {boi.Profession}");
+            Console.WriteLine($"Your curent attributes are:");
+            Console.WriteLine($"Wallet : ${boi.playerMoney}");
+            Console.WriteLine($"Security : {boi.playerSecurity}");
+            Console.WriteLine($"Speech : {boi.playerSpeech}");
+            Console.WriteLine($"Maintenance : {boi.playerMaintenance}");
+            Console.WriteLine($"Luck : {boi.playerLuck}");
+            Console.WriteLine($"Piloting : {boi.playerPiloting}");
+            Console.ReadKey();
             StartMenu();
         }
   
-       public void RunLoop()
+        public void RunLoop()
         {
+            
+            this.boi = load.LoadXML(load.SaveSlot());
             bool gameRunning = true;
             ConsoleKeyInfo userKey;
             int locationX = 24;
@@ -198,6 +200,7 @@ namespace Team_Project_Week_4
                 {
                     Console.Clear();
                     Console.Write($" Name : {boi.FirstName}   Wallet : {boi.playerMoney}");
+                    Console.Write($"X Coord:{locationX}Y Coord:{locationY}");
                     userKey = Console.ReadKey(true);
 
 
@@ -205,7 +208,7 @@ namespace Team_Project_Week_4
                     {
                         case ConsoleKey.LeftArrow:
 
-                            if (locationX > 0)
+                            if (locationX > 2)
                             {
 
                                 locationX = locationX - 1;
@@ -223,7 +226,7 @@ namespace Team_Project_Week_4
 
                         case ConsoleKey.UpArrow:
 
-                            if (locationY > 0)
+                            if (locationY > 4)
                             {
 
                                 locationY = locationY - 1;
@@ -240,8 +243,11 @@ namespace Team_Project_Week_4
                             break;
 
                         case ConsoleKey.Escape:
+                            Console.Clear();
+                            save.WriteXML(boi);
 
                             gameRunning = false;
+
                             break;
 
                         case ConsoleKey.Backspace:
@@ -256,7 +262,7 @@ namespace Team_Project_Week_4
 
 
                     Console.SetCursorPosition(locationX, locationY);
-                    Console.Write("||");
+                    
 
 
 

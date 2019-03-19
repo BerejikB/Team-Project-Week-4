@@ -67,6 +67,7 @@ public class xmlLoader
     public Player LoadXML(int saveSlot)
     {
         Player stats = new Player();
+
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
         doc.Load($"player{saveSlot}.xml");
         var Player = doc.SelectSingleNode("Player");
@@ -79,7 +80,6 @@ public class xmlLoader
         stats.Profession = Convert.ToString(Player.SelectSingleNode("Profession").InnerText);
         stats.LastName = Convert.ToString(Player.SelectSingleNode("LastName").InnerText);
         stats.playerMoney = Convert.ToDouble(Player.SelectSingleNode("playerMoney").InnerText);
-
 
         return stats;
     }

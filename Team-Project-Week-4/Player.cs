@@ -13,9 +13,7 @@ using Team_Project_Week_4;
 
 public class Player
 {
-    xmlLoader load = new xmlLoader();
-
-
+       
     public int playerSecurity;  //chance to defend self
     public int playerSpeech;       //Price multiplier
     public int playerMaintenance;     //Likelyness to break 
@@ -49,10 +47,6 @@ public class Player
 
     public void printCurrentPlayer()
     {
-        load.SaveSlot();
-        
-        //load.LoadXML(Action<SaveSlot()>, load.SaveSlot());
-
         Console.WriteLine($"You are {FirstName} {LastName}, the {Profession}");
         Console.WriteLine($"Your curent attributes are:");
         Console.WriteLine($"Wallet : ${playerMoney}");
