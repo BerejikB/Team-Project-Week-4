@@ -9,56 +9,60 @@ using Team_Project_Week_4;
 
 
 
-public class NewPlayer
+
+
+public class Player
 {
-    public int playerSecurity  {get; set; }        //chance to defend self
-    public int playerSpeech { get; set; }       //Price multiplier
-    public int playerMaintenance { get; set; }    //Likelyness to break 
-    public int playerLuck { get; set; }          //likelieness subtracted from bad stuff, added to good stuff
-    public int playerPiloting { get; set; }       //static distance multiplier
-    public int pointsAvail { get; set; }
-    public string FirstName { get; set; }
-    public string Profession { get; set; }
-    public string LastName { get; set; }
-    public double playerMoney { get; set; }
-    // public object ship  = NoobShip;
-    //public object List<>(); = InventoryItems;
-}
+    xmlLoader load = new xmlLoader();
+
+
+    public int playerSecurity;  //chance to defend self
+    public int playerSpeech;       //Price multiplier
+    public int playerMaintenance;     //Likelyness to break 
+    public int playerLuck;           //likelieness subtracted from bad stuff, added to good stuff
+    public int playerPiloting;      //static distance multiplier
+    public int pointsAvail;
+    public string FirstName;
+    public string Profession;
+    public string LastName;
+    public double playerMoney;
 
 
 
-
-
-    public class CurrentPlayer : NewPlayer
-{
-    GameManager GM = new GameManager();
-    xmlLoader playerStats = new xmlLoader();
-
-    
-       
-    public void printCurrentPlayer()
+    //Attribute Multipliers, add to base values later
+    public double PlayerPriceMultSell()
     {
-        int savenum = GM.SaveSlot();
-
-        playerStats.LoadXML(savenum);
-
-        Console.WriteLine($"You are {playerStats.FirstName} {playerStats.LastName}, the {playerStats.Profession}");
-        Console.WriteLine($"Your curent attributes are:");
-        Console.WriteLine($"Wallet : ${playerStats.playerMoney}");
-        Console.WriteLine($"Security : {playerStats.playerSecurity}");
-        Console.WriteLine($"Speech : {playerStats.playerSpeech}");
-        Console.WriteLine($"Maintenance : {playerStats.playerMaintenance}");
-        Console.WriteLine($"Luck : {playerStats.playerLuck}");
-        Console.WriteLine($"Piloting : {playerStats.playerPiloting}");
-        Console.ReadKey();
-        
+        double mult = playerSpeech * 0.05;
+        return mult;
+    }
+    public double PlayerPriceMultBuy()
+    {
+        double mult = playerSpeech * 0.05;
+        return mult;
+    }
+    public double PlayerSecMultiplier()
+    {
+        double mult = playerSecurity * 0.05;
+        return mult;
     }
 
-   
+
+    public void printCurrentPlayer()
+    {
+        load.SaveSlot();
+        
+        //load.LoadXML(Action<SaveSlot()>, load.SaveSlot());
+
+        Console.WriteLine($"You are {FirstName} {LastName}, the {Profession}");
+        Console.WriteLine($"Your curent attributes are:");
+        Console.WriteLine($"Wallet : ${playerMoney}");
+        Console.WriteLine($"Security : {playerSecurity}");
+        Console.WriteLine($"Speech : {playerSpeech}");
+        Console.WriteLine($"Maintenance : {playerMaintenance}");
+        Console.WriteLine($"Luck : {playerLuck}");
+        Console.WriteLine($"Piloting : {playerPiloting}");
+        Console.ReadKey();
+    }
+
 
 }
-
-
-
-
-

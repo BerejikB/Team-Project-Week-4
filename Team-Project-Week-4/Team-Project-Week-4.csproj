@@ -45,11 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Market.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GameRun.cs" />
     <Compile Include="InventoryItems.CS" />
     <Compile Include="MapGen.cs" />
-    <Compile Include="Menu.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerMenu.cs" />
     <Compile Include="ProgramRun.cs" />

@@ -10,51 +10,260 @@ namespace Team_Project_Week_4
 
     public class GameManager
     {
-                
-        GameRun GameLoop = new GameRun();
+       
 
-        public int SaveSlot()
+        xmlLoader load = new xmlLoader();
+        Player boi = new Player();
+        GameRun GameLoop = new GameRun();
+        MapGen Cartographer = new MapGen();
+
+        public string WriteCenterScreen(string textToEnter)
         {
-            int saveSlot = 0;
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
+            return textToEnter;
+        }
+
+
+        Random rnd = new Random();
+        public int LocationX = 0;
+        public int LocationY = 0;
+
+        public void GenerateMap()
+        {
+            // Console.Clear();
+            NumOfPlanets();
+            NumOfEvents();
+            Console.ReadKey();
+
+        }
+
+
+        public void NumOfPlanets()
+        {
+            int planetNum = 0;
+
+            for (; planetNum < 15; planetNum++)
+            {
+                DrawPlanet();
+            }
+
+
+
+        }
+
+        public void NumOfEvents()
+        {
+            Random rnd = new Random();
+            int eventNum = rnd.Next(3, 5);
+
+            do
+            {
+                DrawEvent();
+                eventNum--;
+            }
+            while (eventNum > 0);
+
+        }
+
+        public void DrawPlanet()
+        {
+
+            int LocationX = rnd.Next(4, Console.WindowWidth);
+            int LocationY = rnd.Next(4, Console.WindowHeight);
+            Console.SetCursorPosition(LocationX, LocationY);
+            Console.Write('o');
+        }
+
+        public void DrawEvent()
+        {
+            int LocationX = rnd.Next(4, Console.WindowWidth);
+            int LocationY = rnd.Next(4, Console.WindowHeight);
+            Console.SetCursorPosition(LocationX, LocationY);
+            Console.Write('?');
+        }
+
+
+
+
+
+
+
+
+        public void StartMenu()
+
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            WriteCenterScreen("------------------------------------------");
+            WriteCenterScreen("|     1) New Player                      |");
+            WriteCenterScreen("|     2) Map Generator NOT IMPLIMENTED   |");
+            WriteCenterScreen("|     3) Load Player NOT IMPLIMENTED     |"); 
+            WriteCenterScreen("|     4) Start WORK IN PROGRESS          |");
+            WriteCenterScreen("|     5) Show Player Stats               |");
+            WriteCenterScreen("|     6) Quit                            |");
+            WriteCenterScreen("------------------------------------------");
+
+
+            //User input for main menu
+            int mainMenuSelect = 0;
+
             try
             {
-                Console.WriteLine("Select Save Slot");
-                saveSlot = int.Parse(Console.ReadLine());
-                return saveSlot;
+                mainMenuSelect = int.Parse(Console.ReadLine());
             }
             catch (Exception) { Console.WriteLine("try again"); }
-            return saveSlot;
 
+            switch (mainMenuSelect)
+            {
+                case 1:
+                    {
+
+                        SetAttribMenu NewPlayer = new SetAttribMenu(boi);
+                        NewPlayer.TestPlayerMakerXML();
+                        StartMenu();
+                    }
+                    break;
+
+                case 2:
+                    {
+                        Console.Clear();
+                        Cartographer.GenerateMap();
+                        StartMenu();
+                    }
+                    break;
+
+                case 3:
+                    {
+                        StartMenu();
+                    }
+           
+                    break;
+                case 4:
+                    {
+                        
+                        GameLoop.RunLoop();
+                        StartMenu();
+                    }
+                     break;
+
+                case 5:
+                    {
+                        boi.printCurrentPlayer();
+                        Console.ReadKey();
+                        StartMenu();
+                    }
+
+                    break;
+
+
+
+
+                case 6:
+                    {
+
+                    }
+
+                    break;
+
+                default:
+
+                    StartMenu();
+                    break;
+
+            }
 
         }
 
         public void PrintStat()
         {
-            CurrentPlayer boi = new CurrentPlayer();
             boi.printCurrentPlayer();
-
-
+            StartMenu();
         }
-
-
-        public void GameStartMenu()
-        { Menu mainmen = new Menu();
-            mainmen.StartMenu(); }
-
-        public void LoadCurrentPlayer()
+  
+       public void RunLoop()
         {
-            xmlLoader playerStats = new xmlLoader();
-            int savenum = SaveSlot();
-            playerStats.LoadXML(savenum);
-        }
+            bool gameRunning = true;
+            ConsoleKeyInfo userKey;
+            int locationX = 24;
+            int locationY = 24;
 
-        public void GameRun()
-        {
-            xmlSaver SaveGame = new xmlSaver();
-            NewPlayer currentboi = new NewPlayer();
-            GameLoop.RunLoop();
-            SaveGame.WriteXML(currentboi);
+            while (gameRunning)
+            {
 
+                if (Console.KeyAvailable)
+                {
+                    Console.Clear();
+                    Console.Write($" Name : {boi.FirstName}   Wallet : {boi.playerMoney}");
+                    userKey = Console.ReadKey(true);
+
+
+                    switch (userKey.Key)
+                    {
+                        case ConsoleKey.LeftArrow:
+
+                            if (locationX > 0)
+                            {
+
+                                locationX = locationX - 1;
+                            }
+                            break;
+
+                        case ConsoleKey.RightArrow:
+
+                            if (locationX < 78)
+                            {
+
+                                locationX = locationX + 1;
+                            }
+                            break;
+
+                        case ConsoleKey.UpArrow:
+
+                            if (locationY > 0)
+                            {
+
+                                locationY = locationY - 1;
+                            }
+                            break;
+
+                        case ConsoleKey.DownArrow:
+
+                            if (locationY < 24)
+                            {
+
+                                locationY = locationY + 1;
+                            }
+                            break;
+
+                        case ConsoleKey.Escape:
+
+                            gameRunning = false;
+                            break;
+
+                        case ConsoleKey.Backspace:
+                            boi.playerMoney++;
+                            break;
+
+                        case ConsoleKey.Spacebar:
+                            Cartographer.DrawPlanet();
+                            break;
+
+                    }
+
+
+                    Console.SetCursorPosition(locationX, locationY);
+                    Console.Write("||");
+
+
+
+                }
+
+
+            }
         }
     }
 }

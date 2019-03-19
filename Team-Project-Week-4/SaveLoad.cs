@@ -12,22 +12,38 @@ using System.Xml.Serialization;
 
 public class xmlSaver
 {
-    GameManager GM = new GameManager();
-    public void WriteXML(NewPlayer playerStats)
+   public int SaveSlot()
     {
+        int saveSlot = 0;
         try
         {
+            Console.WriteLine("Select Save Slot");
+            saveSlot = int.Parse(Console.ReadLine());
+            return saveSlot;
+        }
+        catch (Exception) { Console.WriteLine("try again"); }
+        return saveSlot;
 
-            XmlSerializer writer = new XmlSerializer(typeof(NewPlayer));
 
-            System.IO.StreamWriter file = new StreamWriter($"Player{GM.SaveSlot()}.xml");
+    }
+
+    public void WriteXML(Player playerStats)
+    {
+
+
+        try
+        {
+            XmlSerializer writer = new XmlSerializer(typeof(Player));
+
+            System.IO.StreamWriter file = new StreamWriter($"Player{SaveSlot()}.xml");
             writer.Serialize(file, playerStats);
 
 
             file.Close();
         }
         catch (Exception) { WriteXML(playerStats); }
-        Console.WriteLine("Character created! Start the game!");
+        Console.WriteLine("Character saved");
+        Console.ReadKey();
         
     }
 }
@@ -35,34 +51,37 @@ public class xmlSaver
 
 public class xmlLoader
 {
-    public string FirstName;
-    public string LastName;
-    public double playerMoney;
-    public string Profession;
-    public int playerSecurity;
-    public int playerSpeech;
-    public int playerPiloting;
-    public int playerLuck;
-    public int playerMaintenance;
-        
-    public void LoadXML(int saveSlot)
+    public int SaveSlot()
     {
+        int saveSlot = 0;
+        try
+        {
+            Console.WriteLine("Select Save Slot");
+            saveSlot = int.Parse(Console.ReadLine());
+            return saveSlot;
+        }
+        catch (Exception) { Console.WriteLine("try again"); }
+        return saveSlot;
+    }
 
+    public Player LoadXML(int saveSlot)
+    {
+        Player stats = new Player();
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
         doc.Load($"player{saveSlot}.xml");
-        var testPlayer = doc.SelectSingleNode("NewPlayer");
-        playerSecurity = Convert.ToInt32(testPlayer.SelectSingleNode("playerSecurity").InnerText);
-        playerSpeech = Convert.ToInt32(testPlayer.SelectSingleNode("playerSpeech").InnerText);
-        playerMaintenance = Convert.ToInt32(testPlayer.SelectSingleNode("playerMaintenance").InnerText);
-        playerLuck = Convert.ToInt32(testPlayer.SelectSingleNode("playerLuck").InnerText);
-        playerPiloting = Convert.ToInt32(testPlayer.SelectSingleNode("playerPiloting").InnerText);
-        FirstName = Convert.ToString(testPlayer.SelectSingleNode("FirstName").InnerText);
-        Profession = Convert.ToString(testPlayer.SelectSingleNode("Profession").InnerText);
-        LastName = Convert.ToString(testPlayer.SelectSingleNode("LastName").InnerText);
-        playerMoney = Convert.ToDouble(testPlayer.SelectSingleNode("playerMoney").InnerText);
+        var Player = doc.SelectSingleNode("Player");
+        stats.playerSecurity = Convert.ToInt32(Player.SelectSingleNode("playerSecurity").InnerText);
+        stats.playerSpeech = Convert.ToInt32(Player.SelectSingleNode("playerSpeech").InnerText);
+        stats.playerMaintenance = Convert.ToInt32(Player.SelectSingleNode("playerMaintenance").InnerText);
+        stats.playerLuck = Convert.ToInt32(Player.SelectSingleNode("playerLuck").InnerText);
+        stats.playerPiloting = Convert.ToInt32(Player.SelectSingleNode("playerPiloting").InnerText);
+        stats.FirstName = Convert.ToString(Player.SelectSingleNode("FirstName").InnerText);
+        stats.Profession = Convert.ToString(Player.SelectSingleNode("Profession").InnerText);
+        stats.LastName = Convert.ToString(Player.SelectSingleNode("LastName").InnerText);
+        stats.playerMoney = Convert.ToDouble(Player.SelectSingleNode("playerMoney").InnerText);
 
 
-
+        return stats;
     }
 
 }

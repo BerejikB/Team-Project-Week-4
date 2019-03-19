@@ -3,7 +3,7 @@ using System.IO;
 using Team_Project_Week_4;
 using System.Xml;
 using System.Xml.Serialization;
-using Team_Project_Week_4;
+
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 
@@ -17,16 +17,15 @@ public class NoAtribPoints : Exception
 {
 }
 
-
-//public class InitNewPlayer
-//{ 
-//    public SetAttribMenu StartPlayerMaker = new SetAttribMenu();
-//}
-
-public class SetAttribMenu
+public class SetAttribMenu 
 {
-    
-    public NewPlayer playerAttribs = new NewPlayer();
+    Player playerAttribs;
+
+    public SetAttribMenu(Player boi)
+    {
+        this.playerAttribs = boi;
+    }
+       
     public void TestPlayerMakerXML()
     {
         playerAttribs.playerSecurity = 5;
@@ -81,6 +80,7 @@ public class SetAttribMenu
 
     public void SetSecurity()
     {
+        
         try
         {
 
