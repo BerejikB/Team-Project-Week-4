@@ -24,6 +24,9 @@ public class Player
     public string Profession;
     public string LastName;
     public double playerMoney;
+    public bool isDead;
+
+
 
 
 
@@ -44,19 +47,6 @@ public class Player
         return mult;
     }
 
-
-    public void printCurrentPlayer()
-    {
-        Console.WriteLine($"You are {FirstName} {LastName}, the {Profession}");
-        Console.WriteLine($"Your curent attributes are:");
-        Console.WriteLine($"Wallet : ${playerMoney}");
-        Console.WriteLine($"Security : {playerSecurity}");
-        Console.WriteLine($"Speech : {playerSpeech}");
-        Console.WriteLine($"Maintenance : {playerMaintenance}");
-        Console.WriteLine($"Luck : {playerLuck}");
-        Console.WriteLine($"Piloting : {playerPiloting}");
-        Console.ReadKey();
-    }
 
 
 }

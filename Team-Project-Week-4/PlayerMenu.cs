@@ -35,7 +35,7 @@ public class SetAttribMenu
         playerAttribs.playerLuck = 5;
         playerAttribs.playerMoney = 250000;
         playerAttribs.pointsAvail = 7;
-
+        playerAttribs.isDead = false;
         Console.WriteLine("What is your name?");
         Console.WriteLine("First Name:");
         playerAttribs.FirstName = Console.ReadLine();

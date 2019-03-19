@@ -30,7 +30,6 @@ public class xmlSaver
     public void WriteXML(Player playerStats)
     {
 
-
         try
         {
             XmlSerializer writer = new XmlSerializer(typeof(Player));
@@ -46,6 +45,25 @@ public class xmlSaver
         Console.ReadKey();
         
     }
+
+    //public void WriteXMLWorld(World WorldState)
+    //{
+
+    //    try
+    //    {
+    //        XmlSerializer writer = new XmlSerializer(typeof(Player));
+
+    //        System.IO.StreamWriter file = new StreamWriter($"WorldState{SaveSlot()}.xml");
+    //        writer.Serialize(file, WorldState);
+
+
+    //        file.Close();
+    //    }
+    //    catch (Exception) { WriteXML(WorldState); }
+    //    Console.WriteLine("World saved");
+    //    Console.ReadKey();
+
+    //}
 }
 
 
@@ -80,9 +98,25 @@ public class xmlLoader
         stats.Profession = Convert.ToString(Player.SelectSingleNode("Profession").InnerText);
         stats.LastName = Convert.ToString(Player.SelectSingleNode("LastName").InnerText);
         stats.playerMoney = Convert.ToDouble(Player.SelectSingleNode("playerMoney").InnerText);
+        stats.isDead = bool.Parse(Convert.ToString(Player.SelectSingleNode("isDead").InnerText));
 
         return stats;
     }
+
+
+
+    //public World LoadXMLWorld(int saveSlot)
+    //{
+    //    World WorldState = new World();
+
+    //    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+    //    doc.Load($"WorldState{saveSlot}.xml");
+    //    var WorldState = doc.SelectSingleNode("WorldState");
+    //    WorldState.????????????????? = Convert.ToInt32(World.SelectSingleNode("???????????????").InnerText);
+        
+
+    //    return WorldState;
+    //}
 
 }
     

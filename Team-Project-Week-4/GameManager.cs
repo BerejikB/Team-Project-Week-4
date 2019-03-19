@@ -195,12 +195,43 @@ namespace Team_Project_Week_4
 
             while (gameRunning)
             {
+                if(boi.isDead )
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    
+                    WriteCenterScreen("GAME OVER");
+                    WriteCenterScreen(@"      
+                     _______________
+                    /               \
+                   /                 \
+                  /                   \
+                  |   XXXX     XXXX   |
+                  |   XXXX     XXXX   |
+                  |   XXX       XXX   |
+                  |         X         |
+                  \__      XXX     __/
+                    |\     XXX     /|
+                    | |           | |
+                    | I I I I I I I |
+                    |  I I I I I I  |
+                     \_           _/
+                      \_         _/
+                        \_______/
+");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ReadKey();
+                    StartMenu();
+                    break;
 
+                }
                 if (Console.KeyAvailable)
                 {
                     Console.Clear();
-                    Console.Write($" Name : {boi.FirstName}   Wallet : {boi.playerMoney}");
-                    Console.Write($"X Coord:{locationX}Y Coord:{locationY}");
+                    Console.WriteLine($" Name : {boi.FirstName}   Wallet : {boi.playerMoney}");
+                    
+                    Console.WriteLine($"X Coord:{locationX}   Y Coord:{locationY}");
                     userKey = Console.ReadKey(true);
 
 
@@ -208,7 +239,7 @@ namespace Team_Project_Week_4
                     {
                         case ConsoleKey.LeftArrow:
 
-                            if (locationX > 2)
+                            if (locationX > 4)
                             {
 
                                 locationX = locationX - 1;
@@ -226,7 +257,7 @@ namespace Team_Project_Week_4
 
                         case ConsoleKey.UpArrow:
 
-                            if (locationY > 4)
+                            if (locationY > 2)
                             {
 
                                 locationY = locationY - 1;
