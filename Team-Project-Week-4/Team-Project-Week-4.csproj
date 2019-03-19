@@ -50,6 +50,7 @@
     <Compile Include="GameRun.cs" />
     <Compile Include="InventoryItems.CS" />
     <Compile Include="MapGen.cs" />
+    <Compile Include="Planet.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerMenu.cs" />
     <Compile Include="ProgramRun.cs" />

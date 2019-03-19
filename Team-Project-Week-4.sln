@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team-Project-Week-4", "Team-Project-Week-4\Team-Project-Week-4.csproj", "{3CB1130B-F7F9-4F22-9182-E0F03B876540}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipClass", "..\..\..\Documents\Microsoft Press\VCSBS\Chapter 1\ShipClass\ShipClass\ShipClass.csproj", "{0A3DF286-900F-436C-821F-85F46A917B8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3CB1130B-F7F9-4F22-9182-E0F03B876540}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CB1130B-F7F9-4F22-9182-E0F03B876540}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CB1130B-F7F9-4F22-9182-E0F03B876540}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A3DF286-900F-436C-821F-85F46A917B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A3DF286-900F-436C-821F-85F46A917B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A3DF286-900F-436C-821F-85F46A917B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A3DF286-900F-436C-821F-85F46A917B8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
