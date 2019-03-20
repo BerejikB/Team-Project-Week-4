@@ -1,27 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShipClass
+namespace Team_Project_Week_4
 {
     /// <summary>
     /// Need to assign coordinates to planets, work with Brendan on random planet generator pulling saved coordinates.
     /// </summary>
-    public class Planet
+    public class PlanetGen
     {
         public List<string> planetLog = new List<string>();
-        private string name;
-        private string condition;
-        private double valueMultiplier;
+        public string name;
+        public string condition;
+        public double valueMultiplier;
+
+        public int EarthX;
+        public int EarthY;
+        public string economy;
+
+
 
         Random attributeGenerator = new Random();
+        Random rnd = new Random();
 
+        public void Earth()
+        {
+            Random rnd = new Random();
+            EarthY = rnd.Next(4, Console.WindowHeight);
+            EarthX = rnd.Next(4, Console.WindowWidth);
+
+        }
+
+        public (int locx, int locy)location()
+        {
+            int locx = rnd.Next
+            int locy = rnd.Next
+        }
+        
         public void PlanetInfo()
         {
             NamePlanet();
             PlanetStatus();
         }
-        
-        private void NamePlanet()
+
+        public string NamePlanet()
         {
             while(true)
             {
@@ -30,45 +51,42 @@ namespace ShipClass
                 {
                     name = testName;
                     Console.WriteLine($"Planet name {name}");
-                    break;
+                    return testName;
+                    
                 }
                 
             }
-
         }
-        
 
-        private int PlanetNumber()
+        public int PlanetNumber()
         {
             int planetNumber = attributeGenerator.Next(1000, 10000);
             return planetNumber;
         }
 
-        private void PlanetStatus()//Tested Passed
+        public void PlanetStatus()//Tested Passed
         {
             DeterminePlanetStatus();
-            Console.WriteLine($"Planet Status: {condition}\n\t Trade Multiplier: {valueMultiplier}X");
+            Console.WriteLine($"Planet NAME has a {condition} economy, \n\t Trade Multiplier: {valueMultiplier}X");
             
         }
 
-        private int HoldEm()
+        public int HoldEm()
         {
             int genResult = attributeGenerator.Next(5);
             return genResult;
         }
 
-        private void DeterminePlanetStatus()
+        public (string condition, double valueMultiplier)DeterminePlanetStatus()
         {
             
-
-
             switch (HoldEm())
             {
                 case 0:
                     {
-                        condition = "Slums";
+                        condition = "Desolate";
                         valueMultiplier = .5;
-                        break;
+                         break;
 
                     }
                 case 1:
@@ -79,24 +97,27 @@ namespace ShipClass
                     }
                 case 2:
                     {
-                        condition = "Stable";
+                        condition = "Average";
                         valueMultiplier = 1.0;
                         break;
                     }
                 case 3:
                     {
-                        condition = "Middle Class";
+                        condition = "Wealthy";
                         valueMultiplier = 1.25;
                         break;
                     }
                 case 4:
                     {
-                        condition = "Rich";
+                        condition = "Extravagant";
                         valueMultiplier = 1.5;
                         break;
                     }
+                    
             }
-            
+
+            return (condition, valueMultiplier);
+
         }
     }
 }

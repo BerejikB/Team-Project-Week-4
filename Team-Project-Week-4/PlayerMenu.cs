@@ -7,7 +7,6 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 
-
 public class SkillTooLow : Exception
 {
 
@@ -19,8 +18,10 @@ public class NoAtribPoints : Exception
 
 public class SetAttribMenu 
 {
+    PlanetGen Planets = new PlanetGen();
+    World GameWorld = new World();
+    
     Player playerAttribs;
-
     public SetAttribMenu(Player boi)
     {
         this.playerAttribs = boi;
@@ -28,6 +29,7 @@ public class SetAttribMenu
        
     public void TestPlayerMakerXML()
     {
+        Planets.Earth();
         playerAttribs.playerSecurity = 5;
         playerAttribs.playerSpeech = 5;
         playerAttribs.playerMaintenance = 5;
@@ -35,7 +37,14 @@ public class SetAttribMenu
         playerAttribs.playerLuck = 5;
         playerAttribs.playerMoney = 250000;
         playerAttribs.pointsAvail = 7;
+        playerAttribs.playerAge = 20;
+        this.GameWorld.EarthX = Planets.EarthX;
+        this.GameWorld.EarthY = Planets.EarthY;
+        playerAttribs.playerX = Planets.EarthX;
+        playerAttribs.playerY = Planets.EarthY;
         playerAttribs.isDead = false;
+
+
         Console.WriteLine("What is your name?");
         Console.WriteLine("First Name:");
         playerAttribs.FirstName = Console.ReadLine();
@@ -386,7 +395,11 @@ public class SetAttribMenu
         switch (userInput)
         {
             case 'y':
-                { SaveFunct.WriteXML(playerAttribs); }
+                { SaveFunct.WriteXML(playerAttribs);
+
+                  SaveFunct.WriteXMLWorld(GameWorld);
+
+                }
                 break;
             case 'n':
                 { SetPiloting(); }
