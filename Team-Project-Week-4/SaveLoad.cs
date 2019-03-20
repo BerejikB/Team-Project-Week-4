@@ -50,7 +50,7 @@ public class xmlSaver
 
     public void WriteXML(Player playerStats)
     {
-       try
+        try
         {
             XmlSerializer writer = new XmlSerializer(typeof(Player));
 
@@ -63,7 +63,7 @@ public class xmlSaver
         catch (Exception) { WriteXML(playerStats); }
         Console.WriteLine("Character saved");
         Console.WriteLine();
-        
+
     }
 
     public void WriteXMLWorld(World WorldState)
@@ -71,9 +71,10 @@ public class xmlSaver
         try
         {
             XmlSerializer writer = new XmlSerializer(typeof(World));
-           
+
             System.IO.StreamWriter file = new StreamWriter($"WorldState{pickaslot.SaveSlot()}.xml");
-            
+
+
             writer.Serialize(file, WorldState);
             file.Close();
         }
@@ -135,13 +136,29 @@ public class xmlLoader
 
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
         doc.Load($"WorldState{saveSlot}.xml");
-        var WorldStatus = doc.SelectSingleNode("World");
-        
-        WorldState.EarthX = Convert.ToInt32(WorldStatus.SelectSingleNode("EarthX").InnerText);
-        WorldState.EarthY = Convert.ToInt32(WorldStatus.SelectSingleNode("EarthY").InnerText);
-        //WorldState.
-        
+        var EarthStatus = doc.SelectSingleNode("World");
+        //return WorldState;
+
+        WorldState.EarthX = Convert.ToInt32(EarthStatus.SelectSingleNode("EarthX").InnerText);
+        WorldState.EarthY = Convert.ToInt32(EarthStatus.SelectSingleNode("EarthY").InnerText);
+
+
+
+        XDocument xdoc = XDocument.Load($"WorldState{saveSlot}.xml");
+
+        List<PlanetGen> Planets = (from lv1 in xdoc.Descendants("PlanetGen")
+                                   select new PlanetGen
+                                   {
+                                       name = lv1.Element("name").Value,
+                                       valueMultiplier = Convert.ToDouble(lv1.Element("valueMultiplier").Value),
+                                       locy = Convert.ToInt32(lv1.Element("locx").Value),
+                                       locx = Convert.ToInt32(lv1.Element("locy").Value),
+                                       economy = Convert.ToString(lv1.Element("economy").Value),
+
+                                   }).ToList();
+
         return WorldState;
+
     }
 
 }

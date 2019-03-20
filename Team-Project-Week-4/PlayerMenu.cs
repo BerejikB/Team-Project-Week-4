@@ -18,7 +18,6 @@ public class NoAtribPoints : Exception
 
 public class SetAttribMenu 
 {
-    PlanetGen Planets = new PlanetGen();
     World GameWorld = new World();
     
     Player playerAttribs;
@@ -29,7 +28,9 @@ public class SetAttribMenu
        
     public void TestPlayerMakerXML()
     {
-        
+        GameWorld.PlanetGenerator();
+        playerAttribs.playerX = GameWorld.EarthX;
+        playerAttribs.playerY = GameWorld.EarthY;
         playerAttribs.playerSecurity = 5;
         playerAttribs.playerSpeech = 5;
         playerAttribs.playerMaintenance = 5;
@@ -38,9 +39,7 @@ public class SetAttribMenu
         playerAttribs.playerMoney = 250000;
         playerAttribs.pointsAvail = 7;
         playerAttribs.playerAge = 20;
-        playerAttribs.playerX = GameWorld.EarthX;
-        playerAttribs.playerY = GameWorld.EarthY;
-        GameWorld.PlanetGenerator();
+       
         playerAttribs.isDead = false;
 
 
