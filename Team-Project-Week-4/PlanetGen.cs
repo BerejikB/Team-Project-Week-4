@@ -8,10 +8,7 @@ namespace Team_Project_Week_4
     /// </summary>
     public class PlanetGen
     {
-
-
-        Random attributeGenerator = new Random();
-        Random rnd = new Random();
+        public Random rnd;
         public List<string> planetLog = new List<string>();
         public string name;
         public string condition;
@@ -19,6 +16,16 @@ namespace Team_Project_Week_4
         public int locx;
         public int locy;
         public string economy;
+
+        public PlanetGen()
+        {
+            rnd = new Random();
+        }
+
+        public PlanetGen(Random rnd)
+        {
+            this.rnd = rnd;
+        }
 
        
         public int LocX()
@@ -43,13 +50,12 @@ namespace Team_Project_Week_4
                     name = testName;
                     return name;
                 }
-                
             }
         }
 
         public int PlanetNumber()
         {
-            int planetNumber = attributeGenerator.Next(1000, 10000);
+            int planetNumber = rnd.Next(1000, 10000);
             return planetNumber;
         }
 
@@ -62,7 +68,7 @@ namespace Team_Project_Week_4
 
         public int HoldEm()
         {
-            int genResult = attributeGenerator.Next(5);
+            int genResult = rnd.Next(5);
             return genResult;
         }
 

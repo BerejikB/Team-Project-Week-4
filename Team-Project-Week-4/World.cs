@@ -16,46 +16,53 @@ namespace Team_Project_Week_4
 
         public void SetEarthLoc(PlanetGen Planets)
         {
-         int earthx = rnd.Next(4, Console.WindowWidth);
-             
-         int earthy = rnd.Next(4, Console.WindowHeight);
-        
+            int earthx = rnd.Next(4, Console.WindowWidth);
 
-           this.PlanetLocation = Planets;
-           this.EarthX = earthx;
-           this.EarthY = earthy;
+            int earthy = rnd.Next(4, Console.WindowHeight);
+
+
+            this.PlanetLocation = Planets;
+            this.EarthX = earthx;
+            this.EarthY = earthy;
         }
 
-        public void DrawEarth()  
-            {                
-                Console.SetCursorPosition(EarthX, EarthY);
-                Console.Write('O');
-            }
+        public void DrawEarth()
+        {
+            Console.SetCursorPosition(EarthX, EarthY);
+            Console.Write('O');
+        }
 
         public void PlanetGenerator()
+
         {
             PlanetGen EarthGen = new PlanetGen();
-           SetEarthLoc(PlanetLocation);
-           EarthGen.name = "Earth";
-           EarthGen.economy = "Wealthy";
-           EarthGen.valueMultiplier = 1.25;
-           EarthGen.locx = EarthX;
-           EarthGen.locy = EarthY;
-           Planets.Add(EarthGen);
-
+            SetEarthLoc(PlanetLocation);
+            EarthGen.name = "Earth";
+            EarthGen.economy = "Wealthy";
+            EarthGen.valueMultiplier = 1.25;
+            EarthGen.locx = EarthX;
+            EarthGen.locy = EarthY;
+            Planets.Add(EarthGen);
+            
+            var rnd = EarthGen.rnd;
 
             for (int i = 0; i < 15; i++)
             {
-            PlanetGen NewPlanet = new PlanetGen();
-               
-            NewPlanet.name = NewPlanet.NamePlanet();
-            NewPlanet.economy = NewPlanet.DeterminePlanetStatus().condition;
-            NewPlanet.valueMultiplier = NewPlanet.DeterminePlanetStatus().valueMultiplier;
-            NewPlanet.locx = NewPlanet.LocX();
-            NewPlanet.locy = NewPlanet.LocY();
-            Planets.Add(NewPlanet);
+                PlanetGen NewPlanet = new PlanetGen(rnd);
+
+                NewPlanet.name = NewPlanet.NamePlanet();
+                NewPlanet.economy = NewPlanet.DeterminePlanetStatus().condition;
+                NewPlanet.valueMultiplier = NewPlanet.DeterminePlanetStatus().valueMultiplier;
+                NewPlanet.locx = NewPlanet.LocX();
+                NewPlanet.locy = NewPlanet.LocY();
+                Planets.Add(NewPlanet);
+
+                rnd = NewPlanet.rnd;
+
+                
             }
         }
+
 
         public void PrintPlanets()
         {
@@ -66,5 +73,6 @@ namespace Team_Project_Week_4
         }
 
        
+
     }
 }

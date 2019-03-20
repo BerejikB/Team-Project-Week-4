@@ -82,12 +82,11 @@ namespace Team_Project_Week_4
             Console.Write('O');
         }
 
-
         public void DrawPlanet()
         {
             foreach (var planet in GameWorld.Planets)
             {
-                //Console.SetCursorPosition(GameWorld.Planet, GameWorld.);
+                Console.SetCursorPosition(GameWorld.Planets[2].locx, GameWorld.Planets[2].locy);
                 Console.Write('o');
             }
 
