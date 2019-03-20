@@ -11,7 +11,7 @@ namespace ShipClass
 {
     public class Ship
     {
-        
+
         public string shipName;
         public int shipHealth = 8;
         public double engineLevel = 9;
@@ -39,9 +39,9 @@ namespace ShipClass
             //newPlanet.ShowPlanetLog(newPlanet.planetLog);
             //FirstShip.TravelTo(newPlanet);
             FirstShip.plotCourse();
-            
 
-            
+
+
         }
         //
         public void ShipStatus()
@@ -55,7 +55,7 @@ namespace ShipClass
         //
         public void NameShip()
         {
-            while(true)
+            while (true)
             {
                 Console.WriteLine("Name your new ship");
                 string userInput = Console.ReadLine();
@@ -68,7 +68,7 @@ namespace ShipClass
                     break;
                 }
             }
-            
+
         }
         //
         public void CalculateShipStatus()
@@ -88,7 +88,7 @@ namespace ShipClass
             else if (shipHealth < 3 && shipHealth > 0)
             {
                 shipStatus = "Critical";
-                if(engineLevel>3)
+                if (engineLevel > 3)
                 {
                     engineLevel = 3;
                 }
@@ -111,7 +111,7 @@ namespace ShipClass
         //
         public void DamageShip()
         {
-            if(shipHealth>1)
+            if (shipHealth > 1)
             {
                 --shipHealth;
             }
@@ -119,12 +119,12 @@ namespace ShipClass
             {
                 Console.WriteLine($"{shipName} has been destroyed. Game Over.");
             }
-            
+
         }
         //
         public void RepairShip()
         {
-            if(shipStatus != "In Perfect Condition")
+            if (shipStatus != "In Perfect Condition")
             {
                 ++shipHealth;
             }
@@ -139,14 +139,14 @@ namespace ShipClass
         //percentage to speed capability for each skill point in piloting
         public void TravelTo(World World)
         {
-            
+
             while (true)
             {
                 // TODO: These can't be fixed without push from brendan with PlanetGen Class updated
-                World.PrintPlanets(); 
+                World.PrintPlanets();
                 Console.WriteLine("Where would you like to go?");
                 int userInput = int.Parse(Console.ReadLine());
-                (int, int) selection = (World.Planets.ElementAt(userInput).locx, 
+                (int, int) selection = (World.Planets.ElementAt(userInput).locx,
                                         World.Planets.ElementAt(userInput).locy);
                 Console.WriteLine($"Are you sure you want to travel to" +
                     $" {World.Planets.ElementAt(userInput).name}? " +
@@ -173,17 +173,17 @@ namespace ShipClass
             LocationY = int.Parse(Console.ReadLine());
             Console.SetCursorPosition(LocationX, LocationY);
         }
-        public void plotCourse((int , int ) planetSelectionCoords)
+        public void plotCourse((int, int) planetSelectionCoords)
         {
             (int LocationX, int LocationY) = planetSelectionCoords;
-            
+
             Console.SetCursorPosition(LocationX, LocationY);
         }
 
 
         public void WarpFactor()
         {
-            
+
             var W = engineLevel;
             double x = W - 9;
             double powerU = -1 / (1000 * Math.Pow(x, 2));
@@ -199,14 +199,14 @@ namespace ShipClass
             {
                 warpVelocity = regularWarpVelocity;
             }
-            
+
         }
 
         public void TimeToTravel(Player Player)
         {
             //need distance between points
-            
-            
+
+
 
         }
 
