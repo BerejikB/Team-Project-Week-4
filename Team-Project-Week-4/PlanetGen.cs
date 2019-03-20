@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Team_Project_Week_4
 {
-    /// <summary>
-    /// Need to assign coordinates to planets, work with Brendan on random planet generator pulling saved coordinates.
-    /// </summary>
+    
     public class PlanetGen
     {
         public Random rnd;

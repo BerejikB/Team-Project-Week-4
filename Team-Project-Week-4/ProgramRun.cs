@@ -18,7 +18,7 @@ public class ProgramRun
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             GameManager MainProgramRun = new GameManager();
-            
+            Console.SetBufferSize(120,30);
             MainProgramRun.StartMenu();
         }
 

@@ -9,52 +9,34 @@ using System.Xml.Serialization;
 using System.Xml.Linq;
 
 
-public class SlotSelect
-{
-
-    public int SaveSlot()
-    {
-        int saveSlot = 0;
-        try
-        {
-            Console.Clear();
-            Console.WriteLine("Select Save Slot");
-            saveSlot = int.Parse(Console.ReadLine());
-            return saveSlot;
-        }
-        catch (Exception) { Console.WriteLine("try again"); }
-        Console.WriteLine();
-        return saveSlot;
-    }
-}
-
 
 public class xmlSaver
 {
-    SlotSelect pickaslot = new SlotSelect();
 
+    public int SaveSlotsetter = 0;
     public int SaveSlot()
     {
-        int saveSlot = 0;
-        try
+       if (SaveSlotsetter == 0)
         {
-            Console.WriteLine("Select Save Slot");
-            saveSlot = int.Parse(Console.ReadLine());
-            return saveSlot;
+            try
+            {
+                Console.WriteLine("Select Save Slot");
+                int SaveSlotsetter = int.Parse(Console.ReadLine());
+                return SaveSlotsetter;
+            }
+            catch (Exception) { Console.WriteLine("try again"); }
+            return SaveSlotsetter;
         }
-        catch (Exception) { Console.WriteLine("try again"); }
-        Console.WriteLine();
-        return saveSlot;
+        return SaveSlotsetter;
     }
-
-
+        
     public void WriteXML(Player playerStats)
     {
         try
         {
             XmlSerializer writer = new XmlSerializer(typeof(Player));
 
-            System.IO.StreamWriter file = new StreamWriter($"Player{pickaslot.SaveSlot()}.xml");
+            System.IO.StreamWriter file = new StreamWriter($"Player{SaveSlot()}.xml");
             writer.Serialize(file, playerStats);
 
 
@@ -72,7 +54,7 @@ public class xmlSaver
         {
             XmlSerializer writer = new XmlSerializer(typeof(World));
 
-            System.IO.StreamWriter file = new StreamWriter($"WorldState{pickaslot.SaveSlot()}.xml");
+            System.IO.StreamWriter file = new StreamWriter($"WorldState{SaveSlot()}.xml");
 
 
             writer.Serialize(file, WorldState);
@@ -90,28 +72,30 @@ public class xmlSaver
 
 public class xmlLoader
 {
-    SlotSelect pickaslot = new SlotSelect();
+    public int SaveSlotsetter = 0;
 
     public int SaveSlot()
     {
-        int saveSlot = 0;
-        try
+        if (SaveSlotsetter == 0)
         {
-            Console.WriteLine("Select Save Slot");
-            saveSlot = int.Parse(Console.ReadLine());
-            return saveSlot;
+            try
+            {
+                Console.WriteLine("Select Save Slot");
+                int SaveSlotsetter = int.Parse(Console.ReadLine());
+                return SaveSlotsetter;
+            }
+            catch (Exception) { Console.WriteLine("try again"); }
+            
         }
-        catch (Exception) { Console.WriteLine("try again"); }
-        Console.WriteLine();
-        return saveSlot;
+        return SaveSlotsetter;
     }
 
-    public Player LoadXML(int saveSlot)
+    public Player LoadXML(int SaveSlotsetter)
     {
         Player stats = new Player();
 
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-        doc.Load($"player{saveSlot}.xml");
+        doc.Load($"player{SaveSlot()}.xml");
         var Player = doc.SelectSingleNode("Player");
         stats.playerSecurity = Convert.ToInt32(Player.SelectSingleNode("playerSecurity").InnerText);
         stats.playerSpeech = Convert.ToInt32(Player.SelectSingleNode("playerSpeech").InnerText);
@@ -130,23 +114,29 @@ public class xmlLoader
         return stats;
     }
 
-    public World LoadXMLWorld(int saveSlot)
+    public World LoadXMLWorld(int SaveSlotsetter)
     {
         World WorldState = new World();
-
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-        doc.Load($"WorldState{saveSlot}.xml");
+        doc.Load($"WorldState{SaveSlot()}.xml");
         var EarthStatus = doc.SelectSingleNode("World");
-        //return WorldState;
-
+        
         WorldState.EarthX = Convert.ToInt32(EarthStatus.SelectSingleNode("EarthX").InnerText);
         WorldState.EarthY = Convert.ToInt32(EarthStatus.SelectSingleNode("EarthY").InnerText);
 
 
+        return WorldState;
 
-        XDocument xdoc = XDocument.Load($"WorldState{saveSlot}.xml");
+    }
 
-        List<PlanetGen> Planets = (from lv1 in xdoc.Descendants("PlanetGen")
+    public List<PlanetGen> LoadXMLPlanets(int SaveSlotsetter)
+    {
+        
+        List<PlanetGen> Planets = new List<PlanetGen>();
+
+        XDocument xdoc = XDocument.Load($"WorldState{SaveSlot()}.xml");
+
+        List<PlanetGen> Planet = (from lv1 in xdoc.Descendants("PlanetGen")
                                    select new PlanetGen
                                    {
                                        name = lv1.Element("name").Value,
@@ -157,9 +147,8 @@ public class xmlLoader
 
                                    }).ToList();
 
-        return WorldState;
+        return Planet;
 
     }
-
 }
 

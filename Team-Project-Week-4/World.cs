@@ -18,7 +18,7 @@ namespace Team_Project_Week_4
         {
             int earthx = rnd.Next(4, Console.WindowWidth);
 
-            int earthy = rnd.Next(4, Console.WindowHeight);
+            int earthy = rnd.Next( 4, Console.WindowHeight);
 
 
             this.PlanetLocation = Planets;

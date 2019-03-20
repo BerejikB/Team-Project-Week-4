@@ -10,23 +10,19 @@ namespace Team_Project_Week_4
 
     public class GameManager
     {
-       
-
+        TextMenus Menus = new TextMenus();
+        List<PlanetGen> Planets = new List<PlanetGen>();
         xmlSaver save = new xmlSaver();
         xmlLoader load = new xmlLoader();
         Player boi = new Player();
         World GameWorld;
-       
         MapGen Cartographer = new MapGen();
         RandomEvents Events = new RandomEvents();
-
-
         public string WriteCenterScreen(string textToEnter)
         {
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
             return textToEnter;
         }
-
         Random rnd = new Random();
         public int LocationX = 0;
         public int LocationY = 0;
@@ -45,8 +41,7 @@ namespace Team_Project_Week_4
 
             Console.Clear();
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
-            Console.WriteLine();
-
+           
             try
             {
                 char userinput = char.Parse(Console.ReadLine().ToLower());
@@ -71,10 +66,29 @@ namespace Team_Project_Week_4
                 Console.WriteLine($"I'm sorry {boi.FirstName}, I'm afraid I can't do that.");
 
             }
-            
-            
+
+
+            for (int i = 0; i <= 15; i++)
+
+            {
+                if (boi.playerX == this.Planets[i].locx && boi.playerY == this.Planets[i].locy)
+                {
+                    PlanetMenu(i);
+                }
+
+            }
 
         }
+
+        public void PlanetMenu(int i)
+        {
+            Console.WriteLine($"You are at {Planets[i].name}");
+            Console.WriteLine($"The economy is  {Planets[i].economy}");
+            
+            Console.ReadKey();
+        }
+
+
 
         public void DrawEarth()
         {
@@ -84,9 +98,9 @@ namespace Team_Project_Week_4
 
         public void DrawPlanet()
         {
-            foreach (var planet in GameWorld.Planets)
-            {
-                Console.SetCursorPosition(GameWorld.Planets[2].locx, GameWorld.Planets[2].locy);
+            foreach (var locx in Planets)
+            { 
+                Console.SetCursorPosition(locx.locx, locx.locy);
                 Console.Write('o');
             }
 
@@ -175,7 +189,12 @@ namespace Team_Project_Week_4
 
                 case 6:
                     {
-
+                        Console.WriteLine(Console.LargestWindowHeight);
+                        Console.WriteLine(Console.LargestWindowWidth);
+                        Console.WriteLine(Console.WindowHeight);
+                        Console.WriteLine(Console.WindowWidth);
+                        Console.ReadKey();
+                        
                     }
 
                     break;
@@ -208,6 +227,7 @@ namespace Team_Project_Week_4
         {
             Console.Clear();
             this.GameWorld = load.LoadXMLWorld(load.SaveSlot());
+            this.Planets = load.LoadXMLPlanets(load.SaveSlot()); 
             this.boi = load.LoadXML(load.SaveSlot());
             
             bool gameRunning = true;
@@ -250,70 +270,107 @@ namespace Team_Project_Week_4
                 }
                 if (Console.KeyAvailable)
                 {
-                    Console.Clear();
-                    Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
-                    Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}");
-
-                    DrawEarth();
+                   
                     userKey = Console.ReadKey(true);
+                   // try
+                   // {
+
+                        switch (userKey.Key)
+                        {
+
+                            case ConsoleKey.LeftArrow:
+
+                                try
+                                {
+                                    if (LocationX > 4)
+                                    {
+                                        LocationX = LocationX - 1;
+                                    }
+                                }
+                                catch (Exception) { LocationX = LocationX + 1; }
+
+                                break;
+
+
+                            case ConsoleKey.RightArrow:
+                                try
+                                {
+                                    if (LocationX < Console.LargestWindowWidth)
+                                    {
+                                        LocationX = LocationX + 1;
+                                    }
+                                }
+                                catch (Exception) { LocationX = LocationX - 1; }
+                                break;
+
+
+                            case ConsoleKey.UpArrow:
+
+                                try
+                                {
+
+                                    if (LocationY > 2)
+
+                                    {
+                                        LocationY = LocationY - 1;
+
+                                    }
+                                }
+                                catch (Exception) { LocationY = LocationY + 1; }
+                                break;
+
+
+
+                            case ConsoleKey.DownArrow:
+                                try
+                                {
+                                    if (LocationY < Console.LargestWindowHeight)
+                                    {
+                                        LocationY = LocationY + 1;
+                                    }
+                                }
+                                catch (Exception) { LocationY = LocationY - 1; }
+
+                                break;
+
+
+                            case ConsoleKey.Enter:
+                                GoToSpot();
+                                break;
+
+
+                            case ConsoleKey.Escape:
+                                Console.Clear();
+                                save.WriteXML(boi);
+
+                                gameRunning = false;
+                                break;
+
+
+                            case ConsoleKey.Backspace:
+                                boi.playerMoney++;
+                                break;
+
+
+                            case ConsoleKey.Spacebar:
+                                Cartographer.DrawPlanet();
+                                break;
+
+                        }
+                        Console.Clear();
+                        Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
+                        Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerX} Y:{boi.playerY}");
+                        DrawEarth();
+                        DrawPlanet();
+
+                        Console.SetCursorPosition(LocationX, LocationY);
+                        
+                        Console.WriteLine("X");
+                        
+
+                   // }
+                    //catch (ArgumentOutOfRangeException) { Console.SetCursorPosition(boi.playerX, boi.playerY); }
                     
-                    switch (userKey.Key)
-                    {
-                        case ConsoleKey.LeftArrow:
-
-                            if (LocationX > 4)
-                            {
-                                LocationX = LocationX - 1;
-                            }
-                            break;
-
-                        case ConsoleKey.RightArrow:
-
-                            if (LocationX < 78)
-                            {
-                                LocationX = LocationX + 1;
-                            }
-                            break;
-
-                        case ConsoleKey.UpArrow:
-
-                            if (LocationY > 2)
-                            {
-                                LocationY = LocationY - 1;
-                            }
-                            break;
-
-                        case ConsoleKey.DownArrow:
-
-                            if (LocationY < 24)
-                            {
-
-                                LocationY = LocationY + 1;
-                            }
-                            break;
-                        case ConsoleKey.Enter:
-                            GoToSpot();
-                            break;
-
-                        case ConsoleKey.Escape:
-                            Console.Clear();
-                            save.WriteXML(boi);
-                            save.WriteXMLWorld(GameWorld);
-                            gameRunning = false;
-                            break;
-
-                        case ConsoleKey.Backspace:
-                            boi.playerMoney++;
-                            break;
-
-                        case ConsoleKey.Spacebar:
-                            Cartographer.DrawPlanet();
-                            break;
-
-                    }
-
-                    Console.SetCursorPosition(LocationX, LocationY);
- 
                 }
 
 

@@ -29,11 +29,6 @@ public class Player
     public bool isDead;
     public double timeElapsed;
 
-
-
-
-
-
     //Attribute Multipliers, add to base values later
     public double PlayerPriceMultSell()
     {
