@@ -11,6 +11,8 @@ namespace ShipClass
 {
     public class Ship
     {
+        Player Boi;
+        World World;
 
         public string shipName;
         public int shipHealth = 8;
@@ -19,30 +21,30 @@ namespace ShipClass
         public double warpVelocity;
 
 
-        static void Main(string[] args)
-        {
-            Ship FirstShip = new Ship();
-            //The Program Run Class will need to initialize the naming of the ship first, and then the status 
+        //static void Main(string[] args)
+        //{
+        //    Ship FirstShip = new Ship();
+        //    //The Program Run Class will need to initialize the naming of the ship first, and then the status 
 
-            FirstShip.NameShip();
-            FirstShip.ShipStatus();
+        //    FirstShip.NameShip();
+        //    FirstShip.ShipStatus();
 
-            PlanetGen newPlanet = new PlanetGen();
+        //    PlanetGen newPlanet = new PlanetGen();
 
-            for (int i = 0; i < 5; i++)
-            {
+        //    for (int i = 0; i < 5; i++)
+        //    {
 
-                newPlanet.PlanetInfo();
+        //        newPlanet.PlanetInfo();
 
-            }
-            Console.Clear();
-            //newPlanet.ShowPlanetLog(newPlanet.planetLog);
-            //FirstShip.TravelTo(newPlanet);
-            FirstShip.plotCourse();
+        //    }
+        //    Console.Clear();
+        //    //newPlanet.ShowPlanetLog(newPlanet.planetLog);
+        //    //FirstShip.TravelTo(newPlanet);
+        //    FirstShip.plotCourse();
 
 
 
-        }
+        //}
         //
         public void ShipStatus()
         {
@@ -137,7 +139,7 @@ namespace ShipClass
 
         //TODO: take playerPilotingMult(1-12) into account in ship speed. add certain
         //percentage to speed capability for each skill point in piloting
-        public void TravelTo(World World)
+        public void TravelTo()
         {
 
             while (true)
@@ -148,6 +150,8 @@ namespace ShipClass
                 int userInput = int.Parse(Console.ReadLine());
                 (int, int) selection = (World.Planets.ElementAt(userInput).locx,
                                         World.Planets.ElementAt(userInput).locy);
+                
+
                 Console.WriteLine($"Are you sure you want to travel to" +
                     $" {World.Planets.ElementAt(userInput).name}? " +
                     $"\n1. Yes \n2. No");
@@ -173,6 +177,7 @@ namespace ShipClass
             LocationY = int.Parse(Console.ReadLine());
             Console.SetCursorPosition(LocationX, LocationY);
         }
+
         public void plotCourse((int, int) planetSelectionCoords)
         {
             (int LocationX, int LocationY) = planetSelectionCoords;
@@ -202,29 +207,22 @@ namespace ShipClass
 
         }
 
-        public void TimeToTravel(Player Player)
-        {
+        public void TimeToTravel()
+        {// TODO: Finish this calculation
             //need distance between points
-
+            //TravelDistance = # of LY between locations
+            //
 
 
         }
 
-        public void TravelDistance(Player Player, World World)
+        public void TravelDistance((int planetX, int planetY)selectedPlanet)
         {
             // TODO: Travel Distance Method
-            (int, int) selection = (World.Planets.ElementAt(userInput).locx,
-                                    World.Planets.ElementAt(userInput).locy);
-            int diffX = Player.playerX - World.Planets.ElementAt(userInput).locx;
-            int diffY = Player.playerY - World.Planets.ElementAt(userInput).locy;
-            if (diffX >= 0)
-            {
-                int newX = diffX;
-            }
-            else
-            {
-                int newX = -1 * diffX;
-            }
+
+            int diffX = Boi.playerX - selectedPlanet.planetX;
+            int diffY = Boi.playerY - selectedPlanet.planetY;
+           
             if (diffX >= 0)
             {
                 int newX = diffX;
@@ -234,7 +232,17 @@ namespace ShipClass
                 int newX = -1 * diffX;
             }
 
+            if (diffX >= 0)
+            {
+                int newX = diffX;
+            }
+            else
+            {
+                int newX = -1 * diffX;
+            }
 
+            //Pythagorean Theorem
+            double distanceToTravel = Math.Sqrt(diffX + diffY);
         }
     }
 }
