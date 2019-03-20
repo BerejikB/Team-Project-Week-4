@@ -75,11 +75,14 @@ namespace Team_Project_Week_4
             
 
         }
+
+
         public void DrawEarth()
         {
             Console.SetCursorPosition(GameWorld.EarthX, GameWorld.EarthY);
             Console.Write('O');
         }
+
 
         public void DrawPlanet()
         {
