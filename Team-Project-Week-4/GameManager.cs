@@ -10,18 +10,22 @@ namespace Team_Project_Week_4
 
     public class GameManager
     {
+       
 
         xmlSaver save = new xmlSaver();
         xmlLoader load = new xmlLoader();
         Player boi = new Player();
+        World GameWorld;
+       
         MapGen Cartographer = new MapGen();
+        RandomEvents Events = new RandomEvents();
+
 
         public string WriteCenterScreen(string textToEnter)
         {
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
             return textToEnter;
         }
-
 
         Random rnd = new Random();
         public int LocationX = 0;
@@ -30,42 +34,58 @@ namespace Team_Project_Week_4
         public void GenerateMap()
         {
             // Console.Clear();
-            NumOfPlanets();
-            NumOfEvents();
+            //NumOfPlanets();
+            //NumOfEvents();
             Console.ReadKey();
 
         }
 
-        public void NumOfPlanets()
+        public void GoToSpot()
         {
-            int planetNum = 0;
 
-            for (; planetNum < 15; planetNum++)
+            Console.Clear();
+            Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
+            Console.WriteLine();
+
+            try
             {
-                DrawPlanet();
+                char userinput = char.Parse(Console.ReadLine().ToLower());
+
+                switch (userinput)
+
+                {
+                    case 'y':
+                        this.boi.playerX = LocationX;
+                        this.boi.playerY = LocationY;
+
+                        break;
+
+                    case 'n':
+                        break;
+
+                }
+
             }
+            catch (Exception)
+            {
+                Console.WriteLine($"I'm sorry {boi.FirstName}, I'm afraid I can't do that.");
 
-
+            }
+            
+            
 
         }
 
-        public void NumOfEvents()
+
+        public void DrawEarth()
         {
-            Random rnd = new Random();
-            int eventNum = rnd.Next(3, 5);
-
-            do
-            {
-                DrawEvent();
-                eventNum--;
-            }
-            while (eventNum > 0);
-
+            Console.SetCursorPosition(GameWorld.EarthX, GameWorld.EarthY);
+            Console.Write('O');
         }
-        //TODO:
+
+
         public void DrawPlanet()
         {
-
             int LocationX = rnd.Next(4, Console.WindowWidth);
             int LocationY = rnd.Next(4, Console.WindowHeight);
             Console.SetCursorPosition(LocationX, LocationY);
@@ -186,12 +206,14 @@ namespace Team_Project_Week_4
   
         public void RunLoop()
         {
-            
+            Console.Clear();
+            this.GameWorld = load.LoadXMLWorld(load.SaveSlot());
             this.boi = load.LoadXML(load.SaveSlot());
+            
             bool gameRunning = true;
             ConsoleKeyInfo userKey;
-            int locationX = 24;
-            int locationY = 24;
+            LocationX = boi.playerX;
+            LocationY = boi.playerY;
 
             while (gameRunning)
             {
@@ -229,56 +251,55 @@ namespace Team_Project_Week_4
                 if (Console.KeyAvailable)
                 {
                     Console.Clear();
-                    Console.WriteLine($" Name : {boi.FirstName}   Wallet : {boi.playerMoney}");
-                    
-                    Console.WriteLine($"X Coord:{locationX}   Y Coord:{locationY}");
+                    Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
+                    Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}");
+
+                    DrawEarth();
                     userKey = Console.ReadKey(true);
-
-
+                    
                     switch (userKey.Key)
                     {
                         case ConsoleKey.LeftArrow:
 
-                            if (locationX > 4)
+                            if (LocationX > 4)
                             {
-
-                                locationX = locationX - 1;
+                                LocationX = LocationX - 1;
                             }
                             break;
 
                         case ConsoleKey.RightArrow:
 
-                            if (locationX < 78)
+                            if (LocationX < 78)
                             {
-
-                                locationX = locationX + 1;
+                                LocationX = LocationX + 1;
                             }
                             break;
 
                         case ConsoleKey.UpArrow:
 
-                            if (locationY > 2)
+                            if (LocationY > 2)
                             {
-
-                                locationY = locationY - 1;
+                                LocationY = LocationY - 1;
                             }
                             break;
 
                         case ConsoleKey.DownArrow:
 
-                            if (locationY < 24)
+                            if (LocationY < 24)
                             {
 
-                                locationY = locationY + 1;
+                                LocationY = LocationY + 1;
                             }
+                            break;
+                        case ConsoleKey.Enter:
+                            GoToSpot();
                             break;
 
                         case ConsoleKey.Escape:
                             Console.Clear();
                             save.WriteXML(boi);
-
+                            save.WriteXMLWorld(GameWorld);
                             gameRunning = false;
-
                             break;
 
                         case ConsoleKey.Backspace:
@@ -291,12 +312,8 @@ namespace Team_Project_Week_4
 
                     }
 
-
-                    Console.SetCursorPosition(locationX, locationY);
-                    
-
-
-
+                    Console.SetCursorPosition(LocationX, LocationY);
+ 
                 }
 
 

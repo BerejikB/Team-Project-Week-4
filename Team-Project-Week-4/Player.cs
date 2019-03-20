@@ -13,7 +13,9 @@ using Team_Project_Week_4;
 
 public class Player
 {
-       
+    public int playerAge;
+    public int playerX;
+    public int playerY;
     public int playerSecurity;  //chance to defend self
     public int playerSpeech;       //Price multiplier
     public int playerMaintenance;     //Likelyness to break 
@@ -25,6 +27,8 @@ public class Player
     public string LastName;
     public double playerMoney;
     public bool isDead;
+    public double timeElapsed;
+
 
 
 
@@ -41,12 +45,16 @@ public class Player
         double mult = playerSpeech * 0.05;
         return mult;
     }
-    public double PlayerSecMultiplier()
+    public double PlayerSecMult()
     {
         double mult = playerSecurity * 0.05;
         return mult;
     }
-
+    public double PlayerPilotingMult()
+    {
+        double mult = playerPiloting * 0.02;
+        return mult;
+    }
 
 
 }
