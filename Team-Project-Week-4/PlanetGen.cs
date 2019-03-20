@@ -62,7 +62,7 @@ namespace Team_Project_Week_4
         public void PlanetStatus()//Tested Passed
         {
             DeterminePlanetStatus();
-            Console.WriteLine($"Planet NAME has a {condition} economy, \n\t Trade Multiplier: {valueMultiplier}X");
+            Console.WriteLine($"Planet {name} has a {condition} economy, \n\tTrade Multiplier: {valueMultiplier}X");
             
         }
 
