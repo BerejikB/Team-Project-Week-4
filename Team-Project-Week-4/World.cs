@@ -57,6 +57,14 @@ namespace Team_Project_Week_4
             }
         }
 
+        public void PrintPlanets()
+        {
+            foreach (var planet in Planets)
+            {
+                Console.WriteLine($"{Planets.IndexOf(planet)} {planet.name}");
+            }
+        }
+
        
     }
 }

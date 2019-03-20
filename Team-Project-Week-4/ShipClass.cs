@@ -137,25 +137,28 @@ namespace ShipClass
 
         //TODO: take playerPilotingMult(1-12) into account in ship speed. add certain
         //percentage to speed capability for each skill point in piloting
-        public void TravelTo(PlanetGen PlanetDestination)
+        public void TravelTo(World World)
         {
-            while(true)
+            
+            while (true)
             {
                 // TODO: These can't be fixed without push from brendan with PlanetGen Class updated
-                PlanetDestination.ShowPlanetLog(PlanetDestination.planetLog); //need push from brendan with List<object> Planets 
+                World.PrintPlanets(); 
                 Console.WriteLine("Where would you like to go?");
                 int userInput = int.Parse(Console.ReadLine());
-                string selection = PlanetDestination.planetLog.ElementAt(userInput);
-                Console.WriteLine($"Are you sure you want to travel to {selection}? " +
+                (int, int) selection = (World.Planets.ElementAt(userInput).locx, 
+                                        World.Planets.ElementAt(userInput).locy);
+                Console.WriteLine($"Are you sure you want to travel to" +
+                    $" {World.Planets.ElementAt(userInput).name}? " +
                     $"\n1. Yes \n2. No");
                 string confirmation = Console.ReadLine();
                 if (confirmation == "1")
                 {
-                    plotCourse(PlanetDestination.location);//...or something like that
+                    plotCourse(selection);//...or something like that
                     break;
                 }
             }
-            // TODO: Get from Master of shared proj coordinate shit for planet
+            // TODO: 
         }//Overload: this one is for selecting a planet from your planetLog, make another one to select 
         //a new set of coordinates not specified by a known planet
 
@@ -207,11 +210,14 @@ namespace ShipClass
 
         }
 
-        public void TravelDistance(Player Player, PlanetGen Planet)
+        public void TravelDistance(Player Player, World World)
         {
-            int diffX = Player.playerX - Planet.locationX;
-            int diffY = Player.playerY - Planet.locationY;
-            if(diffX>=0)
+            // TODO: Travel Distance Method
+            (int, int) selection = (World.Planets.ElementAt(userInput).locx,
+                                    World.Planets.ElementAt(userInput).locy);
+            int diffX = Player.playerX - World.Planets.ElementAt(userInput).locx;
+            int diffY = Player.playerY - World.Planets.ElementAt(userInput).locy;
+            if (diffX >= 0)
             {
                 int newX = diffX;
             }
@@ -227,6 +233,8 @@ namespace ShipClass
             {
                 int newX = -1 * diffX;
             }
+
+
         }
     }
 }
