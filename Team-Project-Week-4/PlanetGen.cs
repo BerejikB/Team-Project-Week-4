@@ -8,40 +8,31 @@ namespace Team_Project_Week_4
     /// </summary>
     public class PlanetGen
     {
-        public List<string> planetLog = new List<string>();
-        public string name;
-        public string condition;
-        public double valueMultiplier;
-
-        public int EarthX;
-        public int EarthY;
-        public string economy;
-
 
 
         Random attributeGenerator = new Random();
         Random rnd = new Random();
+        public List<string> planetLog = new List<string>();
+        public string name;
+        public string condition;
+        public double valueMultiplier;
+        public int locx;
+        public int locy;
+        public string economy;
 
-        public void Earth()
+       
+        public int LocX()
         {
-            Random rnd = new Random();
-            EarthY = rnd.Next(4, Console.WindowHeight);
-            EarthX = rnd.Next(4, Console.WindowWidth);
-
+             locx = rnd.Next(4, Console.WindowHeight);
+            return locx;
         }
 
-        public (int locx, int locy)location()
+        public int LocY()
         {
-            int locx = rnd.Next
-            int locy = rnd.Next
+             locy = rnd.Next(2, Console.WindowHeight);
+            return locy;
         }
-        
-        public void PlanetInfo()
-        {
-            NamePlanet();
-            PlanetStatus();
-        }
-
+              
         public string NamePlanet()
         {
             while(true)
@@ -50,9 +41,7 @@ namespace Team_Project_Week_4
                 if (!planetLog.Contains(testName))
                 {
                     name = testName;
-                    Console.WriteLine($"Planet name {name}");
-                    return testName;
-                    
+                    return name;
                 }
                 
             }

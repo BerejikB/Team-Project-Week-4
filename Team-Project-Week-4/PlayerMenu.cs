@@ -29,7 +29,7 @@ public class SetAttribMenu
        
     public void TestPlayerMakerXML()
     {
-        Planets.Earth();
+        
         playerAttribs.playerSecurity = 5;
         playerAttribs.playerSpeech = 5;
         playerAttribs.playerMaintenance = 5;
@@ -38,10 +38,9 @@ public class SetAttribMenu
         playerAttribs.playerMoney = 250000;
         playerAttribs.pointsAvail = 7;
         playerAttribs.playerAge = 20;
-        this.GameWorld.EarthX = Planets.EarthX;
-        this.GameWorld.EarthY = Planets.EarthY;
-        playerAttribs.playerX = Planets.EarthX;
-        playerAttribs.playerY = Planets.EarthY;
+        playerAttribs.playerX = GameWorld.EarthX;
+        playerAttribs.playerY = GameWorld.EarthY;
+        GameWorld.PlanetGenerator();
         playerAttribs.isDead = false;
 
 

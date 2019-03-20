@@ -76,7 +76,6 @@ namespace Team_Project_Week_4
 
         }
 
-
         public void DrawEarth()
         {
             Console.SetCursorPosition(GameWorld.EarthX, GameWorld.EarthY);
@@ -86,10 +85,12 @@ namespace Team_Project_Week_4
 
         public void DrawPlanet()
         {
-            int LocationX = rnd.Next(4, Console.WindowWidth);
-            int LocationY = rnd.Next(4, Console.WindowHeight);
-            Console.SetCursorPosition(LocationX, LocationY);
-            Console.Write('o');
+            foreach (var planet in GameWorld.Planets)
+            {
+                //Console.SetCursorPosition(GameWorld.Planet, GameWorld.);
+                Console.Write('o');
+            }
+
         }
 
         public void DrawEvent()

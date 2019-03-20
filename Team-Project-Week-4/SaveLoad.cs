@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Team_Project_Week_4;
 using System.Xml.Serialization;
-
+using System.Xml.Linq;
 
 
 public class SlotSelect
@@ -71,10 +71,10 @@ public class xmlSaver
         try
         {
             XmlSerializer writer = new XmlSerializer(typeof(World));
-
+           
             System.IO.StreamWriter file = new StreamWriter($"WorldState{pickaslot.SaveSlot()}.xml");
+            
             writer.Serialize(file, WorldState);
-
             file.Close();
         }
         catch (Exception) { WriteXMLWorld(WorldState); }
@@ -136,10 +136,11 @@ public class xmlLoader
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
         doc.Load($"WorldState{saveSlot}.xml");
         var WorldStatus = doc.SelectSingleNode("World");
+        
         WorldState.EarthX = Convert.ToInt32(WorldStatus.SelectSingleNode("EarthX").InnerText);
         WorldState.EarthY = Convert.ToInt32(WorldStatus.SelectSingleNode("EarthY").InnerText);
-
-
+        //WorldState.
+        
         return WorldState;
     }
 
