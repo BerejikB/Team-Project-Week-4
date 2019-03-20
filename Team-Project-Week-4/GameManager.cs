@@ -10,6 +10,7 @@ namespace Team_Project_Week_4
 
     public class GameManager
     {
+
         TextMenus Menus = new TextMenus();
         List<PlanetGen> Planets = new List<PlanetGen>();
         xmlSaver save = new xmlSaver();
@@ -18,6 +19,8 @@ namespace Team_Project_Week_4
         World GameWorld;
         MapGen Cartographer = new MapGen();
         RandomEvents Events = new RandomEvents();
+        Ship Ship = new Ship(boi);
+        
         public string WriteCenterScreen(string textToEnter)
         {
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
@@ -50,6 +53,7 @@ namespace Team_Project_Week_4
 
                 {
                     case 'y':
+                        
                         this.boi.playerX = LocationX;
                         this.boi.playerY = LocationY;
 
@@ -68,7 +72,7 @@ namespace Team_Project_Week_4
             }
 
 
-            for (int i = 0; i <= 15; i++)
+            for (int i = 0; i < 15; i++)
 
             {
                 if (boi.playerX == this.Planets[i].locx && boi.playerY == this.Planets[i].locy)
@@ -84,10 +88,41 @@ namespace Team_Project_Week_4
         {
             Console.WriteLine($"You are at {Planets[i].name}");
             Console.WriteLine($"The economy is  {Planets[i].economy}");
-            
-            Console.ReadKey();
-        }
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine($"1) Go to the market");
+            Console.WriteLine($"2) Repair Ship");
+            Console.WriteLine($"3) Upgrade ship");
+            Console.WriteLine();
+            Console.WriteLine();
 
+            ConsoleKeyInfo userinputboi;
+            userinputboi = Console.ReadKey(true);
+            
+
+            switch (userinputboi.Key)
+            {
+                case ConsoleKey.D1:
+                    { }
+                    break;
+                case ConsoleKey.D2:
+                    { }
+                    break;
+                case ConsoleKey.D3:
+                    { Ship.UpgradeShip(); }
+                    break;
+                case ConsoleKey.D4:
+                    { }
+                    break;
+                
+                
+
+
+
+
+
+
+            }
+        }
 
 
         public void DrawEarth()
@@ -272,9 +307,8 @@ namespace Team_Project_Week_4
                 {
                    
                     userKey = Console.ReadKey(true);
-                   // try
-                   // {
-
+                    try
+                    {
                         switch (userKey.Key)
                         {
 
@@ -366,11 +400,11 @@ namespace Team_Project_Week_4
                         Console.SetCursorPosition(LocationX, LocationY);
                         
                         Console.WriteLine("X");
-                        
 
-                   // }
-                    //catch (ArgumentOutOfRangeException) { Console.SetCursorPosition(boi.playerX, boi.playerY); }
-                    
+
+                    }
+                    catch (ArgumentOutOfRangeException) { Console.SetCursorPosition(boi.playerX, boi.playerY); }
+
                 }
 
 
