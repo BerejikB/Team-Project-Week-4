@@ -30,19 +30,19 @@ namespace Team_Project_Week_4
        
         public int LocX()
         {
-             locx = rnd.Next(4, Console.WindowHeight);
+            locx = rnd.Next(4, Console.WindowHeight);
             return locx;
         }
 
         public int LocY()
         {
-             locy = rnd.Next(2, Console.WindowHeight);
+            locy = rnd.Next(2, Console.WindowHeight);
             return locy;
         }
-              
+
         public string NamePlanet()
         {
-            while(true)
+            while (true)
             {
                 string testName = $"NP{PlanetNumber()}";
                 if (!planetLog.Contains(testName))
@@ -50,6 +50,7 @@ namespace Team_Project_Week_4
                     name = testName;
                     return name;
                 }
+
             }
         }
 
@@ -63,7 +64,7 @@ namespace Team_Project_Week_4
         {
             DeterminePlanetStatus();
             Console.WriteLine($"Planet {name} has a {condition} economy, \n\tTrade Multiplier: {valueMultiplier}X");
-            
+
         }
 
         public int HoldEm()
@@ -72,16 +73,16 @@ namespace Team_Project_Week_4
             return genResult;
         }
 
-        public (string condition, double valueMultiplier)DeterminePlanetStatus()
+        public (string condition, double valueMultiplier) DeterminePlanetStatus()
         {
-            
+
             switch (HoldEm())
             {
                 case 0:
                     {
                         condition = "Desolate";
                         valueMultiplier = .5;
-                         break;
+                        break;
 
                     }
                 case 1:
@@ -108,7 +109,7 @@ namespace Team_Project_Week_4
                         valueMultiplier = 1.5;
                         break;
                     }
-                    
+
             }
 
             return (condition, valueMultiplier);

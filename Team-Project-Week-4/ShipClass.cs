@@ -11,7 +11,9 @@ namespace ShipClass
 {
     public class Ship
     {
-        
+        Player Boi;
+        World World;
+
         public string shipName;
         public int shipHealth = 8;
         public double engineLevel = 9;
@@ -19,30 +21,30 @@ namespace ShipClass
         public double warpVelocity;
 
 
-        static void Main(string[] args)
-        {
-            Ship FirstShip = new Ship();
-            //The Program Run Class will need to initialize the naming of the ship first, and then the status 
+        //static void Main(string[] args)
+        //{
+        //    Ship FirstShip = new Ship();
+        //    //The Program Run Class will need to initialize the naming of the ship first, and then the status 
 
-            FirstShip.NameShip();
-            FirstShip.ShipStatus();
+        //    FirstShip.NameShip();
+        //    FirstShip.ShipStatus();
 
-            PlanetGen newPlanet = new PlanetGen();
+        //    PlanetGen newPlanet = new PlanetGen();
 
-            for (int i = 0; i < 5; i++)
-            {
+        //    for (int i = 0; i < 5; i++)
+        //    {
 
-                newPlanet.PlanetInfo();
+        //        newPlanet.PlanetInfo();
 
-            }
-            Console.Clear();
-            //newPlanet.ShowPlanetLog(newPlanet.planetLog);
-            //FirstShip.TravelTo(newPlanet);
-            FirstShip.plotCourse();
-            
+        //    }
+        //    Console.Clear();
+        //    //newPlanet.ShowPlanetLog(newPlanet.planetLog);
+        //    //FirstShip.TravelTo(newPlanet);
+        //    FirstShip.plotCourse();
 
-            
-        }
+
+
+        //}
         //
         public void ShipStatus()
         {
@@ -55,7 +57,7 @@ namespace ShipClass
         //
         public void NameShip()
         {
-            while(true)
+            while (true)
             {
                 Console.WriteLine("Name your new ship");
                 string userInput = Console.ReadLine();
@@ -68,7 +70,7 @@ namespace ShipClass
                     break;
                 }
             }
-            
+
         }
         //
         public void CalculateShipStatus()
@@ -88,7 +90,7 @@ namespace ShipClass
             else if (shipHealth < 3 && shipHealth > 0)
             {
                 shipStatus = "Critical";
-                if(engineLevel>3)
+                if (engineLevel > 3)
                 {
                     engineLevel = 3;
                 }
@@ -111,7 +113,7 @@ namespace ShipClass
         //
         public void DamageShip()
         {
-            if(shipHealth>1)
+            if (shipHealth > 1)
             {
                 --shipHealth;
             }
@@ -119,12 +121,12 @@ namespace ShipClass
             {
                 Console.WriteLine($"{shipName} has been destroyed. Game Over.");
             }
-            
+
         }
         //
         public void RepairShip()
         {
-            if(shipStatus != "In Perfect Condition")
+            if (shipStatus != "In Perfect Condition")
             {
                 ++shipHealth;
             }
@@ -137,17 +139,19 @@ namespace ShipClass
 
         //TODO: take playerPilotingMult(1-12) into account in ship speed. add certain
         //percentage to speed capability for each skill point in piloting
-        public void TravelTo(World World)
+        public void TravelTo()
         {
-            
+
             while (true)
             {
                 // TODO: These can't be fixed without push from brendan with PlanetGen Class updated
-                World.PrintPlanets(); 
+                World.PrintPlanets();
                 Console.WriteLine("Where would you like to go?");
                 int userInput = int.Parse(Console.ReadLine());
-                (int, int) selection = (World.Planets.ElementAt(userInput).locx, 
+                (int, int) selection = (World.Planets.ElementAt(userInput).locx,
                                         World.Planets.ElementAt(userInput).locy);
+                
+
                 Console.WriteLine($"Are you sure you want to travel to" +
                     $" {World.Planets.ElementAt(userInput).name}? " +
                     $"\n1. Yes \n2. No");
@@ -173,17 +177,18 @@ namespace ShipClass
             LocationY = int.Parse(Console.ReadLine());
             Console.SetCursorPosition(LocationX, LocationY);
         }
-        public void plotCourse((int , int ) planetSelectionCoords)
+
+        public void plotCourse((int, int) planetSelectionCoords)
         {
             (int LocationX, int LocationY) = planetSelectionCoords;
-            
+
             Console.SetCursorPosition(LocationX, LocationY);
         }
 
 
         public void WarpFactor()
         {
-            
+
             var W = engineLevel;
             double x = W - 9;
             double powerU = -1 / (1000 * Math.Pow(x, 2));
@@ -199,32 +204,25 @@ namespace ShipClass
             {
                 warpVelocity = regularWarpVelocity;
             }
-            
+
         }
 
-        public void TimeToTravel(Player Player)
-        {
+        public void TimeToTravel()
+        {// TODO: Finish this calculation
             //need distance between points
-            
-            
+            //TravelDistance = # of LY between locations
+            //
+
 
         }
 
-        public void TravelDistance(Player Player, World World)
+        public void TravelDistance((int planetX, int planetY)selectedPlanet)
         {
             // TODO: Travel Distance Method
-            (int, int) selection = (World.Planets.ElementAt(userInput).locx,
-                                    World.Planets.ElementAt(userInput).locy);
-            int diffX = Player.playerX - World.Planets.ElementAt(userInput).locx;
-            int diffY = Player.playerY - World.Planets.ElementAt(userInput).locy;
-            if (diffX >= 0)
-            {
-                int newX = diffX;
-            }
-            else
-            {
-                int newX = -1 * diffX;
-            }
+
+            int diffX = Boi.playerX - selectedPlanet.planetX;
+            int diffY = Boi.playerY - selectedPlanet.planetY;
+           
             if (diffX >= 0)
             {
                 int newX = diffX;
@@ -234,7 +232,17 @@ namespace ShipClass
                 int newX = -1 * diffX;
             }
 
+            if (diffX >= 0)
+            {
+                int newX = diffX;
+            }
+            else
+            {
+                int newX = -1 * diffX;
+            }
 
+            //Pythagorean Theorem
+            double distanceToTravel = Math.Sqrt(diffX + diffY);
         }
     }
 }
