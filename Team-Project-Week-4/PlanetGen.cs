@@ -31,13 +31,13 @@ namespace Team_Project_Week_4
        
         public int LocX()
         {
-            locx = rnd.Next(4, Console.WindowHeight);
+            locx = rnd.Next(2, 118);
             return locx;
         }
 
         public int LocY()
         {
-            locy = rnd.Next(2, Console.WindowHeight);
+            locy = rnd.Next(4, 30);
             return locy;
         }
 

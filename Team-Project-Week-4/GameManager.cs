@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace Team_Project_Week_4
 {
 
-
+        
     public class GameManager
     {
-
-        TextMenus Menus = new TextMenus();
+        Market PlanetMarket = new Market();
         List<PlanetGen> Planets = new List<PlanetGen>();
         xmlSaver save = new xmlSaver();
         xmlLoader load = new xmlLoader();
@@ -29,16 +28,18 @@ namespace Team_Project_Week_4
         Random rnd = new Random();
         public int LocationX = 0;
         public int LocationY = 0;
-
-        public void GenerateMap()
+        public int PlanetIndex;
+        public GameManager()
         {
-            // Console.Clear();
-            //NumOfPlanets();
-            //NumOfEvents();
-            Console.ReadKey();
-
+            Ship = new Ship(boi);
         }
 
+        public string WriteCenterScreen(string textToEnter)
+        {
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
+            return textToEnter;
+        }
+  
         public void GoToSpot()
         {
 
@@ -78,6 +79,7 @@ namespace Team_Project_Week_4
                 if (boi.playerLocation.playerX == this.Planets[i].locx && boi.playerLocation.playerY == this.Planets[i].locy)
                 {
                     PlanetMenu(i);
+                    i = PlanetIndex;
                 }
 
             }
@@ -86,6 +88,9 @@ namespace Team_Project_Week_4
 
         public void PlanetMenu(int i)
         {
+            Console.Clear();
+            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
+            Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerX} Y:{boi.playerY}");
             Console.WriteLine($"You are at {Planets[i].name}");
             Console.WriteLine($"The economy is  {Planets[i].economy}");
             Console.WriteLine("What would you like to do?");
@@ -97,33 +102,42 @@ namespace Team_Project_Week_4
 
             ConsoleKeyInfo userinputboi;
             userinputboi = Console.ReadKey(true);
-            
+
 
             switch (userinputboi.Key)
             {
                 case ConsoleKey.D1:
-                    { }
+                    { Market(i); }
                     break;
                 case ConsoleKey.D2:
-                    { }
+                    {
+                        Ship.RepairShip();
+                        PlanetMenu(i);
+                    }
                     break;
                 case ConsoleKey.D3:
                     {
-                        //Ship.UpgradeShip();
+                        Ship.UpgradeShip();
+                        PlanetMenu(i);
                     }
                     break;
                 case ConsoleKey.D4:
                     { }
                     break;
-                
-                
-
-
-
-
-
 
             }
+        }
+        public void Market(int i)
+        {
+            Market Store = new Market();
+            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
+            Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerX} Y:{boi.playerY}");
+            Console.WriteLine($"You are at {Planets[i].name}");
+            Console.WriteLine($"The economy is  {Planets[i].economy}");
+            Store.PrintItemsSold();
+            Store.SelectItem(boi);
+                     
+
         }
 
 
@@ -135,10 +149,13 @@ namespace Team_Project_Week_4
 
         public void DrawPlanet()
         {
-            foreach (var locx in Planets)
-            { 
-                Console.SetCursorPosition(locx.locx, locx.locy);
+            for (int i = 0; i < 15; i++)
+
+            {
+                Console.SetCursorPosition(Planets[i].locx, Planets[i].locy);
                 Console.Write('o');
+                
+
             }
 
         }
@@ -155,17 +172,17 @@ namespace Team_Project_Week_4
 
         {
             Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine(Console.WindowWidth);
+            Console.WriteLine(Console.WindowHeight);
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             WriteCenterScreen("------------------------------------------");
             WriteCenterScreen("|     1) New Player                      |");
-            WriteCenterScreen("|     2) Map Generator NOT IMPLIMENTED   |");
-            WriteCenterScreen("|     3) Load Player NOT IMPLIMENTED     |"); 
-            WriteCenterScreen("|     4) Start WORK IN PROGRESS          |");
-            WriteCenterScreen("|     5) Show Player Stats               |");
+            WriteCenterScreen("|     2) Start WORK IN PROGRESS          |");
+            WriteCenterScreen("|     3) Show Player Stats               |"); 
+            WriteCenterScreen("|     4)                                 |");
+            WriteCenterScreen("|     5)                                 |");
             WriteCenterScreen("|     6) Quit                            |");
             WriteCenterScreen("------------------------------------------");
 
@@ -192,14 +209,15 @@ namespace Team_Project_Week_4
 
                 case 2:
                     {
-                        Console.Clear();
-                        Cartographer.GenerateMap();
+                        RunLoop();
                         StartMenu();
                     }
                     break;
 
                 case 3:
                     {
+                        PrintStat();
+                        Console.ReadKey();
                         StartMenu();
                     }
            
@@ -207,16 +225,13 @@ namespace Team_Project_Week_4
                 case 4:
                     {
                         
-                        RunLoop();
-                        StartMenu();
+                        
                     }
                      break;
 
                 case 5:
                     {
-                        PrintStat();
-                        Console.ReadKey();
-                        StartMenu();
+                       
                     }
 
                     break;
@@ -266,7 +281,7 @@ namespace Team_Project_Week_4
             this.GameWorld = load.LoadXMLWorld(load.SaveSlot());
             this.Planets = load.LoadXMLPlanets(load.SaveSlot()); 
             this.boi = load.LoadXML(load.SaveSlot());
-            
+            this.Ship = load.LoadXMLShip(load.SaveSlot());
             bool gameRunning = true;
             ConsoleKeyInfo userKey;
             LocationX = boi.playerLocation.playerX;
@@ -331,7 +346,7 @@ namespace Team_Project_Week_4
                             case ConsoleKey.RightArrow:
                                 try
                                 {
-                                    if (LocationX < Console.LargestWindowWidth)
+                                    if (LocationX < Console.WindowWidth)
                                     {
                                         LocationX = LocationX + 1;
                                     }
@@ -360,7 +375,7 @@ namespace Team_Project_Week_4
                             case ConsoleKey.DownArrow:
                                 try
                                 {
-                                    if (LocationY < Console.LargestWindowHeight)
+                                    if (LocationY < Console.WindowHeight)
                                     {
                                         LocationY = LocationY + 1;
                                     }
@@ -394,14 +409,14 @@ namespace Team_Project_Week_4
 
                         }
                         Console.Clear();
+                        
                         Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         DrawEarth();
                         DrawPlanet();
 
                         Console.SetCursorPosition(LocationX, LocationY);
-                        
-                        Console.WriteLine("X");
+                         Console.WriteLine("X");
 
 
                     }

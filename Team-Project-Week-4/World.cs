@@ -58,8 +58,6 @@ namespace Team_Project_Week_4
                 Planets.Add(NewPlanet);
 
                 rnd = NewPlanet.rnd;
-
-                
             }
         }
 

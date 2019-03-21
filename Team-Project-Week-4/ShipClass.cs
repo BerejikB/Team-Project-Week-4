@@ -10,16 +10,18 @@ namespace Team_Project_Week_4
 
     public class Ship
     {
+        Player Boi;
+
         GameManager GameWorld;
         Player boi;
         public Ship(Player boi)
         {
-            this.boi =  boi;
+            this.Boi =  boi;
         }
         
         public string shipName;
         public int shipHealth = 8;
-        public double engineLevel = 9;
+        public double engineLevel = 6;
         public string shipStatus = "In Working Order";
         public double warpVelocity;
 
@@ -85,6 +87,42 @@ namespace Team_Project_Week_4
         
         public void AgeCalculator()
         {
+            if (shipStatus == "In Perfect Condition" || shipStatus == "In Working Order")
+            {
+                Console.Clear();
+                Console.WriteLine($"Current ship engine level is {engineLevel}");
+                Console.WriteLine("Are you sure you want to upgrade your engine for $100000? Y/N");
+                ConsoleKeyInfo userinputboi;
+                userinputboi = Console.ReadKey(true);
+
+
+                switch (userinputboi.Key)
+                {
+                    case ConsoleKey.Y:
+                        {
+                            Boi.playerMoney -= 100000;
+                            ++engineLevel;
+                            Console.WriteLine("Ship Upgraded!");
+                            
+                            Console.ReadKey();
+                            
+                        }
+                        break;
+                    case ConsoleKey.N:
+                        {
+                        }
+                        break;
+
+                   
+                }
+            }
+        }
+        //
+        public void DamageShip()
+        {
+            if (shipHealth > 1)
+            {
+                --shipHealth;
             boi.playerAge += TimeToTravel();
         }
         
@@ -101,9 +139,43 @@ namespace Team_Project_Week_4
             }
             else
             {
-                int newX = -1 * diffX;
+                Boi.isDead = true;
+                Console.WriteLine($"{shipName} has been destroyed.");
             }
 
+        }
+        //
+        public void RepairShip()
+        {
+            if (shipStatus != "In Perfect Condition")
+            {
+                Console.Clear();
+                Console.WriteLine($"Current ship health level is {shipHealth}/10");
+                Console.WriteLine("Are you sure you want to repair your ship (+1 health) for $10000? Y/N");
+                ConsoleKeyInfo userinputboi;
+                userinputboi = Console.ReadKey(true);
+
+
+                switch (userinputboi.Key)
+                {
+                    case ConsoleKey.Y:
+                        {
+                            Boi.playerMoney -= 10000;
+                            ++shipHealth; 
+                            Console.WriteLine("Ship Repaired");
+                            Console.ReadKey();
+
+                        }
+                        break;
+                    case ConsoleKey.N:
+                        {
+                        }
+                        break;
+
+
+                }
+
+                
             if (diffX >= 0)
             {
                 int newX = diffX;
@@ -158,7 +230,12 @@ namespace Team_Project_Week_4
 
         public void DamageShip()
         {
-            if (shipHealth > 1)
+            // TODO: Travel Distance Method
+
+            int diffX = Boi.playerX - selectedPlanet.planetX;
+            int diffY = Boi.playerY - selectedPlanet.planetY;
+           
+            if (diffX >= 0)
             {
                 --shipHealth;
             }

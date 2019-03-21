@@ -56,7 +56,6 @@
     <Compile Include="RandomEvents.cs" />
     <Compile Include="SaveLoad.cs" />
     <Compile Include="ShipClass.cs" />
-    <Compile Include="TextMenus.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
