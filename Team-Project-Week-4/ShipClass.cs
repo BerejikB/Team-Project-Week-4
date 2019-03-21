@@ -99,7 +99,7 @@ namespace Team_Project_Week_4
         }
 
         public double TravelDistance()
-        {
+        {//TODO: GameWorld needs to be a parameter, will be passed in in the GameManager class
             int diffX = boi.playerLocation.playerX - GameWorld.LocationX;
             int diffY = boi.playerLocation.playerY - GameWorld.LocationX;
 

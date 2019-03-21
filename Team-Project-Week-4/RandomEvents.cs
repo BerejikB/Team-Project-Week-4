@@ -34,9 +34,12 @@ namespace Team_Project_Week_4
         { }
 
         public void Wormhole()
-        { }
+        {
+            //TODO: 
+        }
 
-
+        //this.boi.playerLocation.playerX = LocationX;
+        //this.boi.playerLocation.playerY = LocationY;
     }
 
 
