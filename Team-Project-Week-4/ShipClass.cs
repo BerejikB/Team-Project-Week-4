@@ -86,7 +86,7 @@ namespace Team_Project_Week_4
             if (shipStatus == "In Perfect Condition" || shipStatus == "In Working Order")
             {
                 Console.Clear();
-                Console.WriteLine("Are you sure you want to upgrade your engine for $50000?");
+                Console.WriteLine("Are you sure you want to upgrade your engine for $50,000?");
                 
                 //add text menu showing upgrade difference
                 //add switch statement
@@ -145,21 +145,25 @@ namespace Team_Project_Week_4
 
         }
 
-        public void TimeToTravel()
-        {// TODO: Finish this calculation
-            //need distance between points
-            //TravelDistance = # of LY between locations
-            //
-
+        public void AgeCalculator()
+        {
 
         }
 
-        public void TravelDistance((int planetX, int planetY)selectedPlanet)
+        public double TimeToTravel()
+        {// TODO: 
+            
+            WarpFactor();
+            double travelTime = Math.Round(TravelDistance(boi.playerLocation) / warpVelocity, 12 - boi.playerPiloting);
+            return travelTime;
+        }
+
+        public double TravelDistance((int planetX, int planetY)selectedPlanet)
         {
             // TODO: Travel Distance Method
 
-            int diffX = boi.playerX - selectedPlanet.planetX;
-            int diffY = boi.playerY - selectedPlanet.planetY;
+            int diffX = boi.playerLocation.playerX - selectedPlanet.planetX;
+            int diffY = boi.playerLocation.playerY - selectedPlanet.planetY;
            
             if (diffX >= 0)
             {
@@ -181,6 +185,7 @@ namespace Team_Project_Week_4
 
             //Pythagorean Theorem
             double distanceToTravel = Math.Sqrt(diffX + diffY);
+            return distanceToTravel;
         }
     }
 }

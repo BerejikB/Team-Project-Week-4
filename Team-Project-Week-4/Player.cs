@@ -14,6 +14,7 @@ using Team_Project_Week_4;
 public class Player
 {
     public int playerAge;
+    public (int playerX, int playerY) playerLocation;
     public int playerX;
     public int playerY;
     public int playerSecurity;  //chance to defend self

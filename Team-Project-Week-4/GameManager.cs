@@ -54,8 +54,8 @@ namespace Team_Project_Week_4
                 {
                     case 'y':
                         
-                        this.boi.playerX = LocationX;
-                        this.boi.playerY = LocationY;
+                        this.boi.playerLocation.playerX = LocationX;
+                        this.boi.playerLocation.playerY = LocationY;
 
                         break;
 
@@ -75,7 +75,7 @@ namespace Team_Project_Week_4
             for (int i = 0; i < 15; i++)
 
             {
-                if (boi.playerX == this.Planets[i].locx && boi.playerY == this.Planets[i].locy)
+                if (boi.playerLocation.playerX == this.Planets[i].locx && boi.playerLocation.playerY == this.Planets[i].locy)
                 {
                     PlanetMenu(i);
                 }
@@ -269,8 +269,8 @@ namespace Team_Project_Week_4
             
             bool gameRunning = true;
             ConsoleKeyInfo userKey;
-            LocationX = boi.playerX;
-            LocationY = boi.playerY;
+            LocationX = boi.playerLocation.playerX;
+            LocationY = boi.playerLocation.playerY;
 
             while (gameRunning)
             {
@@ -395,7 +395,7 @@ namespace Team_Project_Week_4
                         }
                         Console.Clear();
                         Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
-                        Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerX} Y:{boi.playerY}");
+                        Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         DrawEarth();
                         DrawPlanet();
 
@@ -405,7 +405,7 @@ namespace Team_Project_Week_4
 
 
                     }
-                    catch (ArgumentOutOfRangeException) { Console.SetCursorPosition(boi.playerX, boi.playerY); }
+                    catch (ArgumentOutOfRangeException) { Console.SetCursorPosition(boi.playerLocation.playerX, boi.playerLocation.playerY); }
 
                 }
 
