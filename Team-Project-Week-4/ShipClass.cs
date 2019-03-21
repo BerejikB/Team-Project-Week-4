@@ -16,18 +16,16 @@ namespace Team_Project_Week_4
         Player boi;
         public Ship(Player boi)
         {
-            this.Boi =  boi;
+            this.Boi = boi;
         }
-        
+
         public string shipName;
         public int shipHealth = 8;
         public double engineLevel = 6;
         public string shipStatus = "In Working Order";
         public double warpVelocity;
 
-       
 
-      
         public void ShipStatus()
         {
             CalculateShipStatus();
@@ -36,7 +34,7 @@ namespace Team_Project_Week_4
                               $"\nHealth: {shipHealth}" +
                               $"\nCapable of Warp Factor {engineLevel}");
         }
-        
+
         public void NameShip()
         {
             while (true)
@@ -54,7 +52,7 @@ namespace Team_Project_Week_4
             }
 
         }
-        
+
         public void CalculateShipStatus()
         {
             if (shipHealth == 10)
@@ -84,7 +82,7 @@ namespace Team_Project_Week_4
             }
 
         }
-        
+
         public void AgeCalculator()
         {
             if (shipStatus == "In Perfect Condition" || shipStatus == "In Working Order")
@@ -103,9 +101,9 @@ namespace Team_Project_Week_4
                             Boi.playerMoney -= 100000;
                             ++engineLevel;
                             Console.WriteLine("Ship Upgraded!");
-                            
+
                             Console.ReadKey();
-                            
+
                         }
                         break;
                     case ConsoleKey.N:
@@ -113,38 +111,11 @@ namespace Team_Project_Week_4
                         }
                         break;
 
-                   
+
                 }
             }
         }
-        //
-        public void DamageShip()
-        {
-            if (shipHealth > 1)
-            {
-                --shipHealth;
-            boi.playerAge += TimeToTravel();
-        }
-        
-        public double TravelDistance()
-        {
-            // TODO: Travel Distance Method
-            
-            int diffX = boi.playerLocation.playerX - GameWorld.LocationX;
-            int diffY = boi.playerLocation.playerY - GameWorld.LocationX;
-            
-            if (diffX >= 0)
-            {
-                int newX = diffX;
-            }
-            else
-            {
-                Boi.isDead = true;
-                Console.WriteLine($"{shipName} has been destroyed.");
-            }
-
-        }
-        //
+       
         public void RepairShip()
         {
             if (shipStatus != "In Perfect Condition")
@@ -161,7 +132,7 @@ namespace Team_Project_Week_4
                     case ConsoleKey.Y:
                         {
                             Boi.playerMoney -= 10000;
-                            ++shipHealth; 
+                            ++shipHealth;
                             Console.WriteLine("Ship Repaired");
                             Console.ReadKey();
 
@@ -174,95 +145,53 @@ namespace Team_Project_Week_4
 
 
                 }
-
-                
-            if (diffX >= 0)
-            {
-                int newX = diffX;
-            }
-            else
-            {
-                int newX = -1 * diffX;
-            }
-
-            //Pythagorean Theorem
-            double distanceToTravel = Math.Sqrt(Math.Pow(diffX,2) + Math.Pow(diffY, 2));
-            return distanceToTravel;
-        }
-        
-        public double TimeToTravel()
-        {// TODO: 
-            
-            WarpFactor();
-            double lightYearTravelTime = 1 / warpVelocity;
-            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(), 12 - boi.playerPiloting);
-            return travelTime;
-        }
-        
-        public void WarpFactor()
-        {
-
-            var W = engineLevel;
-            double x = W - 9;
-            double powerU = -1 / (1000 * Math.Pow(x, 2));
-            double u = Math.Pow(Math.E, powerU);
-            double A = 0.03658749373;
-            double n = 1.7952294708;
-            double PastWarpNine = (u * x) * A * Math.Pow(-1 * Math.Log(Math.E) * (10 - W), n);
-            double BelowWarpNine = 10 / 3.0;
-            double regularWarpVelocity = Math.Pow(W, BelowWarpNine);
-            double highWarpVelocity = Math.Pow(W, BelowWarpNine + PastWarpNine);
-
-            if (x <= 0)
-            {
-                warpVelocity = regularWarpVelocity;
-            }
-
-        }
-
-        public void RepairShip()
-        {
-            if (shipStatus != "In Perfect Condition")
-            {
-                ++shipHealth;
             }
         }
 
-        public void DamageShip()
-        {
-            // TODO: Travel Distance Method
-
-            int diffX = Boi.playerX - selectedPlanet.planetX;
-            int diffY = Boi.playerY - selectedPlanet.planetY;
-           
-            if (diffX >= 0)
-            {
-                --shipHealth;
-            }
-            else
-            {
-                Console.WriteLine($"{shipName} has been destroyed. Game Over.");
-            }
-
-        }
 
         public void UpgradeShip()
         {
+
+
+            Console.Clear();
+
+            Console.WriteLine("Are you sure you want to upgrade your engine for $50,000?");
             if (shipStatus == "In Perfect Condition" || shipStatus == "In Working Order")
             {
-                Console.Clear();
-                Console.WriteLine("Are you sure you want to upgrade your engine for $50,000?");
-                
-                //add text menu showing upgrade difference
-                //add switch statement
-                boi.playerMoney -= 50000;
-                ++engineLevel;
-                Console.WriteLine("Ship Upgraded!");
-                Console.ReadKey();
+
+                ConsoleKeyInfo userinputboi;
+
+                userinputboi = Console.ReadKey(true);
+
+
+
+                switch (userinputboi.Key)
+
+                {
+                    case ConsoleKey.Y:
+
+                        {
+                            Boi.playerMoney -= 100000;
+                            ++shipHealth;
+                            Console.WriteLine("Engine Upgraded");
+                            Console.ReadKey();
+
+                        }
+                        break;
+                    case ConsoleKey.N:
+                        {
+                        }
+                        break;
+
+
+                }
 
             }
         }
+        
+
     }
 }
+
 
 ﻿
