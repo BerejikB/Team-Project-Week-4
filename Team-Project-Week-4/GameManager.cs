@@ -92,7 +92,7 @@ namespace Team_Project_Week_4
             Console.WriteLine($"1) Go to the market");
             Console.WriteLine($"2) Repair Ship");
             Console.WriteLine($"3) Upgrade ship");
-            Console.WriteLine();
+            Console.WriteLine($"4) Leave");
             Console.WriteLine();
 
             ConsoleKeyInfo userinputboi;
@@ -108,7 +108,9 @@ namespace Team_Project_Week_4
                     { }
                     break;
                 case ConsoleKey.D3:
-                    { Ship.UpgradeShip(); }
+                    {
+                        Ship.UpgradeShip();
+                    }
                     break;
                 case ConsoleKey.D4:
                     { }
