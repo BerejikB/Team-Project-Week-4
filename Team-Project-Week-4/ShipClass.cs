@@ -7,14 +7,16 @@ using Team_Project_Week_4;
 
 namespace Team_Project_Week_4
 {
+
     public class Ship
     {
+        GameManager GameWorld;
         Player boi;
         public Ship(Player boi)
         {
             this.boi =  boi;
         }
-
+        
         public string shipName;
         public int shipHealth = 8;
         public double engineLevel = 9;
@@ -50,7 +52,7 @@ namespace Team_Project_Week_4
             }
 
         }
-        //
+        
         public void CalculateShipStatus()
         {
             if (shipHealth == 10)
@@ -80,50 +82,51 @@ namespace Team_Project_Week_4
             }
 
         }
-        //
-        public void UpgradeShip()
+        
+        public void AgeCalculator()
         {
-            if (shipStatus == "In Perfect Condition" || shipStatus == "In Working Order")
-            {
-                Console.Clear();
-                Console.WriteLine("Are you sure you want to upgrade your engine for $50,000?");
-                
-                //add text menu showing upgrade difference
-                //add switch statement
-                boi.playerMoney -= 50000;
-                ++engineLevel;
-                Console.WriteLine("Ship Upgraded!");
-                Console.ReadKey();
-
-            }
+            boi.playerAge += TimeToTravel();
         }
-        //
-        public void DamageShip()
+        
+        public double TravelDistance()
         {
-            if (shipHealth > 1)
+            // TODO: Travel Distance Method
+            
+            int diffX = boi.playerLocation.playerX - GameWorld.LocationX;
+            int diffY = boi.playerLocation.playerY - GameWorld.LocationX;
+            
+            if (diffX >= 0)
             {
-                --shipHealth;
+                int newX = diffX;
             }
             else
             {
-                Console.WriteLine($"{shipName} has been destroyed. Game Over.");
+                int newX = -1 * diffX;
             }
 
-        }
-        //
-        public void RepairShip()
-        {
-            if (shipStatus != "In Perfect Condition")
+            if (diffX >= 0)
             {
-                ++shipHealth;
+                int newX = diffX;
             }
+            else
+            {
+                int newX = -1 * diffX;
+            }
+
+            //Pythagorean Theorem
+            double distanceToTravel = Math.Sqrt(Math.Pow(diffX,2) + Math.Pow(diffY, 2));
+            return distanceToTravel;
         }
-
-
-        //TODO: take playerPilotingMult(1-12) into account in ship speed. add certain
-
-
-
+        
+        public double TimeToTravel()
+        {// TODO: 
+            
+            WarpFactor();
+            double lightYearTravelTime = 1 / warpVelocity;
+            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(), 12 - boi.playerPiloting);
+            return travelTime;
+        }
+        
         public void WarpFactor()
         {
 
@@ -145,47 +148,42 @@ namespace Team_Project_Week_4
 
         }
 
-        public void AgeCalculator()
+        public void RepairShip()
         {
-
-        }
-
-        public double TimeToTravel()
-        {// TODO: 
-            
-            WarpFactor();
-            double travelTime = Math.Round(TravelDistance(boi.playerLocation) / warpVelocity, 12 - boi.playerPiloting);
-            return travelTime;
-        }
-
-        public double TravelDistance((int planetX, int planetY)selectedPlanet)
-        {
-            // TODO: Travel Distance Method
-
-            int diffX = boi.playerLocation.playerX - selectedPlanet.planetX;
-            int diffY = boi.playerLocation.playerY - selectedPlanet.planetY;
-           
-            if (diffX >= 0)
+            if (shipStatus != "In Perfect Condition")
             {
-                int newX = diffX;
+                ++shipHealth;
+            }
+        }
+
+        public void DamageShip()
+        {
+            if (shipHealth > 1)
+            {
+                --shipHealth;
             }
             else
             {
-                int newX = -1 * diffX;
+                Console.WriteLine($"{shipName} has been destroyed. Game Over.");
             }
 
-            if (diffX >= 0)
-            {
-                int newX = diffX;
-            }
-            else
-            {
-                int newX = -1 * diffX;
-            }
+        }
 
-            //Pythagorean Theorem
-            double distanceToTravel = Math.Sqrt(diffX + diffY);
-            return distanceToTravel;
+        public void UpgradeShip()
+        {
+            if (shipStatus == "In Perfect Condition" || shipStatus == "In Working Order")
+            {
+                Console.Clear();
+                Console.WriteLine("Are you sure you want to upgrade your engine for $50,000?");
+                
+                //add text menu showing upgrade difference
+                //add switch statement
+                boi.playerMoney -= 50000;
+                ++engineLevel;
+                Console.WriteLine("Ship Upgraded!");
+                Console.ReadKey();
+
+            }
         }
     }
 }

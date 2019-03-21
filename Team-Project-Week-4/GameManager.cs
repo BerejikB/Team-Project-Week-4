@@ -19,7 +19,7 @@ namespace Team_Project_Week_4
         World GameWorld;
         MapGen Cartographer = new MapGen();
         RandomEvents Events = new RandomEvents();
-        Ship Ship = new Ship(boi);
+        //Ship Ship = new Ship(boi);
         
         public string WriteCenterScreen(string textToEnter)
         {
@@ -109,7 +109,7 @@ namespace Team_Project_Week_4
                     break;
                 case ConsoleKey.D3:
                     {
-                        Ship.UpgradeShip();
+                        //Ship.UpgradeShip();
                     }
                     break;
                 case ConsoleKey.D4:
