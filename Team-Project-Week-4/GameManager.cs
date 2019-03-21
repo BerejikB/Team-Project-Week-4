@@ -18,7 +18,7 @@ namespace Team_Project_Week_4
         World GameWorld;
         MapGen Cartographer = new MapGen();
         RandomEvents Events = new RandomEvents();
-        //Ship Ship = new Ship(boi);
+        Ship Ship;
         
         public string WriteCenterScreen(string textToEnter)
         {
@@ -33,13 +33,7 @@ namespace Team_Project_Week_4
         {
             Ship = new Ship(boi);
         }
-
-        public string WriteCenterScreen(string textToEnter)
-        {
-            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
-            return textToEnter;
-        }
-  
+        
         public void GoToSpot()
         {
 
