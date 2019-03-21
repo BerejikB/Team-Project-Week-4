@@ -18,22 +18,24 @@ namespace Team_Project_Week_4
         World GameWorld;
         MapGen Cartographer = new MapGen();
         RandomEvents Events = new RandomEvents();
-        Ship Ship; 
-       
+        Ship Ship;
+        
         public GameManager()
         {
             Ship = new Ship(boi);
         }
-        
+       
         Random rnd = new Random();
         public int LocationX = 0;
         public int LocationY = 0;
         public int PlanetIndex;
-        public GameManager()
+
+        public string WriteCenterScreen(string textToEnter)
         {
-            Ship = new Ship(boi);
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
+            return textToEnter;
         }
-        
+  
         public void GoToSpot()
         {
 
@@ -48,9 +50,9 @@ namespace Team_Project_Week_4
 
                 {
                     case 'y':
-                        Ship.AgeCalculator();
-                        this.boi.playerX = LocationX;
-                        this.boi.playerY = LocationY;
+                        
+                        this.boi.playerLocation.playerX = LocationX;
+                        this.boi.playerLocation.playerY = LocationY;
 
                         break;
 
@@ -70,9 +72,10 @@ namespace Team_Project_Week_4
             for (int i = 0; i < 15; i++)
 
             {
-                if (boi.playerX == this.Planets[i].locx && boi.playerY == this.Planets[i].locy)
+                if (boi.playerLocation.playerX == this.Planets[i].locx && boi.playerLocation.playerY == this.Planets[i].locy)
                 {
                     PlanetMenu(i);
+                    PlanetMarket.GenerateItemsSold();
                     i = PlanetIndex;
                 }
 
@@ -84,7 +87,7 @@ namespace Team_Project_Week_4
         {
             Console.Clear();
             Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
-            Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerX} Y:{boi.playerY}");
+            Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
             Console.WriteLine($"You are at {Planets[i].name}");
             Console.WriteLine($"The economy is  {Planets[i].economy}");
             Console.WriteLine("What would you like to do?");
@@ -121,19 +124,21 @@ namespace Team_Project_Week_4
 
             }
         }
+
         public void Market(int i)
         {
             Market Store = new Market();
             Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
-            Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerX} Y:{boi.playerY}");
+            Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
             Console.WriteLine($"You are at {Planets[i].name}");
             Console.WriteLine($"The economy is  {Planets[i].economy}");
+            
             Store.PrintItemsSold();
+            Store.GenerateItemsSold();
             Store.SelectItem(boi);
                      
 
         }
-
 
         public void DrawEarth()
         {
@@ -275,11 +280,11 @@ namespace Team_Project_Week_4
             this.GameWorld = load.LoadXMLWorld(load.SaveSlot());
             this.Planets = load.LoadXMLPlanets(load.SaveSlot()); 
             this.boi = load.LoadXML(load.SaveSlot());
-            this.Ship = load.LoadXMLShip(load.SaveSlot());
+            //this.Ship = load.LoadXMLShip(load.SaveSlot());
             bool gameRunning = true;
             ConsoleKeyInfo userKey;
-            LocationX = boi.playerX;
-            LocationY = boi.playerY;
+            LocationX = boi.playerLocation.playerX;
+            LocationY = boi.playerLocation.playerY;
 
             while (gameRunning)
             {
@@ -405,16 +410,16 @@ namespace Team_Project_Week_4
                         Console.Clear();
                         
                         Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
-                        Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerX} Y:{boi.playerY}");
+                        Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         DrawEarth();
                         DrawPlanet();
 
                         Console.SetCursorPosition(LocationX, LocationY);
-                         Console.WriteLine("X");
+                        Console.WriteLine("X");
 
 
                     }
-                    catch (ArgumentOutOfRangeException) { Console.SetCursorPosition(boi.playerX, boi.playerY); }
+                    catch (ArgumentOutOfRangeException) { Console.SetCursorPosition(boi.playerLocation.playerX, boi.playerLocation.playerY); }
 
                 }
 

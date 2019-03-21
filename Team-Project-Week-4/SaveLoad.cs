@@ -13,23 +13,23 @@ using System.Xml.Linq;
 public class xmlSaver
 {
 
-    public int SaveSlotsetter = 0;
+    public int? SaveSlotsetter = null;
+
     public int SaveSlot()
     {
-       if (SaveSlotsetter == 0)
+        while (SaveSlotsetter == null)
         {
             try
             {
                 Console.WriteLine("Select Save Slot");
-                int SaveSlotsetter = int.Parse(Console.ReadLine());
-                return SaveSlotsetter;
+                SaveSlotsetter = int.Parse(Console.ReadLine());
             }
             catch (Exception) { Console.WriteLine("try again"); }
-            return SaveSlotsetter;
         }
-        return SaveSlotsetter;
+
+        return (int)SaveSlotsetter;
     }
-        
+
     public void WriteXML(Player playerStats)
     {
         try
@@ -70,24 +70,19 @@ public class xmlSaver
 
     public void WriteXMLShip(Ship Ship)
     {
-        try
-        {
+        //try
+        //{
             XmlSerializer writer = new XmlSerializer(typeof(Ship));
 
             System.IO.StreamWriter file = new StreamWriter($"Ship{SaveSlot()}.xml");
             writer.Serialize(file, Ship);
-
-
             file.Close();
-        }
-        catch (Exception) { WriteXMLShip(Ship); }
-        Console.WriteLine("Character saved");
+       // }
+        //catch (Exception) { WriteXMLShip(Ship); }
+        Console.WriteLine("Ship saved");
         Console.WriteLine();
 
     }
-
-
-
 
 }
 
@@ -173,26 +168,23 @@ public class xmlLoader
     }
 
        
-    public Ship LoadXMLShip(int SaveSlotsetter)
-    {
-        Player boi = LoadXML(SaveSlotsetter);
-        Ship Shipo = new Ship(boi);
+    //public Ship LoadXMLShip(int SaveSlotsetter)
+    //{
+    //    Player boi = LoadXML(SaveSlotsetter);
+    //    Ship Shipo = new Ship(boi);
 
-        System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-        doc.Load($"Ship{SaveSlot()}.xml");
-        var ShipStatus = doc.SelectSingleNode("Ship");
+    //    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+    //    doc.Load($"Ship{SaveSlot()}.xml");
+    //    var ShipStatus = doc.SelectSingleNode("Ship");
 
-        Shipo.shipHealth = Convert.ToInt32(ShipStatus.SelectSingleNode("shipHealth").InnerText);
-        Shipo.shipStatus = Convert.ToString(ShipStatus.SelectSingleNode("shipStatus").InnerText);
-        Shipo.engineLevel = Convert.ToInt32(ShipStatus.SelectSingleNode("engineLevel").InnerText);
-
-
-        return Shipo;
+    //    Shipo.shipHealth = Convert.ToInt32(ShipStatus.SelectSingleNode("shipHealth").InnerText);
+    //    Shipo.shipStatus = Convert.ToString(ShipStatus.SelectSingleNode("shipStatus").InnerText);
+    //    Shipo.engineLevel = Convert.ToInt32(ShipStatus.SelectSingleNode("engineLevel").InnerText);
 
 
-
+    //    return Shipo;
      
-    }
+    //}
 
 
 }

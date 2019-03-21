@@ -17,14 +17,25 @@ public class NoAtribPoints : Exception
 
 public class SetAttribMenu 
 {
-    World GameWorld = new World();
+
+
     
+    World GameWorld = new World();
+
     Player playerAttribs;
+
     public SetAttribMenu(Player boi)
     {
         this.playerAttribs = boi;
+        
     }
-       
+    Ship Shipo;
+    public SetAttribMenu()
+    {
+        Shipo = new Ship(playerAttribs);
+    }
+
+
     public void TestPlayerMakerXML()
     {
         GameWorld.PlanetGenerator();
@@ -395,6 +406,7 @@ public class SetAttribMenu
                 { SaveFunct.WriteXML(playerAttribs);
 
                   SaveFunct.WriteXMLWorld(GameWorld);
+                  //SaveFunct.WriteXMLShip(Shipo);
 
                 }
                 break;

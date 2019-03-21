@@ -14,6 +14,7 @@ namespace Team_Project_Week_4
 
         GameManager GameWorld;
         Player boi;
+
         public Ship(Player boi)
         {
             this.Boi = boi;
@@ -193,6 +194,11 @@ namespace Team_Project_Week_4
 
         public void UpgradeShip()
         {
+
+
+            Console.Clear();
+
+            Console.WriteLine("Are you sure you want to upgrade your engine for $50,000?");
             if (shipStatus == "In Perfect Condition" || shipStatus == "In Working Order")
             {
                 Console.Clear();

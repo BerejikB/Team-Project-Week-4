@@ -14,8 +14,9 @@ using Team_Project_Week_4;
 public class Player
 {
     public double playerAge;
-    public int playerX;
-    public int playerY;
+    public (int playerX, int playerY) playerLocation;
+    //public int playerX;
+    //public int playerY;
     public int playerSecurity;  //chance to defend self
     public int playerSpeech;       //Price multiplier
     public int playerMaintenance;     //Likelyness to break 
@@ -28,7 +29,7 @@ public class Player
     public double playerMoney;
     public bool isDead;
     public double timeElapsed;
-    
+   
 
     //Attribute Multipliers, add to base values later
     public double PlayerPriceMultSell()
