@@ -77,7 +77,8 @@ namespace Team_Project_Week_4
             else if (shipHealth == 0)
             {
                 shipStatus = "Destroyed";
-                //TODO: add Player is dead
+                boi.isDead = true;
+                
             }
 
         }
@@ -88,7 +89,7 @@ namespace Team_Project_Week_4
         }
 
         public double TimeToTravel()
-        {// TODO: 
+        {
 
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
@@ -98,10 +99,8 @@ namespace Team_Project_Week_4
 
         public double TravelDistance()
         {
-            // TODO: Travel Distance Method
-
-            int diffX = boi.playerLocation.playerX - GameWorld.LocationX;
-            int diffY = boi.playerLocation.playerY - GameWorld.LocationX;
+            int diffX = boi.playerX - GameWorld.LocationX;
+            int diffY = boi.playerY - GameWorld.LocationX;
 
             if (diffX >= 0)
             {
@@ -227,6 +226,7 @@ namespace Team_Project_Week_4
 
         public void CalculateFuel()
         {
+            //TODO: Fuel
             //LY/FuelUnit
 
         }
