@@ -39,8 +39,8 @@ public class SetAttribMenu
     public void TestPlayerMakerXML()
     {
         GameWorld.PlanetGenerator();
-        playerAttribs.playerX = GameWorld.EarthX;
-        playerAttribs.playerY = GameWorld.EarthY;
+        playerAttribs.playerLocation.playerX = GameWorld.EarthX;
+        playerAttribs.playerLocation.playerY = GameWorld.EarthY;
         playerAttribs.playerSecurity = 5;
         playerAttribs.playerSpeech = 5;
         playerAttribs.playerMaintenance = 5;

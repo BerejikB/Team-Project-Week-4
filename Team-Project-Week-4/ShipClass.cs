@@ -100,8 +100,8 @@ namespace Team_Project_Week_4
 
         public double TravelDistance()
         {
-            int diffX = boi.playerX - GameWorld.LocationX;
-            int diffY = boi.playerY - GameWorld.LocationX;
+            int diffX = boi.playerLocation.playerX - GameWorld.LocationX;
+            int diffY = boi.playerLocation.playerY - GameWorld.LocationX;
 
             if (diffX >= 0)
             {
