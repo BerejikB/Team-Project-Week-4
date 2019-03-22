@@ -16,10 +16,7 @@ public class NoAtribPoints : Exception
 }
 
 public class SetAttribMenu 
-{
-
-
-    
+{        
     World GameWorld = new World();
 
     Player playerAttribs;
@@ -46,7 +43,7 @@ public class SetAttribMenu
         playerAttribs.playerMaintenance = 5;
         playerAttribs.playerPiloting = 5;
         playerAttribs.playerLuck = 5;
-        playerAttribs.playerMoney = 250000;
+        playerAttribs.playerMoney = 2500;
         playerAttribs.pointsAvail = 7;
         playerAttribs.playerAge = 20;
        

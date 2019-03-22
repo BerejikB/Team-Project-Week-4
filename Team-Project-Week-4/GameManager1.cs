@@ -10,6 +10,8 @@ namespace Team_Project_Week_4
         
     public class GameManager
     {
+        public class NoItems : Exception { }
+        public class NoMoney : Exception { }
         Market PlanetMarket = new Market();
         List<PlanetGen> Planets = new List<PlanetGen>();
         xmlSaver save = new xmlSaver();
@@ -41,7 +43,7 @@ namespace Team_Project_Week_4
 
             Console.Clear();
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
-           
+            Console.WriteLine($"This will take {0}");
             try
             {
                 char userinput = char.Parse(Console.ReadLine().ToLower());
@@ -50,7 +52,7 @@ namespace Team_Project_Week_4
 
                 {
                     case 'y':
-                        Ship.AgeCalculator();
+                        //Ship.AgeCalculator();                        
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
 
@@ -104,7 +106,9 @@ namespace Team_Project_Week_4
             switch (userinputboi.Key)
             {
                 case ConsoleKey.D1:
-                    { Market(i); }
+                    {
+                        PlanetMarket.GenerateItemsSold();
+                        Market(i); }
                     break;
                 case ConsoleKey.D2:
                     {
@@ -119,7 +123,7 @@ namespace Team_Project_Week_4
                     }
                     break;
                 case ConsoleKey.D4:
-                    { }
+                    
                     break;
 
             }
@@ -134,7 +138,7 @@ namespace Team_Project_Week_4
             Console.WriteLine($"The economy is  {Planets[i].economy}");
             
             Store.PrintItemsSold();
-            Store.GenerateItemsSold();
+           
             Store.SelectItem(boi);
                      
 
