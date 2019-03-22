@@ -12,23 +12,45 @@ namespace Team_Project_Week_4
     {
         public class NoItems : Exception { }
         public class NoMoney : Exception { }
-        Market PlanetMarket = new Market();
-        List<PlanetGen> Planets = new List<PlanetGen>();
-        xmlSaver save = new xmlSaver();
-        xmlLoader load = new xmlLoader();
-        Player boi = new Player();
-        Ship Shipo = new Ship();
-        MapGen Cartographer = new MapGen();
-        RandomEvents Events = new RandomEvents();
+        Market PlanetMarket;
+        List<PlanetGen> Planets ;
+        xmlSaver save;
+        xmlLoader load ;
+        Player boi ;
+        Ship Shipo;
+
+        RandomEvents Events;
         World GameWorld;
        
         
                
         Random rnd = new Random();
         public int planetIndex;
-        public int LocationX = 0;
-        public int LocationY = 0;
+        public int LocationX;
+        public int LocationY;
         public int PlanetIndex;
+
+        public GameManager()
+        {
+
+            PlanetMarket = new Market();
+            Planets = new List<PlanetGen>();
+            save = new xmlSaver();
+            load = new xmlLoader();
+            boi = new Player();
+            Shipo = new Ship();
+            Shipo.boi = boi;
+
+            GameWorld = new World();
+
+
+            Events = new RandomEvents();
+
+            rnd = new Random();
+        
+            LocationX = 0;
+            LocationY = 0;
+    }
 
         public string WriteCenterScreen(string textToEnter)
         {
@@ -41,7 +63,7 @@ namespace Team_Project_Week_4
 
             Console.Clear();
             Console.WriteLine($"Your ship is capable of Warp Factor {Shipo.engineLevel}");
-            //Console.WriteLine($"This will take {Shipo.TimeToTravel(GMBoi)}");
+            Console.WriteLine($"This will take {Shipo.TimeToTravel(this.LocationX, this.LocationY)}");
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
             try
             {
@@ -185,8 +207,16 @@ namespace Team_Project_Week_4
             Console.Write('?');
         }
 
-        public void StartMenu()
+        public void StartGame()
+        {
+            while (true)
+            {
+                StartMenu();
+            }
+        }
 
+
+        private void StartMenu()
         {
             Console.Clear();
             Console.WriteLine(Console.WindowWidth);
@@ -218,16 +248,16 @@ namespace Team_Project_Week_4
                 case 1:
                     {
 
-                        SetAttribMenu NewPlayer = new SetAttribMenu(boi);
+                        SetAttribMenu NewPlayer = new SetAttribMenu(boi, Shipo);
                         NewPlayer.TestPlayerMakerXML();
-                        StartMenu();
+                        //StartMenu();
                     }
                     break;
 
                 case 2:
                     {
                         RunLoop();
-                        StartMenu();
+                        //StartMenu();
                     }
                     break;
 
@@ -235,7 +265,7 @@ namespace Team_Project_Week_4
                     {
                         PrintStat();
                         Console.ReadKey();
-                        StartMenu();
+                        //StartMenu();
                     }
            
                     break;
@@ -419,7 +449,7 @@ namespace Team_Project_Week_4
 
 
                             case ConsoleKey.Spacebar:
-                                Cartographer.DrawPlanet();
+                                //Cartographer.DrawPlanet();
                                 break;
 
                         }

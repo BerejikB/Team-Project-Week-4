@@ -24,7 +24,7 @@ public class ProgramRun
             //Console.BufferWidth = 122;
 
 
-            MainProgramRun.StartMenu();
+            MainProgramRun.StartGame();
         }
 
 

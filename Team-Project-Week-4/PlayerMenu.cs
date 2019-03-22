@@ -20,16 +20,12 @@ public class SetAttribMenu
     World GameWorld = new World();
 
     Player playerAttribs;
+    Ship NewShipo;
 
-    public SetAttribMenu(Player boi)
+    public SetAttribMenu(Player boi, Ship shipo)
     {
         this.playerAttribs = boi;
-    }
-
-    Ship NewShipo = new Ship();
-    public SetAttribMenu(Ship Shipo)
-    {
-        this.NewShipo = Shipo;
+        this.NewShipo = shipo;
     }
 
 
@@ -65,32 +61,36 @@ public class SetAttribMenu
         playerAttribs.Profession = Console.ReadLine();
         Console.WriteLine($"Are you sure your name is {playerAttribs.FirstName} {playerAttribs.LastName}, and you want to be a {playerAttribs.Profession}?");
         Console.WriteLine("Y/N");
-
-        char playerIsSure = char.Parse(Console.ReadLine().ToLower());
-        switch (playerIsSure)
-
+        
+        ConsoleKeyInfo playerIsSure;
+        playerIsSure = Console.ReadKey(true);
+        if (Console.KeyAvailable)
         {
+            switch (playerIsSure.Key)
 
-            case 'y':
-                {
-                    Console.WriteLine($"Welcome {playerAttribs.FirstName}, Time to begin your adveture.");
-                }
-                break;
+            {
 
-
-            case 'n':
-                {
-                    TestPlayerMakerXML();
-                }
-                break;
-
-            default:
-                {
-                    TestPlayerMakerXML();
-                }
-                break;
+                case ConsoleKey.Y:
+                    {
+                        Console.WriteLine($"Welcome {playerAttribs.FirstName}, Time to begin your adveture.");
+                    }
+                    break;
 
 
+                case ConsoleKey.N:
+                    {
+                        TestPlayerMakerXML();
+                    }
+                    break;
+
+                default:
+                    {
+                        TestPlayerMakerXML();
+                    }
+                    break;
+
+
+            }
         }
 
         Console.WriteLine();

@@ -187,13 +187,13 @@ namespace Team_Project_Week_4
                 case ConsoleKey.RightArrow:
                     {
                         BuyItem(boi);
-                        SelectItem(boi);
+                        //SelectItem(boi);
                     }
                     break;
                 case ConsoleKey.LeftArrow:
                     {
                         SellItem(boi);
-                        SelectItem(boi);
+                       // SelectItem(boi);
                     }
                     break;
 
@@ -227,6 +227,7 @@ namespace Team_Project_Week_4
 
                 Console.WriteLine($"{numSold} {allItemsSold[r].name} Bought");
                 numSold = 0;
+                SelectItem(boi);
 
 
             }
@@ -251,7 +252,7 @@ namespace Team_Project_Week_4
         {
             try
             {
-                if (PlayerInventory[r].Playerquantity == -1)
+                if (PlayerInventory[r].Playerquantity <= 0)
                 { throw new NoItems { }; }
                 if (allItemsSold[0].PlanetMoney <= allItemsSold[r].price)
                 { throw new PlanetBroke { }; }
@@ -268,31 +269,22 @@ namespace Team_Project_Week_4
                 allItemsSold[0].PlanetMoney -= finalprice;
                 Console.WriteLine($"{numSold}{allItemsSold[r].name} Sold");
                 numSold = 0;
+                SelectItem(boi);
 
 
             }
             catch (PlanetBroke)
             {
-                //PlayerInventory[r].Playerquantity++;
-                //allItemsSold[r].Planetquantity--;
-                //boi.playerMoney -= allItemsSold[r].price;
-                //allItemsSold[0].PlanetMoney = 0;
-                
+                                
                 SelectItem(boi);
 
 
             }
             catch (NoItems)
             {
-                //PlayerInventory[r].Playerquantity = 0;
-                //double itemprice = allItemsSold[r].price;
-                //double playerspch = boi.playerSpeech;
-                //double playermult = playerspch *= .02;
-                //double addin = playermult *= itemprice;
-                //double finalprice = itemprice += addin;
+                PlayerInventory[r].Playerquantity = 0;
                 //allItemsSold[r].Planetquantity--;
-                //boi.playerMoney += finalprice;
-                //allItemsSold[r].PlanetMoney -= finalprice;
+                //boi.playerMoney -= allItemsSold[r].price;
                 SelectItem(boi);
             }
             

@@ -72,12 +72,12 @@ public class xmlSaver
     {
         //try
         //{
-            XmlSerializer writer = new XmlSerializer(typeof(Ship));
+        XmlSerializer writer = new XmlSerializer(typeof(Ship));
 
-            System.IO.StreamWriter file = new StreamWriter($"Ship{SaveSlot()}.xml");
-            writer.Serialize(file, Shipo);
-            file.Close();
-       // }
+        System.IO.StreamWriter file = new StreamWriter($"Ship{SaveSlot()}.xml");
+        writer.Serialize(file, Shipo);
+        file.Close();
+        // }
         //catch (Exception) { WriteXMLShip(Ship); }
         Console.WriteLine("Ship saved");
         Console.WriteLine();
@@ -172,6 +172,7 @@ public class xmlLoader
     {
         Player boi = LoadXML(SaveSlotsetter);
         Ship Shipo = new Ship();
+        Shipo.boi = boi;
 
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
         doc.Load($"Ship{SaveSlot()}.xml");

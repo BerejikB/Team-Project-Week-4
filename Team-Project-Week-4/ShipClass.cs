@@ -17,29 +17,15 @@ namespace Team_Project_Week_4
         public string shipStatus = "In Working Order";
         public double warpVelocity;
 
-        Player boi;
-        GameManager GMBoi;
-        public Ship(GameManager GMBoi)
-        {
-            this.GMBoi = GMBoi;
-        }
-
-        
-        
-        public Ship(Player boi)
-        {
-            this.boi = boi;
-        }
-
+        public Player boi;
+       
         public Ship()
         {
-
-
-
-
         }
 
-        public void ShipStatus(GameManager GMBoi)
+       
+
+        public void ShipStatus()
         {
             CalculateShipStatus();
             Console.WriteLine($"Ship Name: {shipName}" +
@@ -97,24 +83,24 @@ namespace Team_Project_Week_4
 
         }
 
-        public void AgeCalculator(GameManager GMBoi)
+        public void AgeCalculator(int x, int y)
         {
-            boi.playerAge += TimeToTravel(GMBoi);
+            boi.playerAge += TimeToTravel(x, y);
         }
 
-        public double TimeToTravel(GameManager GMBoi)
+        public double TimeToTravel(int x, int y)
         {
 
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
-            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(GMBoi), 12 - boi.playerPiloting);
+            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(x, y), 12 - boi.playerPiloting);
             return travelTime;
         }
 
-        public double TravelDistance(GameManager GMBoi)
+        public double TravelDistance(int x, int y)
         {
-            int diffX = boi.playerLocation.playerX - GMBoi.LocationX;
-            int diffY = boi.playerLocation.playerY - GMBoi.LocationX;
+            int diffX = boi.playerLocation.playerX - x;
+            int diffY = boi.playerLocation.playerY - y;
 
             if (diffX >= 0)
             {
