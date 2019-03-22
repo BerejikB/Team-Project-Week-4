@@ -12,7 +12,7 @@ namespace Team_Project_Week_4
     {
         Player Boi;
 
-        GameManager GameWorld;
+        
         Player boi;
 
         public Ship(Player boi)
@@ -84,22 +84,22 @@ namespace Team_Project_Week_4
 
         }
 
-        public void AgeCalculator()
+        public void AgeCalculator(GameManager GameWorld)
         {
-            boi.playerAge += TimeToTravel();
+            boi.playerAge += TimeToTravel(GameWorld);
         }
 
-        public double TimeToTravel()
+        public double TimeToTravel(GameManager GameWorld)
         {
 
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
-            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(), 12 - boi.playerPiloting);
+            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(GameWorld), 12 - boi.playerPiloting);
             return travelTime;
         }
 
-        public double TravelDistance()
-        {//TODO: GameWorld needs to be a parameter, will be passed in in the GameManager class
+        public double TravelDistance(GameManager GameWorld)
+        {
             int diffX = boi.playerLocation.playerX - GameWorld.LocationX;
             int diffY = boi.playerLocation.playerY - GameWorld.LocationX;
 
@@ -121,7 +121,7 @@ namespace Team_Project_Week_4
                 int newX = -1 * diffX;
             }
 
-            //Pythagorean Theorem
+            
             double distanceToTravel = Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2));
             return distanceToTravel;
         }
