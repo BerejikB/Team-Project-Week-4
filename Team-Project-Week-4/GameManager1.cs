@@ -18,10 +18,11 @@ namespace Team_Project_Week_4
         xmlLoader load = new xmlLoader();
         Player boi = new Player();
         World GameWorld;
+        GameManager GMboi;
         MapGen Cartographer = new MapGen();
         RandomEvents Events = new RandomEvents();
         Ship Ship;
-        
+        public int planetIndex;
         public GameManager()
         {
             Ship = new Ship(boi);
@@ -163,6 +164,13 @@ namespace Team_Project_Week_4
 
         }
 
+        public void SetPlayer()
+        {
+            Console.SetCursorPosition(Planets[planetIndex].locx -1, Planets[planetIndex].locy);
+            Console.Write("[ ]");
+            LocationX = Planets[planetIndex].locx;
+            LocationY = Planets[planetIndex].locy;
+        }
         public void DrawEvent()
         {
             int LocationX = rnd.Next(4, Console.WindowWidth);
@@ -325,7 +333,8 @@ namespace Team_Project_Week_4
                 }
                 if (Console.KeyAvailable)
                 {
-                   
+                    
+
                     userKey = Console.ReadKey(true);
                     try
                     {
@@ -334,27 +343,24 @@ namespace Team_Project_Week_4
 
                             case ConsoleKey.LeftArrow:
 
-                                try
-                                {
-                                    if (LocationX > 4)
-                                    {
-                                        LocationX = LocationX - 1;
-                                    }
-                                }
-                                catch (Exception) { LocationX = LocationX + 1; }
 
+                                if (planetIndex < 0)
+                                { planetIndex = 0; }
+                                else {  planetIndex--;}
+                               
+                               
+                                
                                 break;
 
 
                             case ConsoleKey.RightArrow:
-                                try
-                                {
-                                    if (LocationX < Console.WindowWidth)
-                                    {
-                                        LocationX = LocationX + 1;
-                                    }
-                                }
-                                catch (Exception) { LocationX = LocationX - 1; }
+                                
+                                
+
+                                if (planetIndex > 15)
+                                { planetIndex = 15; }
+                                else { planetIndex++; }
+
                                 break;
 
 
@@ -412,14 +418,14 @@ namespace Team_Project_Week_4
 
                         }
                         Console.Clear();
-                        
                         Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
-                        DrawEarth();
+                        SetPlayer();
                         DrawPlanet();
+                        DrawEarth();
 
-                        Console.SetCursorPosition(LocationX, LocationY);
-                        Console.WriteLine("X");
+                        //Console.SetCursorPosition(LocationX, LocationY);
+                        //Console.WriteLine("X");
 
 
                     }

@@ -141,14 +141,14 @@ namespace Team_Project_Week_4
 
         public void PrintItemsSold()
         {
-            foreach (var item in allItemsSold)
+            Console.WriteLine("Your Inventory:");
+            foreach (var item in PlayerInventory)
             {
                 
-                Console.WriteLine(item.name);
+                Console.WriteLine($"{item.name}: {item.Playerquantity}");
             }
 
         }
-
 
         public void SelectItem(Player boi)
         {
@@ -157,10 +157,10 @@ namespace Team_Project_Week_4
             Console.Clear();
             PrintItemsSold();
             Console.WriteLine();
-            Console.WriteLine($"Planet has ${allItemsSold[r].PlanetMoney}");
+            Console.WriteLine($"Planet has ${allItemsSold[0].PlanetMoney}");
             Console.WriteLine($"Current Wallet   ${ boi.playerMoney} You have {PlayerInventory[r].Playerquantity} {PlayerInventory[r].name} ");
             Console.WriteLine($"Your Speech skill will give a {playerspeechmult}% bonus.");
-            Console.WriteLine($"Planet has ${allItemsSold[r].PlanetMoney}. Planet has {allItemsSold[r].Planetquantity} {allItemsSold[r].name}'s");
+            Console.WriteLine($"Planet has ${allItemsSold[0].PlanetMoney}. Planet has {allItemsSold[r].Planetquantity} {allItemsSold[r].name}'s");
             Console.WriteLine("Press Right arrow to buy, press Left arrow to Sell, press Up and Down arrow to select");
             Console.WriteLine($"{allItemsSold[r].name} Selected");
             ConsoleKeyInfo userinputboi;
@@ -210,7 +210,11 @@ namespace Team_Project_Week_4
         {
             try
             {
-                
+                if (boi.playerMoney <= 0)
+                { throw new NoMoney { }; }
+                if (allItemsSold[r].Planetquantity <= 0)
+                { throw new PlanetNoItems { }; }
+
                 double itemprice = allItemsSold[r].price;
                 double playerspch = boi.playerSpeech;
                 double playermult = playerspch *= .02;
@@ -219,21 +223,25 @@ namespace Team_Project_Week_4
                 PlayerInventory[r].Playerquantity++;
                 allItemsSold[r].Planetquantity--;
                 boi.playerMoney -= finalprice;
+                allItemsSold[0].PlanetMoney += finalprice;
 
-                    Console.WriteLine($"{numSold} {allItemsSold[r].name} Bought");
-                    numSold = 0;
-                   
-             
-                if (boi.playerMoney <= 0)
-                {  throw new NoMoney { }; }
+                Console.WriteLine($"{numSold} {allItemsSold[r].name} Bought");
+                numSold = 0;
+
 
             }
-
+            catch (PlanetNoItems)
+            {
+                PlayerInventory[r].Playerquantity--;
+                allItemsSold[r].Planetquantity = 0;
+                //boi.playerMoney += allItemsSold[r].price;
+                SelectItem(boi);
+            }
             catch (NoMoney)
             {
                 PlayerInventory[r].Playerquantity--;
                 allItemsSold[r].Planetquantity++;
-                boi.playerMoney += allItemsSold[r].price;
+                boi.playerMoney = 0;
                 SelectItem(boi);
             }
 
@@ -243,6 +251,10 @@ namespace Team_Project_Week_4
         {
             try
             {
+                if (PlayerInventory[r].Playerquantity <= -0)
+                { throw new NoItems { }; }
+                if (allItemsSold[0].PlanetMoney <= 0)
+                { throw new PlanetBroke { }; }
 
                 double itemprice = allItemsSold[r].price;
                 double playerspch = boi.playerSpeech;
@@ -253,21 +265,19 @@ namespace Team_Project_Week_4
                 boi.playerMoney += finalprice;
                 PlayerInventory[r].Playerquantity--;
                 allItemsSold[r].Planetquantity++;
+                allItemsSold[0].PlanetMoney -= finalprice;
                 Console.WriteLine($"{numSold}{allItemsSold[r].name} Sold");
                 numSold = 0;
 
 
-                if (PlayerInventory[r].Playerquantity <= -0)
-                { throw new NoItems { }; }
-                if (allItemsSold[r].PlanetMoney <= 0)
-                { throw new PlanetBroke { }; }
             }
             catch (PlanetBroke)
             {
-
                 PlayerInventory[r].Playerquantity++;
                 allItemsSold[r].Planetquantity--;
                 boi.playerMoney -= allItemsSold[r].price;
+                allItemsSold[0].PlanetMoney = 0;
+                
                 SelectItem(boi);
 
 
@@ -281,7 +291,8 @@ namespace Team_Project_Week_4
                 double addin = playermult *= itemprice;
                 double finalprice = itemprice += addin;
                 allItemsSold[r].Planetquantity--;
-                boi.playerMoney -= finalprice;
+                boi.playerMoney += finalprice;
+                allItemsSold[r].PlanetMoney -= finalprice;
                 SelectItem(boi);
             }
             
@@ -294,7 +305,7 @@ namespace Team_Project_Week_4
             {
                 int itemno = Rando.Next(0, 30);
                 int planetmoney = Rando.Next(0, 3719);
-                allItemsSold[x].PlanetMoney = planetmoney;
+                allItemsSold[0].PlanetMoney = planetmoney;
                 allItemsSold[x].Planetquantity = itemno;
                 Console.WriteLine(allItemsSold[x].name);
             }
