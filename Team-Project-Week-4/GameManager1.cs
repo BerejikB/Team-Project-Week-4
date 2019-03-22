@@ -51,7 +51,7 @@ namespace Team_Project_Week_4
 
                 {
                     case 'y':
-                        Ship.AgeCalculator(GMBoi);                        
+                        //Ship.AgeCalculator(GMBoi);                        
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
 
