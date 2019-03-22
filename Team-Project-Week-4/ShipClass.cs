@@ -84,24 +84,24 @@ namespace Team_Project_Week_4
 
         }
 
-        public void AgeCalculator(GameManager GameWorld)
+        public void AgeCalculator(GameManager GMBoi)
         {
-            boi.playerAge += TimeToTravel(GameWorld);
+            boi.playerAge += TimeToTravel(GMBoi);
         }
 
-        public double TimeToTravel(GameManager GameWorld)
+        public double TimeToTravel(GameManager GMBoi)
         {
 
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
-            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(GameWorld), 12 - boi.playerPiloting);
+            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(GMBoi), 12 - boi.playerPiloting);
             return travelTime;
         }
 
-        public double TravelDistance(GameManager GameWorld)
+        public double TravelDistance(GameManager GMBoi)
         {
-            int diffX = boi.playerLocation.playerX - GameWorld.LocationX;
-            int diffY = boi.playerLocation.playerY - GameWorld.LocationX;
+            int diffX = boi.playerLocation.playerX - GMBoi.LocationX;
+            int diffY = boi.playerLocation.playerY - GMBoi.LocationX;
 
             if (diffX >= 0)
             {

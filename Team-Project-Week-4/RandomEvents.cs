@@ -8,9 +8,10 @@ namespace Team_Project_Week_4
 {
     class RandomEvents
     {
+        Random rnd = new Random();
         public void NumOfEvents()
         {
-            Random rnd = new Random();
+            
             int eventNum = rnd.Next(3, 5);
 
             do
@@ -22,20 +23,66 @@ namespace Team_Project_Week_4
         }
 
         public void EventType()
-        { }
+        {
+            //switch statement for random selection of event
+            int eventType = rnd.Next(1, 5);
+            switch (eventType)
+            {
+                case 1:
+                    {
+                        LootBox();
+                        break;
+                    }
+                case 2:
+                    {
+                        Raid();
+                        break;
+                    }
+                case 3:
+                    {
+                        Malfunction();
+                        break;
+                    }
+                case 4:
+                    {
+                        Wormhole();
+                        break;
+                    }
+            }
+        }
 
+        public void DistressCall()
+        {
+            Console.Clear();
+            Console.WriteLine("");
+        }
         public void LootBox()
-        { }
+        {
+            //distress call method
+            //if distress call is answered, get free repair, or upgrade if no need for repairs, or free beer
+            //
+        }
 
         public void Raid()
-        { }
+        {
+            //distress call method
+            //if distress call is answered, dialogue for hiding in a secret compartment while your ship gets damaged, robbed
+            //
+        }
 
-        public void Malfuntion()
-        { }
+        public void Malfunction()
+        {
+            //dialogue with switch statement for determining type of malfunction from small set of options
+            //drops ship health 
+            //notify that repairs can be made at the nearest planet
+        }
 
         public void Wormhole()
         {
-            //TODO: 
+            //random generator for x and y coordinates
+            //setCursor to these new x and y coordinates
+            //prompts dialogue to inform you of wormhole event
+
         }
 
         //this.boi.playerLocation.playerX = LocationX;
