@@ -232,15 +232,15 @@ namespace Team_Project_Week_4
             }
             catch (PlanetNoItems)
             {
-                PlayerInventory[r].Playerquantity--;
+                
                 allItemsSold[r].Planetquantity = 0;
                 //boi.playerMoney += allItemsSold[r].price;
                 SelectItem(boi);
             }
             catch (NoMoney)
             {
-                PlayerInventory[r].Playerquantity--;
-                allItemsSold[r].Planetquantity++;
+                //PlayerInventory[r].Playerquantity--;
+                //allItemsSold[r].Planetquantity++;
                 boi.playerMoney = 0;
                 SelectItem(boi);
             }
@@ -251,7 +251,7 @@ namespace Team_Project_Week_4
         {
             try
             {
-                if (PlayerInventory[r].Playerquantity <= -0)
+                if (PlayerInventory[r].Playerquantity < 0)
                 { throw new NoItems { }; }
                 if (allItemsSold[0].PlanetMoney <= 0)
                 { throw new PlanetBroke { }; }
@@ -273,9 +273,9 @@ namespace Team_Project_Week_4
             }
             catch (PlanetBroke)
             {
-                PlayerInventory[r].Playerquantity++;
-                allItemsSold[r].Planetquantity--;
-                boi.playerMoney -= allItemsSold[r].price;
+                //PlayerInventory[r].Playerquantity++;
+                //allItemsSold[r].Planetquantity--;
+                //boi.playerMoney -= allItemsSold[r].price;
                 allItemsSold[0].PlanetMoney = 0;
                 
                 SelectItem(boi);

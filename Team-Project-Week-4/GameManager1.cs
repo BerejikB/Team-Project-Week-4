@@ -17,18 +17,15 @@ namespace Team_Project_Week_4
         xmlSaver save = new xmlSaver();
         xmlLoader load = new xmlLoader();
         Player boi = new Player();
-        World GameWorld;
-        GameManager GMboi;
+        Ship Shipo = new Ship();
         MapGen Cartographer = new MapGen();
         RandomEvents Events = new RandomEvents();
-        Ship Ship;
-        public int planetIndex;
-        public GameManager()
-        {
-            Ship = new Ship(boi);
-        }
+        World GameWorld;
        
+        
+               
         Random rnd = new Random();
+        public int planetIndex;
         public int LocationX = 0;
         public int LocationY = 0;
         public int PlanetIndex;
@@ -43,8 +40,9 @@ namespace Team_Project_Week_4
         {
 
             Console.Clear();
+            Console.WriteLine($"Your ship is capable of Warp Factor {Shipo.engineLevel}");
+            //Console.WriteLine($"This will take {Shipo.TimeToTravel(GMBoi)}");
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
-            Console.WriteLine($"This will take {0}");
             try
             {
                 char userinput = char.Parse(Console.ReadLine().ToLower());
@@ -113,13 +111,13 @@ namespace Team_Project_Week_4
                     break;
                 case ConsoleKey.D2:
                     {
-                        Ship.RepairShip();
+                        Shipo.RepairShip();
                         PlanetMenu(i);
                     }
                     break;
                 case ConsoleKey.D3:
                     {
-                        Ship.UpgradeShip();
+                        Shipo.UpgradeShip();
                         PlanetMenu(i);
                     }
                     break;
@@ -164,6 +162,13 @@ namespace Team_Project_Week_4
 
         }
 
+        public void YouAreHere()
+        {
+            Console.SetCursorPosition(boi.playerLocation.playerX , boi.playerLocation.playerY);
+            Console.Write("X");
+            
+        }
+
         public void SetPlayer()
         {
             Console.SetCursorPosition(Planets[planetIndex].locx -1, Planets[planetIndex].locy);
@@ -171,6 +176,7 @@ namespace Team_Project_Week_4
             LocationX = Planets[planetIndex].locx;
             LocationY = Planets[planetIndex].locy;
         }
+
         public void DrawEvent()
         {
             int LocationX = rnd.Next(4, Console.WindowWidth);
@@ -292,7 +298,7 @@ namespace Team_Project_Week_4
             this.GameWorld = load.LoadXMLWorld(load.SaveSlot());
             this.Planets = load.LoadXMLPlanets(load.SaveSlot()); 
             this.boi = load.LoadXML(load.SaveSlot());
-            //this.Ship = load.LoadXMLShip(load.SaveSlot());
+            this.Shipo = load.LoadXMLShip(load.SaveSlot());
             bool gameRunning = true;
             ConsoleKeyInfo userKey;
             LocationX = boi.playerLocation.playerX;
@@ -421,6 +427,7 @@ namespace Team_Project_Week_4
                         Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         SetPlayer();
+                        YouAreHere();
                         DrawPlanet();
                         DrawEarth();
 

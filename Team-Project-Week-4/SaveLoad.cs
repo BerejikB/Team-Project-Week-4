@@ -68,14 +68,14 @@ public class xmlSaver
 
     }
 
-    public void WriteXMLShip(Ship Ship)
+    public void WriteXMLShip(Ship Shipo)
     {
         //try
         //{
             XmlSerializer writer = new XmlSerializer(typeof(Ship));
 
             System.IO.StreamWriter file = new StreamWriter($"Ship{SaveSlot()}.xml");
-            writer.Serialize(file, Ship);
+            writer.Serialize(file, Shipo);
             file.Close();
        // }
         //catch (Exception) { WriteXMLShip(Ship); }
@@ -167,24 +167,24 @@ public class xmlLoader
 
     }
 
-       
-    //public Ship LoadXMLShip(int SaveSlotsetter)
-    //{
-    //    Player boi = LoadXML(SaveSlotsetter);
-    //    Ship Shipo = new Ship(boi);
 
-    //    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-    //    doc.Load($"Ship{SaveSlot()}.xml");
-    //    var ShipStatus = doc.SelectSingleNode("Ship");
+    public Ship LoadXMLShip(int SaveSlotsetter)
+    {
+        Player boi = LoadXML(SaveSlotsetter);
+        Ship Shipo = new Ship();
 
-    //    Shipo.shipHealth = Convert.ToInt32(ShipStatus.SelectSingleNode("shipHealth").InnerText);
-    //    Shipo.shipStatus = Convert.ToString(ShipStatus.SelectSingleNode("shipStatus").InnerText);
-    //    Shipo.engineLevel = Convert.ToInt32(ShipStatus.SelectSingleNode("engineLevel").InnerText);
+        System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+        doc.Load($"Ship{SaveSlot()}.xml");
+        var ShipStatus = doc.SelectSingleNode("Ship");
+
+        Shipo.shipHealth = Convert.ToInt32(ShipStatus.SelectSingleNode("shipHealth").InnerText);
+        Shipo.shipStatus = Convert.ToString(ShipStatus.SelectSingleNode("shipStatus").InnerText);
+        Shipo.engineLevel = Convert.ToInt32(ShipStatus.SelectSingleNode("engineLevel").InnerText);
 
 
-    //    return Shipo;
-     
-    //}
+        return Shipo;
+
+    }
 
 
 }

@@ -10,15 +10,6 @@ namespace Team_Project_Week_4
 
     public class Ship
     {
-        Player Boi;
-
-        
-        Player boi;
-
-        public Ship(Player boi)
-        {
-            this.Boi = boi;
-        }
 
         public string shipName;
         public int shipHealth = 8;
@@ -26,7 +17,29 @@ namespace Team_Project_Week_4
         public string shipStatus = "In Working Order";
         public double warpVelocity;
 
-        public void ShipStatus()
+        Player boi;
+        GameManager GMBoi;
+        public Ship(GameManager GMBoi)
+        {
+            this.GMBoi = GMBoi;
+        }
+
+        
+        
+        public Ship(Player boi)
+        {
+            this.boi = boi;
+        }
+
+        public Ship()
+        {
+
+
+
+
+        }
+
+        public void ShipStatus(GameManager GMBoi)
         {
             CalculateShipStatus();
             Console.WriteLine($"Ship Name: {shipName}" +
@@ -162,7 +175,7 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         {
-                            Boi.playerMoney -= 10000;
+                            boi.playerMoney -= 10000;
                             ++shipHealth;
                             Console.WriteLine("Ship Repaired");
                             Console.ReadKey();
@@ -212,7 +225,7 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         {
-                            Boi.playerMoney -= 100000;
+                            boi.playerMoney -= 100000;
                             ++engineLevel;
                             Console.WriteLine("Ship Upgraded!");
 

@@ -24,12 +24,12 @@ public class SetAttribMenu
     public SetAttribMenu(Player boi)
     {
         this.playerAttribs = boi;
-        
     }
-    Ship Shipo;
-    public SetAttribMenu()
+
+    Ship NewShipo = new Ship();
+    public SetAttribMenu(Ship Shipo)
     {
-        Shipo = new Ship(playerAttribs);
+        this.NewShipo = Shipo;
     }
 
 
@@ -46,8 +46,14 @@ public class SetAttribMenu
         playerAttribs.playerMoney = 2500;
         playerAttribs.pointsAvail = 7;
         playerAttribs.playerAge = 20;
-       
-        playerAttribs.isDead = false;
+
+
+        NewShipo.shipHealth = 8;
+        NewShipo.engineLevel = 6;
+        NewShipo.shipStatus = "In Working Order";
+        NewShipo.warpVelocity = 6;
+
+    playerAttribs.isDead = false;
 
 
         Console.WriteLine("What is your name?");
@@ -400,10 +406,10 @@ public class SetAttribMenu
         switch (userInput)
         {
             case 'y':
-                { SaveFunct.WriteXML(playerAttribs);
-
+                {
+                  SaveFunct.WriteXML(playerAttribs);
                   SaveFunct.WriteXMLWorld(GameWorld);
-                  //SaveFunct.WriteXMLShip(Shipo);
+                  SaveFunct.WriteXMLShip(NewShipo);
 
                 }
                 break;
