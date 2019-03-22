@@ -124,8 +124,8 @@ public class xmlLoader
         stats.playerMoney = Convert.ToDouble(Player.SelectSingleNode("playerMoney").InnerText);
         stats.isDead = bool.Parse(Convert.ToString(Player.SelectSingleNode("isDead").InnerText));
         stats.playerAge = Convert.ToInt32(Player.SelectSingleNode("playerAge").InnerText);
-        stats.playerX = Convert.ToInt32(Player.SelectSingleNode("playerX").InnerText);
-        stats.playerY = Convert.ToInt32(Player.SelectSingleNode("playerY").InnerText);
+        stats.playerLocation.playerX = Convert.ToInt32(Player.SelectSingleNode("playerX").InnerText);
+        stats.playerLocation.playerY = Convert.ToInt32(Player.SelectSingleNode("playerY").InnerText);
 
         return stats;
     }
