@@ -65,7 +65,14 @@ namespace Team_Project_Week_4
         public void DistressCall()
         {
             Console.Clear();
-            Console.WriteLine("");
+            Console.WriteLine("You are picking up a distress beacon from nearby. What would you like to do?" +
+                              "\n1. Be a hero" +
+                              "\n2. Ignore it");
+            string userInput = Console.ReadLine();
+            if(userInput == "1")
+            {
+                rnd.Next(0, 2);
+            }
         }
         public void LootBox(Market playerItems)
         {
