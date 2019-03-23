@@ -19,7 +19,7 @@ namespace Team_Project_Week_4
         xmlLoader load ;
         Player boi ;
         Ship Shipo;
-
+        InventoryItems PlayerItems;
         RandomEvents Events;
         World GameWorld;
        
@@ -44,9 +44,9 @@ namespace Team_Project_Week_4
             Shipo.boi = boi;
             Story = new StoryMenus();
             GameWorld = new World();
-            Events = new RandomEvents();
+            Events = new RandomEvents(boi, Shipo, PlanetMarket);
             rnd = new Random();
-        
+            PlayerItems = new InventoryItems();
             LocationX = 0;
             LocationY = 0;
     }
@@ -100,7 +100,7 @@ namespace Team_Project_Week_4
             {
                 Console.Clear();
                 Console.WriteLine("Your ship computer drops you out of warp because of an imminent collision......");
-                Events.EventType( boi, Shipo);
+                Events.EventType( boi, Shipo, PlanetMarket);
             }
 
 

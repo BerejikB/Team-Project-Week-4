@@ -10,10 +10,12 @@ namespace Team_Project_Week_4
     {
         Player boi;
         Ship Shipo;
-        public RandomEvents(Player boi, Ship shipo)
+        Market PlayerItems;
+        public RandomEvents(Player boi, Ship shipo, Market playerItems)
         {
             this.boi = boi;
             this.Shipo = shipo;
+            this.PlayerItems = playerItems;
         }
 
        
@@ -31,7 +33,7 @@ namespace Team_Project_Week_4
 
         }
 
-        public void EventType(Player boi, Ship Shipo)
+        public void EventType(Player boi, Ship Shipo, Market PlayerItems)
         {
             //switch statement for random selection of event
             int eventType = rnd.Next(1, 5);
@@ -69,12 +71,13 @@ namespace Team_Project_Week_4
         {
             //distress call method
             //if distress call is answered, get free repair, or upgrade if no need for repairs, or free beer
-            int randoMoney = rnd.Next(7, 5000);
+            int randoItem = rnd.Next(0, 10);
+            int randoItemNo = rnd.Next(0, 8);
             Console.Clear();
             Console.WriteLine("You ship computer detects the debris of a destroyed ship");
             Console.ReadKey();
-            Console.WriteLine($"You manage to find ${randoMoney} in salvage");
-            boi.playerMoney += randoMoney;
+            PlayerItems.PlayerInventory[randoItem].Planetquantity += randoItemNo;
+            Console.WriteLine($"You manage to find {randoItemNo} {PlayerItems.PlayerInventory[randoItem].name} in salvage");
             Console.ReadKey();
 
         }
@@ -83,9 +86,11 @@ namespace Team_Project_Week_4
         {
             //distress call method
             //if distress call is answered, dialogue for hiding in a secret compartment while your ship gets damaged, robbed
+            Console.Clear();
             Console.WriteLine("Your warp has been interdicted!");
             Console.ReadKey();
             Console.WriteLine("You ship computer alerts you to small boarding vessles approaching");
+            Console.ReadKey();
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1) Defend yourself 2) Try to flee");
             ConsoleKeyInfo userKey;
@@ -99,16 +104,26 @@ namespace Team_Project_Week_4
                     {
                         Console.Clear();
                         int defenceChance = rnd.Next(0, 12);
-                        if (boi.playerSecurity >= defenceChance) ;
-                        { Console.WriteLine("With your superior tactics, and knowledge of each and every passageway, nook and cranny of your ship, you manage to repel the boarding party"); }
-                        else{ Console.WriteLine("The boarders overwhelmed you........"); boi.isDead = true; }
+
+                        if (boi.playerSecurity >= defenceChance)
+
+                        {
+                            Console.WriteLine("With your superior tactics, and knowledge of each and every passageway, nook and cranny of your ship, you manage to repel the boarding party");
+                        }
+                        else
+                                          
+                          Console.WriteLine("The boarders overwhelmed you........"); boi.isDead = true;
+                          
+                        
                     }
                     break;
 
                 case ConsoleKey.D2:
                     {
 
-                        
+                        Console.WriteLine("You manage to get back into warp, but due to the forced and sudden startup of yous systems, you have damaged your ship badly. ");
+                        Shipo.DamageShip();
+                        Shipo.DamageShip();
                     }
                     break;
 
@@ -118,6 +133,12 @@ namespace Team_Project_Week_4
 
         public void Malfunction()
         {
+            Console.Clear();
+            Console.WriteLine("You somehow managed to run straight into a space rock.");
+            Console.ReadKey();
+            Console.WriteLine("Your ship computer scolds you");
+            Console.ReadKey();
+            Console.WriteLine("You should probably fix the damage at the next planet you arrive at");
             //dialogue with switch statement for determining type of malfunction from small set of options
             //drops ship health 
             //notify that repairs can be made at the nearest planet
@@ -125,9 +146,13 @@ namespace Team_Project_Week_4
 
         public void Wormhole()
         {
-            //random generator for x and y coordinates
-            //setCursor to these new x and y coordinates
-            //prompts dialogue to inform you of wormhole event
+            boi.playerLocation.playerX = rnd.Next(2, 119);
+            boi.playerLocation.playerY = rnd.Next(4, 25);
+            Console.Clear();
+            Console.WriteLine("Your ship computer informs you that somehow you managed to run right into a wormhole....");
+            Console.ReadKey();
+            Console.WriteLine("You emerge on the otherside unharmed.");
+            Console.ReadKey();
 
         }
 
