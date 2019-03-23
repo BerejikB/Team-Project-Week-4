@@ -135,7 +135,8 @@ namespace Team_Project_Week_4
                 case ConsoleKey.D1:
                     {
                         PlanetMarket.PlanetMarket(Planets[PlanetIndex].valueMultiplier, Planets[PlanetIndex].economy);
-                        Market(i); }
+                        Market(i);
+                    }
                     break;
                 case ConsoleKey.D2:
                     {
@@ -150,8 +151,8 @@ namespace Team_Project_Week_4
                     }
                     break;
                 case ConsoleKey.D4:
-                    { return; }
-                    //break;
+                   
+                    break;
 
             }
         }

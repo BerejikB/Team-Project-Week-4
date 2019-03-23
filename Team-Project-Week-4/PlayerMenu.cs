@@ -18,7 +18,7 @@ public class NoAtribPoints : Exception
 public class SetAttribMenu 
 {        
     World GameWorld = new World();
-
+    StoryMenus Story = new StoryMenus();
     Player playerAttribs;
     Ship NewShipo;
 
@@ -105,6 +105,7 @@ public class SetAttribMenu
         {
 
             Console.Clear();
+            Console.WriteLine($"Security will give you a bonus to defending yourself");
             Console.WriteLine($"Press Up Arrow to add a point, press Down Arrow to subract a point, and Right Arrow to go to next Attribute ");
             Console.WriteLine($"Press Left Arrow to go back ");
             Console.WriteLine($"Your Security Skill is {playerAttribs.playerSecurity} ");
@@ -162,6 +163,7 @@ public class SetAttribMenu
 
 
             Console.Clear();
+            Console.WriteLine($"Speech will give you a bonus to your buying and selling prices");
             Console.WriteLine($"Press Up Arrow to add a point, press Down Arrow to subract a point, and Right Arrow to go to next Attribute ");
             Console.WriteLine($"Press Left Arrow to go back ");
             Console.WriteLine($"Your Speech Skill is {playerAttribs.playerSpeech} ");
@@ -223,6 +225,7 @@ public class SetAttribMenu
         {
 
             Console.Clear();
+            Console.WriteLine($"Maintenance will give you a bonus to your ability to maintain your ship");
             Console.WriteLine($"Press Up Arrow to add a point, press Down Arrow to subract a point, and Right Arrow to go to next Attribute ");
             Console.WriteLine($"Press Left Arrow to go back ");
             Console.WriteLine($"Your Maintenance Skill is {playerAttribs.playerMaintenance} ");
@@ -277,6 +280,7 @@ public class SetAttribMenu
         {
 
             Console.Clear();
+            Console.WriteLine("Luck will make good things more likley to happen to you");
             Console.WriteLine($"Press Up Arrow to add a point, press Down Arrow to subract a point, and Right Arrow to go to next Attribute ");
             Console.WriteLine($"Press Left Arrow to go back ");
             Console.WriteLine($"Your Luck Skill is {playerAttribs.playerLuck} ");
@@ -334,6 +338,7 @@ public class SetAttribMenu
         try
         {
             Console.Clear();
+            Console.WriteLine("Piloting will give you a bonus to how fast you travel");
             Console.WriteLine($"Press Up Arrow to add a point, press Down Arrow to subract a point, and Right Arrow to go to FINISH ");
             Console.WriteLine($"Press Left Arrow to go back ");
             Console.WriteLine($"Your Piloting Skill is {playerAttribs.playerPiloting} ");
@@ -410,7 +415,7 @@ public class SetAttribMenu
                   SaveFunct.WriteXML(playerAttribs);
                   SaveFunct.WriteXMLWorld(GameWorld);
                   SaveFunct.WriteXMLShip(NewShipo);
-
+                  Story.StartGameInterView();
                 }
                 break;
             case 'n':
