@@ -119,10 +119,10 @@ namespace Team_Project_Week_4
         {
 
             Console.Clear();
-            Console.WriteLine($"Your ship is capable of Warp Factor {Shipo.engineLevel}");
-            Console.WriteLine($"This will take {(Shipo.TimeToTravel(this.LocationX, this.LocationY) * 365)} days");
+            Console.WriteLine($"Your ship is capable of Warp Factor {Shipo.engineLevel} and you have {Shipo.fuelLevel}/100 fuel left");
+            Console.WriteLine($"This will take {(Shipo.TimeToTravel(this.LocationX, this.LocationY) * 365)} days and {Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY)} fuel)");            
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
-
+            
             ConsoleKeyInfo userinputboi;
             userinputboi = Console.ReadKey(true);
 
@@ -135,12 +135,19 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         letmeleave = false;
-                        EventChecker();
-                        Shipo.AgeCalculator(this.LocationX, this.LocationY);                        
-                        this.boi.playerLocation.playerX = LocationX;
-                        this.boi.playerLocation.playerY = LocationY;
-                        boi.playerAge += Shipo.TimeToTravel(this.LocationX, this.LocationY) ;
-                        Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY);
+                        if (Shipo.fuelLevel >= Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY))
+                        {
+                            EventChecker();
+                            Shipo.AgeCalculator(this.LocationX, this.LocationY);
+                            this.boi.playerLocation.playerX = LocationX;
+                            this.boi.playerLocation.playerY = LocationY;
+                            boi.playerAge += Shipo.TimeToTravel(this.LocationX, this.LocationY);
+                            Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY);
+                        }
+                        else
+                        {
+                            Console.WriteLine("You do not have enough fuel to make this trip. Either buy fuel before leaving or pick a closer planet.");
+                        }
                         break;
 
                     case ConsoleKey.N:
@@ -184,7 +191,7 @@ namespace Team_Project_Week_4
 
             letmeleave = false;
             Console.Clear();
-            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)} Ship Health: {Shipo.shipHealth} Engine Level: {Shipo.engineLevel} ");
+            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)} Ship Health: {Shipo.shipHealth} Engine Level: {Shipo.engineLevel} Fuel Level: {Shipo.fuelLevel}/100");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
             Console.WriteLine();
             Console.WriteLine($"You are at {Planets[i].name}");
@@ -193,8 +200,9 @@ namespace Team_Project_Week_4
             Console.WriteLine("What would you like to do?");
             Console.WriteLine($"1) Go to the market");
             Console.WriteLine($"2) Repair Ship");
-            Console.WriteLine($"3) Upgrade ship");
-            Console.WriteLine($"4) Leave");
+            Console.WriteLine($"3) Upgrade Ship");
+            Console.WriteLine($"4) Buy Fuel");
+            Console.WriteLine($"5) Leave");
             if (i == 0)
             { Console.WriteLine("6) Buy out your contract from Space Shippers Inc $500,000"); }
             if (i == 16)
@@ -226,11 +234,11 @@ namespace Team_Project_Week_4
                     }
                     break;
                 case ConsoleKey.D4:
-                    letmeleave = true;
+                    Shipo.BuyFuel();
                     break;
-                    //TODO:
+                
                 case ConsoleKey.D5:
-                    //BuyFuel();
+                    letmeleave = true;
                     break;
 
                 case ConsoleKey.D6:

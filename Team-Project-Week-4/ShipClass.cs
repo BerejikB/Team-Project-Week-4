@@ -90,6 +90,9 @@ namespace Team_Project_Week_4
         }
 
         public double TimeToTravel(int x, int y)
+
+
+
         {
 
             WarpFactor();
@@ -102,27 +105,28 @@ namespace Team_Project_Week_4
         {
             int diffX = boi.playerLocation.playerX - x;
             int diffY = boi.playerLocation.playerY - y;
-
+            int newX;
+            int newY;
             if (diffX >= 0)
             {
-                int newX = diffX;
+                newX = diffX;
             }
             else
             {
-                int newX = -1 * diffX;
+                newX = -1 * diffX;
             }
 
             if (diffX >= 0)
             {
-                int newX = diffX;
+                newY = diffY;
             }
             else
             {
-                int newX = -1 * diffX;
+                newY = -1 * diffY;
             }
 
             
-            double distanceToTravel = Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2));
+            double distanceToTravel = Math.Sqrt(Math.Pow(newX, 2) + Math.Pow(newY, 2));
             return distanceToTravel;
         }
 
@@ -244,8 +248,44 @@ namespace Team_Project_Week_4
 
         public int CalculateFuelConsumption(int x, int y)
         {
-            int fuelConsumed = Convert.ToInt32(TravelDistance(x, y) * 2);
+            int fuelConsumed = Convert.ToInt32(TravelDistance(x, y) /2);
             return fuelConsumed;
+        }
+
+        public void BuyFuel()
+        {
+            int topOffFuel = 100 - fuelLevel;
+            Console.WriteLine($"It will cost you ${topOffFuel} to top off on fuel. ");
+            Console.WriteLine($"Are you sure you want to top off on fuel for ${topOffFuel}? Y/N");
+            ConsoleKeyInfo userinputboi;
+            userinputboi = Console.ReadKey(true);
+
+
+            switch (userinputboi.Key)
+            {
+                case ConsoleKey.Y:
+                    {
+                        if (boi.playerMoney >= topOffFuel)
+                        {
+                            boi.playerMoney -= topOffFuel;
+                            fuelLevel += topOffFuel;
+                            Console.WriteLine("Fuel tank is full!");
+
+                            Console.ReadKey();
+
+                        }
+
+                        else { Console.WriteLine("Not enough money"); Console.ReadKey(); }
+
+                    }
+                    break;
+                case ConsoleKey.N:
+                    {
+                    }
+                    break;
+
+
+            }
         }
     }
 }
