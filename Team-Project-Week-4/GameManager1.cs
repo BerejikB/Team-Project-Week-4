@@ -19,10 +19,11 @@ namespace Team_Project_Week_4
         xmlLoader load ;
         Player boi ;
         Ship Shipo;
-        InventoryItems PlayerItems;
+        InventoryItems UseablePlayerItems;
         RandomEvents Events;
         World GameWorld;
-       
+        Item PlayerItems;
+        List<Item> PlayerInventory;
         
                
         Random rnd = new Random();
@@ -46,7 +47,8 @@ namespace Team_Project_Week_4
             GameWorld = new World();
             Events = new RandomEvents(boi, Shipo, PlanetMarket);
             rnd = new Random();
-            PlayerItems = new InventoryItems();
+            UseablePlayerItems = new InventoryItems();
+            PlayerInventory  = new List<Item>();
             LocationX = 0;
             LocationY = 0;
     }
@@ -413,6 +415,7 @@ namespace Team_Project_Week_4
             this.Planets = load.LoadXMLPlanets(load.SaveSlot()); 
             this.boi = load.LoadXML(load.SaveSlot());
             this.Shipo = load.LoadXMLShip(load.SaveSlot());
+            this.PlayerInventory = load.LoadXMLInventory(load.SaveSlot());
             bool gameRunning = true;
 
             boi.playerX = boi.playerLocation.playerX;

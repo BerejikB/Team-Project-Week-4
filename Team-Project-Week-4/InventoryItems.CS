@@ -126,13 +126,7 @@ namespace Team_Project_Week_4
     public class Market
     {
         public int GlobalPlanetIndex;
-
-        //GameManager GM;
-        //List<PlanetGen> Planets;
-        //public Market(Player boi)
-        //{
-
-        //}
+               
         string localeconomy;
         double localvalueMultiplier;
 
@@ -141,7 +135,7 @@ namespace Team_Project_Week_4
         public int numSold = 0;
         public List<Item> allItemsSold = new List<Item>() { InventoryItems.Beer, InventoryItems.Goat, InventoryItems.Gold, InventoryItems.SandWiches, InventoryItems.Water, InventoryItems.ConsumerElectronics, InventoryItems.IndustrialComponents, InventoryItems.RawIron, InventoryItems.NuclearMaterial, InventoryItems.HazardousWaste };
         public List<Item> PlayerInventory = new List<Item>() { InventoryItems.Beer, InventoryItems.Goat, InventoryItems.Gold, InventoryItems.SandWiches, InventoryItems.Water, InventoryItems.ConsumerElectronics, InventoryItems.IndustrialComponents, InventoryItems.RawIron, InventoryItems.NuclearMaterial, InventoryItems.HazardousWaste };
-       public  bool PlayerBought = false;
+        public  bool PlayerBought = false;
         public void PrintItemsSold()
         {
             Console.WriteLine("Your Inventory:");

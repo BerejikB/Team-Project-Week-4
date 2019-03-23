@@ -19,6 +19,9 @@ public class SetAttribMenu
 {        
     World GameWorld = new World();
     StoryMenus Story = new StoryMenus();
+    Item GameItems = new Item();
+    Market PlanetMarket = new Market();
+
     Player playerAttribs;
     Ship NewShipo;
 
@@ -415,7 +418,8 @@ public class SetAttribMenu
                   SaveFunct.WriteXML(playerAttribs);
                   SaveFunct.WriteXMLWorld(GameWorld);
                   SaveFunct.WriteXMLShip(NewShipo);
-                  Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
+                    SaveFunct.WriteXMLInventory(GameItems);
+                    Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
                 }
                 break;
             case 'n':

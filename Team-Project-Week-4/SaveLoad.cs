@@ -84,6 +84,28 @@ public class xmlSaver
 
     }
 
+
+    public void WriteXMLInventory(Item PlayerInventory)
+    {
+        try
+        {
+            XmlSerializer writer = new XmlSerializer(typeof(Item));
+
+            System.IO.StreamWriter file = new StreamWriter($"PlayerInventory{SaveSlot()}.xml");
+
+
+            writer.Serialize(file, PlayerInventory);
+            file.Close();
+        }
+        catch (Exception) { WriteXMLInventory(PlayerInventory); }
+        Console.WriteLine("World saved");
+        Console.WriteLine();
+        Console.ReadKey();
+
+
+    }
+
+
 }
 
 
@@ -165,6 +187,26 @@ public class xmlLoader
 
         return Planet;
 
+    }
+
+   public List<Item> LoadXMLInventory(int SaveSlotsetter)
+   {
+        List<Item> PlayerInventory = new List<Item>();
+    
+        XDocument xdoc = XDocument.Load($"PlayerInventory{SaveSlot()}.xml");
+
+        List<Item> PlayerInventoryLoaded = (from lv1 in xdoc.Descendants("Market")
+                              select new Item
+                              {
+                                  name = lv1.Element("name").Value,
+                                  price = Convert.ToInt32(lv1.Element("price").Value),
+                                  volume = Convert.ToInt32(lv1.Element("volume").Value),
+                                  Playerquantity = Convert.ToInt32(lv1.Element("Playerquantity").Value),
+                                  
+
+                              }).ToList();
+
+        return PlayerInventory;
     }
 
 
