@@ -217,7 +217,7 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         {
-                            if (boi.playerMoney < 100000)
+                            if (boi.playerMoney >= 100000)
                             {
                                 boi.playerMoney -= 100000;
                                 ++engineLevel;

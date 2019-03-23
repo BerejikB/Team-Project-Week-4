@@ -115,7 +115,7 @@ namespace Team_Project_Week_4
                         Shipo.AgeCalculator(this.LocationX, this.LocationY);                        
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
-
+                        boi.playerAge += Shipo.TimeToTravel(this.LocationX, this.LocationY) ;
                         break;
 
                     case ConsoleKey.N:
@@ -156,7 +156,7 @@ namespace Team_Project_Week_4
 
             letmeleave = false;
             Console.Clear();
-            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
+            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
             Console.WriteLine();
             Console.WriteLine($"You are at {Planets[i].name}");
@@ -214,7 +214,7 @@ namespace Team_Project_Week_4
         public void Market(int i)
         {
             Market Store = new Market();
-            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
+            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
             Console.WriteLine($"You are at {Planets[i].name}");
             Console.WriteLine($"The economy is  {Planets[i].economy}");
@@ -502,7 +502,7 @@ namespace Team_Project_Week_4
 
                         }
                         Console.Clear();
-                        Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
+                        Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         SetPlayer();
                         YouAreHere();
