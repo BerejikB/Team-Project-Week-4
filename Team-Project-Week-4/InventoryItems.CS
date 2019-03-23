@@ -150,6 +150,7 @@ namespace Team_Project_Week_4
 
         public void GenerateItemsSold()
         {
+            PlayerBought = false;
             for (int x = 9; x >= 0; x--)
             {
                 int itemno = Rando.Next(0, 30);
