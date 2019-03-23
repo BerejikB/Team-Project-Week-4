@@ -43,23 +43,33 @@ namespace Team_Project_Week_4
             EarthGen.locx = EarthX;
             EarthGen.locy = EarthY;
             Planets.Add(EarthGen);
-            
+
+
             var rnd = EarthGen.rnd;
 
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i <= 16; i++)
             {
+                if (i == 16) { makeWinPlanet();}
                 PlanetGen NewPlanet = new PlanetGen(rnd);
-
                 NewPlanet.name = NewPlanet.NamePlanet();
                 NewPlanet.economy = NewPlanet.DeterminePlanetStatus().condition;
                 NewPlanet.valueMultiplier = NewPlanet.DeterminePlanetStatus().valueMultiplier;
                 NewPlanet.locx = NewPlanet.LocX();
                 NewPlanet.locy = NewPlanet.LocY();
                 Planets.Add(NewPlanet);
-
                 rnd = NewPlanet.rnd;
             }
         }
+            public void makeWinPlanet()
+            { 
+            PlanetGen WinPlanet = new PlanetGen();
+            WinPlanet.name = "Beautius Maximus";
+            WinPlanet.economy = "Wealthy";
+            WinPlanet.valueMultiplier = 1.25;
+            WinPlanet.locx = EarthX;
+            WinPlanet.locy = EarthY;
+            Planets.Add(WinPlanet);
+            }
 
 
         public void PrintPlanets()

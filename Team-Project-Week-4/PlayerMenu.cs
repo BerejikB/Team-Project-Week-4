@@ -415,7 +415,7 @@ public class SetAttribMenu
                   SaveFunct.WriteXML(playerAttribs);
                   SaveFunct.WriteXMLWorld(GameWorld);
                   SaveFunct.WriteXMLShip(NewShipo);
-                  Story.StartGameInterView();
+                  Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
                 }
                 break;
             case 'n':

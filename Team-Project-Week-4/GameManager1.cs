@@ -10,6 +10,7 @@ namespace Team_Project_Week_4
         
     public class GameManager
     {
+        StoryMenus Story;
         public class NoItems : Exception { }
         public class NoMoney : Exception { }
         Market PlanetMarket;
@@ -29,7 +30,8 @@ namespace Team_Project_Week_4
         public int LocationX;
         public int LocationY;
         public int PlanetIndex;
-
+        public bool gameWin = false;
+        public bool letmeleave = false;
         public GameManager()
         {
 
@@ -40,12 +42,9 @@ namespace Team_Project_Week_4
             boi = new Player();
             Shipo = new Ship();
             Shipo.boi = boi;
-
+            Story = new StoryMenus();
             GameWorld = new World();
-
-
             Events = new RandomEvents();
-
             rnd = new Random();
         
             LocationX = 0;
@@ -77,6 +76,7 @@ namespace Team_Project_Week_4
 
                 {
                     case ConsoleKey.Y:
+                        letmeleave = false;
                         Shipo.AgeCalculator(this.LocationX, this.LocationY);                        
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
@@ -96,14 +96,19 @@ namespace Team_Project_Week_4
             }
 
 
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 17; i++)
 
             {
                 if (boi.playerLocation.playerX == this.Planets[i].locx && boi.playerLocation.playerY == this.Planets[i].locy)
                 {
-                    PlanetMenu(i);
-                    PlanetMarket.GenerateItemsSold();
-                    i = PlanetIndex;
+                    if (letmeleave == false)
+                    {
+                        PlanetMenu(i);
+                        PlanetMarket.GenerateItemsSold();
+                        i = PlanetIndex;
+                    }
+                    else return;
+                    
                 }
 
             }
@@ -112,6 +117,9 @@ namespace Team_Project_Week_4
 
         public void PlanetMenu(int i)
         {
+            
+
+            letmeleave = false;
             Console.Clear();
             Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
@@ -124,6 +132,10 @@ namespace Team_Project_Week_4
             Console.WriteLine($"2) Repair Ship");
             Console.WriteLine($"3) Upgrade ship");
             Console.WriteLine($"4) Leave");
+            if (i == 0)
+            { Console.WriteLine("5) Buy out your contract from Space Shippers Inc $500,000"); }
+            if (i == 16)
+            { Console.WriteLine("5) Escape to this resort planet with a new identity for $1,000,000"); }
             Console.WriteLine();
 
             ConsoleKeyInfo userinputboi;
@@ -151,8 +163,15 @@ namespace Team_Project_Week_4
                     }
                     break;
                 case ConsoleKey.D4:
-                   
+                    letmeleave = true;
                     break;
+                case ConsoleKey.D5:
+
+                    if (i == 16)
+                    { Story.EscapeToResort(boi.playerMoney, gameWin); }
+                    if (i == 0)
+                    { Story.BuyContract(boi.playerMoney, gameWin); }
+                        break;
 
             }
         }
@@ -181,7 +200,7 @@ namespace Team_Project_Week_4
 
         public void DrawPlanet()
         {
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 17; i++)
 
             {
                 Console.SetCursorPosition(Planets[i].locx, Planets[i].locy);
@@ -222,19 +241,17 @@ namespace Team_Project_Week_4
                 StartMenu();
             }
         }
-
-
+    
         private void StartMenu()
         {
             Console.Clear();
-            Console.WriteLine(Console.WindowWidth);
-            Console.WriteLine(Console.WindowHeight);
+           
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             WriteCenterScreen("------------------------------------------");
-            WriteCenterScreen("|     1) New Player                      |");
-            WriteCenterScreen("|     2) Start Game                      |");
+            WriteCenterScreen("|     1) New Game                        |");
+            WriteCenterScreen("|     2) Load and start Game             |");
             WriteCenterScreen("|     3) Show Player Stats               |"); 
             WriteCenterScreen("|     4)                                 |");
             WriteCenterScreen("|     5)                                 |");
@@ -381,6 +398,12 @@ namespace Team_Project_Week_4
                     break;
 
                 }
+                if (gameWin == true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Congratulations! You Win!");
+                    StartMenu();
+                }
                 if (Console.KeyAvailable)
                 {
                     
@@ -457,10 +480,6 @@ namespace Team_Project_Week_4
                                 break;
 
 
-                            case ConsoleKey.Backspace:
-                                boi.playerMoney++;
-                                break;
-
 
                             case ConsoleKey.Spacebar:
                                 //Cartographer.DrawPlanet();
@@ -475,8 +494,7 @@ namespace Team_Project_Week_4
                         DrawPlanet();
                         DrawEarth();
 
-                        //Console.SetCursorPosition(LocationX, LocationY);
-                        //Console.WriteLine("X");
+                        
 
 
                     }

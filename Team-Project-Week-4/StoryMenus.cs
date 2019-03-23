@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace Team_Project_Week_4
 {
-    class StoryMenus
+    public class StoryMenus
     {
-        public void StartGameInterView()
+        GameManager  GamMgr;
+       public  StoryMenus()
+        {
+            
+        }
+        public void StartGameInterView(string FirstName, string Profession, double playerMoney)
 
         {
             Console.Clear();
-            Console.WriteLine("You are a (professtion). You hate your job.  ");
+            Console.WriteLine($"You are a {Profession}. You hate your job.  ");
             Console.ReadKey();
             Console.WriteLine("One day, you accidentally drunkenly butt-dial your crazy uncle Jimmy. ");
             Console.ReadKey();
@@ -22,12 +27,11 @@ namespace Team_Project_Week_4
             Console.ReadKey();
             Console.WriteLine("Your uncle Jimmy says that running cargo can be quite profitable. ");
             Console.ReadKey();
-            Console.WriteLine("You decide you don’t want to continue being a (boi) anymore, and try your luck in the space shipping business. ");
+            Console.WriteLine($"You decide you don’t want to continue being a {Profession} anymore, and try your luck in the space shipping business. ");
             Console.ReadKey();
             RecruiterDialogue();
 
         }
-
         public void RecruiterDialogue()
         {
             Console.WriteLine("You call a recruiter for Space Shippers Inc");
@@ -61,7 +65,6 @@ namespace Team_Project_Week_4
 
             }
         }
-
         public void SignMeUp()
         {
             Console.WriteLine("Wonderful. Sign the papers.");
@@ -70,8 +73,6 @@ namespace Team_Project_Week_4
             Console.ReadKey();
             ThanksForOrgans();
         }
-
-
         public void WhatsTheCatch()
         {
 
@@ -105,8 +106,6 @@ namespace Team_Project_Week_4
 
 
         }
-
-
         public void YesToTerms()
         {
             Console.Write(@"These terms and conditions create a contract between you and Apple (the  Agreement ). Please read the Agreement carefully. To confirm your understanding and acceptance of the Agreement, click  Agree. 
@@ -321,9 +320,79 @@ Last Updated: September 17, 2018
             Console.WriteLine("Jump in your ship, (graciously provided by Space Shippers Inc) and try to make enough money to escape the terms and conditions youd didn't read!");
             Console.ReadKey();
         }
-        
+        public bool BuyContract(double playerMoney, bool gameWin)
+        {
+            if (playerMoney < 500000) { Console.WriteLine("You don't have enough money"); Console.ReadKey(); }
+            if (playerMoney >= 500000)
+                Console.Clear();
+            {
+                Console.WriteLine("Are you sure you want to buy your contract? ");
+                Console.WriteLine("1) Yes 2) No");
+                ConsoleKeyInfo userinputboi;
+                userinputboi = Console.ReadKey(true);
+
+
+                switch (userinputboi.Key)
+                {
+                    case ConsoleKey.D1:
+                        {
+                            Console.WriteLine("You purchase your contract from Space Shippers Inc");
+                            Console.WriteLine("Having accomplished nothing except wasting time, you return to your previous life.");
+                            Console.ReadKey();
+                            gameWin = true;
+                            return gameWin;
+                        }
+                        
+                    case ConsoleKey.D2:
+                        {
+                            return gameWin;
+                        }
+                       
+
+
+                }
+            }
+            return gameWin;
+        }
+        public bool EscapeToResort(double playerMoney, bool gameWin)
+
+        {
+
+            if (playerMoney < 1000000) { Console.WriteLine("You don't have enough money"); Console.ReadKey(); }
+            if (playerMoney >= 1000000)
+            {
+                Console.Clear();
+                Console.WriteLine("Are you sure you want to escape to a beautiful resort world with a new identity? ");
+                Console.WriteLine("1) Yes 2) No");
+                ConsoleKeyInfo userinputboi;
+                userinputboi = Console.ReadKey(true);
+                
+                switch (userinputboi.Key)
+                {
+                    case ConsoleKey.D1:
+                        {
+                            Console.WriteLine("You escape having your organs harvested under a new identity, and retire early to a resort planet. ");
+                            Console.ReadKey();
+                            gameWin = true;
+                            return gameWin;
+                        }
+                        break;
+                    case ConsoleKey.D2:
+                        {
+                            return gameWin;
+                        }
+                        break;
+
+
+
+
+
+                }
+                return gameWin;
+            }
+            return gameWin;
+
+
+        }
     }
-
-
-
 }
