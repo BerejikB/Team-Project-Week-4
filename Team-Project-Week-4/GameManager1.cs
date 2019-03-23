@@ -96,7 +96,7 @@ namespace Team_Project_Week_4
 
         public void EventChecker()
         {
-          int randy = rnd.Next(1, 5);
+          int randy = rnd.Next(1, 4);
 
             if(randy == 3)
             {
@@ -183,7 +183,7 @@ namespace Team_Project_Week_4
 
             letmeleave = false;
             Console.Clear();
-            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
+            Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)} Ship Health: {Shipo.shipHealth} Engine Level: {Shipo.engineLevel} ");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
             Console.WriteLine();
             Console.WriteLine($"You are at {Planets[i].name}");
@@ -195,9 +195,9 @@ namespace Team_Project_Week_4
             Console.WriteLine($"3) Upgrade ship");
             Console.WriteLine($"4) Leave");
             if (i == 0)
-            { Console.WriteLine("5) Buy out your contract from Space Shippers Inc $500,000"); }
+            { Console.WriteLine("6) Buy out your contract from Space Shippers Inc $500,000"); }
             if (i == 16)
-            { Console.WriteLine("5) Escape to this resort planet with a new identity for $1,000,000"); }
+            { Console.WriteLine("6) Escape to this resort planet with a new identity for $1,000,000"); }
             Console.WriteLine();
 
             ConsoleKeyInfo userinputboi;
@@ -227,7 +227,12 @@ namespace Team_Project_Week_4
                 case ConsoleKey.D4:
                     letmeleave = true;
                     break;
+                    //TODO:
                 case ConsoleKey.D5:
+                    //BuyFuel();
+                    break;
+
+                case ConsoleKey.D6:
 
                     if (i == 16)
                     { Story.EscapeToResort(boi.playerMoney, boi); }
@@ -520,13 +525,11 @@ namespace Team_Project_Week_4
 
 
 
-                            case ConsoleKey.Spacebar:
-                                //Cartographer.DrawPlanet();
-                                break;
+                            
 
                         }
                         Console.Clear();
-                        Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
+                        Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)} Ship Health: {Shipo.shipHealth} Engine Level: {Shipo.engineLevel} ");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         SetPlayer();
                         DrawPlanet();
