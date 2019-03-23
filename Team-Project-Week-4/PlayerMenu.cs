@@ -51,7 +51,7 @@ public class SetAttribMenu
 
     playerAttribs.isDead = false;
 
-
+        Console.Clear();
         Console.WriteLine("What is your name?");
         Console.WriteLine("First Name:");
         playerAttribs.FirstName = Console.ReadLine();

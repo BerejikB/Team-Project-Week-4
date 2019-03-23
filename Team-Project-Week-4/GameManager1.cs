@@ -73,7 +73,7 @@ namespace Team_Project_Week_4
 
                 {
                     case 'y':
-                        //Ship.AgeCalculator(GMBoi);                        
+                        Shipo.AgeCalculator(this.LocationX, this.LocationY);                        
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
 
@@ -111,8 +111,10 @@ namespace Team_Project_Week_4
             Console.Clear();
             Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {boi.playerAge}  ");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
+            Console.WriteLine();
             Console.WriteLine($"You are at {Planets[i].name}");
             Console.WriteLine($"The economy is  {Planets[i].economy}");
+            Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine($"1) Go to the market");
             Console.WriteLine($"2) Repair Ship");
@@ -128,7 +130,7 @@ namespace Team_Project_Week_4
             {
                 case ConsoleKey.D1:
                     {
-                        PlanetMarket.GenerateItemsSold();
+                        PlanetMarket.PlanetMarket(Planets[PlanetIndex].valueMultiplier, Planets[PlanetIndex].economy);
                         Market(i); }
                     break;
                 case ConsoleKey.D2:
@@ -144,8 +146,8 @@ namespace Team_Project_Week_4
                     }
                     break;
                 case ConsoleKey.D4:
-                    
-                    break;
+                    { return; }
+                    //break;
 
             }
         }
@@ -159,8 +161,9 @@ namespace Team_Project_Week_4
             Console.WriteLine($"The economy is  {Planets[i].economy}");
             
             Store.PrintItemsSold();
-           
-            Store.SelectItem(boi);
+
+            PlanetMarket.PlanetMarket( Planets[planetIndex].valueMultiplier, Planets[planetIndex].economy);
+            PlanetMarket.SelectItem(boi);
                      
 
         }
@@ -226,7 +229,7 @@ namespace Team_Project_Week_4
             Console.WriteLine();
             WriteCenterScreen("------------------------------------------");
             WriteCenterScreen("|     1) New Player                      |");
-            WriteCenterScreen("|     2) Start WORK IN PROGRESS          |");
+            WriteCenterScreen("|     2) Start Game                      |");
             WriteCenterScreen("|     3) Show Player Stats               |"); 
             WriteCenterScreen("|     4)                                 |");
             WriteCenterScreen("|     5)                                 |");
@@ -236,6 +239,8 @@ namespace Team_Project_Week_4
 
             //User input for main menu
             int mainMenuSelect = 0;
+            ConsoleKeyInfo userKey;
+            userKey = Console.ReadKey(true);
 
             try
             {
@@ -243,9 +248,9 @@ namespace Team_Project_Week_4
             }
             catch (Exception) { Console.WriteLine("try again"); }
 
-            switch (mainMenuSelect)
+            switch (userKey.Key)
             {
-                case 1:
+                case ConsoleKey.D1:
                     {
 
                         SetAttribMenu NewPlayer = new SetAttribMenu(boi, Shipo);
@@ -254,14 +259,14 @@ namespace Team_Project_Week_4
                     }
                     break;
 
-                case 2:
+                case ConsoleKey.D2:
                     {
                         RunLoop();
                         //StartMenu();
                     }
                     break;
 
-                case 3:
+                case ConsoleKey.D3:
                     {
                         PrintStat();
                         Console.ReadKey();
@@ -269,16 +274,20 @@ namespace Team_Project_Week_4
                     }
            
                     break;
-                case 4:
+                case ConsoleKey.D4:
                     {
                         
                         
                     }
                      break;
 
-                case 5:
+                case ConsoleKey.D5:
                     {
-                       
+                       Console.WriteLine(Console.LargestWindowHeight);
+                        Console.WriteLine(Console.LargestWindowWidth);
+                        Console.WriteLine(Console.WindowHeight);
+                        Console.WriteLine(Console.WindowWidth);
+                        Console.ReadKey();
                     }
 
                     break;
@@ -286,14 +295,11 @@ namespace Team_Project_Week_4
 
 
 
-                case 6:
+                case ConsoleKey.D6:
                     {
-                        Console.WriteLine(Console.LargestWindowHeight);
-                        Console.WriteLine(Console.LargestWindowWidth);
-                        Console.WriteLine(Console.WindowHeight);
-                        Console.WriteLine(Console.WindowWidth);
-                        Console.ReadKey();
-                        
+                        Environment.Exit(1);
+
+
                     }
 
                     break;
@@ -330,9 +336,12 @@ namespace Team_Project_Week_4
             this.boi = load.LoadXML(load.SaveSlot());
             this.Shipo = load.LoadXMLShip(load.SaveSlot());
             bool gameRunning = true;
-            ConsoleKeyInfo userKey;
+
+            boi.playerX = boi.playerLocation.playerX;
+            boi.playerY = boi.playerLocation.playerY;
             LocationX = boi.playerLocation.playerX;
             LocationY = boi.playerLocation.playerY;
+            ConsoleKeyInfo userKey;
 
             while (gameRunning)
             {

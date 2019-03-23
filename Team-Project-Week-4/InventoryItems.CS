@@ -130,8 +130,10 @@ namespace Team_Project_Week_4
         //List<PlanetGen> Planets;
         //public Market(Player boi)
         //{
-            
+
         //}
+        string localeconomy;
+        double localvalueMultiplier;
 
         public Random Rando = new Random();
         public int r = 0;
@@ -150,8 +152,32 @@ namespace Team_Project_Week_4
 
         }
 
-        public void SelectItem(Player boi)
+
+        public void GenerateItemsSold()
         {
+            for (int x = 9; x >= 0; x--)
+            {
+                int itemno = Rando.Next(0, 30);
+                int planetmoney = Rando.Next(0, 3719);
+                allItemsSold[0].PlanetMoney = planetmoney;
+                allItemsSold[x].Planetquantity = itemno;
+                Console.WriteLine(allItemsSold[x].name);
+            }
+
+        }
+
+
+
+
+        public void PlanetMarket(double valueMultiplier, string economy)
+        {
+            localeconomy = economy;
+            localvalueMultiplier = valueMultiplier;
+            GenerateItemsSold();
+        }
+        public void SelectItem(Player boi )
+        {
+           
             double playerspeechmult = boi.playerSpeech;
             playerspeechmult *= .02;
             Console.Clear();
@@ -159,7 +185,7 @@ namespace Team_Project_Week_4
             Console.WriteLine();
             Console.WriteLine($"Current Wallet   ${ boi.playerMoney} You have {PlayerInventory[r].Playerquantity} {PlayerInventory[r].name} ");
             Console.WriteLine($"Your Speech skill will give a {playerspeechmult}% bonus.");
-            Console.WriteLine();
+            Console.WriteLine($"The Planet's Economy is {localeconomy} ");
             Console.WriteLine($"Planet has ${allItemsSold[0].PlanetMoney}. Planet has {allItemsSold[r].Planetquantity} {allItemsSold[r].name}s which sells for ${allItemsSold[r].price}");
             Console.WriteLine("Press Right arrow to buy, press Left arrow to Sell, press Up and Down arrow to select");
             Console.WriteLine($"{allItemsSold[r].name} Selected");
@@ -291,18 +317,7 @@ namespace Team_Project_Week_4
            
         }
 
-        public void GenerateItemsSold()
-        {
-            for (int x = 9; x >= 0; x--)
-            {
-                int itemno = Rando.Next(0, 30);
-                int planetmoney = Rando.Next(0, 3719);
-                allItemsSold[0].PlanetMoney = planetmoney;
-                allItemsSold[x].Planetquantity = itemno;
-                Console.WriteLine(allItemsSold[x].name);
-            }
-           
-        }
+       
 
     }
 }

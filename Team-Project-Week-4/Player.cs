@@ -15,12 +15,13 @@ public class Player
 {
     public double playerAge;
 
-    public int playerX;
-    public int playerY;
 
     public (int playerX, int playerY) playerLocation;
     //public int playerX;
     //public int playerY;
+
+    public int playerX;
+    public int playerY;
 
     public int playerSecurity;  //chance to defend self
     public int playerSpeech;       //Price multiplier

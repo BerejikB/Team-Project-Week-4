@@ -161,11 +161,17 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         {
-                            boi.playerMoney -= 10000;
-                            ++shipHealth;
-                            Console.WriteLine("Ship Repaired");
-                            Console.ReadKey();
+                            if (boi.playerMoney >= 10000)
+                            {
+                                boi.playerMoney -= 10000;
+                                ++shipHealth;
+                                Console.WriteLine("Ship Repaired");
+                                Console.ReadKey();
+                            }
+                            else { Console.WriteLine("Not enough Money"); Console.ReadKey(); }
+	{
 
+                            }
                         }
                         break;
                     case ConsoleKey.N:
@@ -211,11 +217,17 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         {
-                            boi.playerMoney -= 100000;
-                            ++engineLevel;
-                            Console.WriteLine("Ship Upgraded!");
+                            if (boi.playerMoney < 100000)
+                            {
+                                boi.playerMoney -= 100000;
+                                ++engineLevel;
+                                Console.WriteLine("Ship Upgraded!");
 
-                            Console.ReadKey();
+                                Console.ReadKey();
+
+                            }
+
+                            else { Console.WriteLine("Not enough money"); Console.ReadKey(); }
 
                         }
                         break;
