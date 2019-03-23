@@ -320,7 +320,7 @@ Last Updated: September 17, 2018
             Console.WriteLine("Jump in your ship, (graciously provided by Space Shippers Inc) and try to make enough money to escape the terms and conditions youd didn't read!");
             Console.ReadKey();
         }
-        public bool BuyContract(double playerMoney, bool gameWin)
+        public bool BuyContract(double playerMoney, Player boi)
         {
             if (playerMoney < 500000) { Console.WriteLine("You don't have enough money"); Console.ReadKey(); }
             if (playerMoney >= 500000)
@@ -339,22 +339,24 @@ Last Updated: September 17, 2018
                             Console.WriteLine("You purchase your contract from Space Shippers Inc");
                             Console.WriteLine("Having accomplished nothing except wasting time, you return to your previous life.");
                             Console.ReadKey();
-                            gameWin = true;
-                            return gameWin;
+                            boi.iswin = true;
+
+                            return boi.iswin;
                         }
-                        
+
+
                     case ConsoleKey.D2:
                         {
-                            return gameWin;
+                            return boi.iswin;
                         }
                        
 
 
                 }
             }
-            return gameWin;
+            return boi.iswin;
         }
-        public bool EscapeToResort(double playerMoney, bool gameWin)
+        public bool EscapeToResort(double playerMoney, Player boi)
 
         {
 
@@ -373,13 +375,13 @@ Last Updated: September 17, 2018
                         {
                             Console.WriteLine("You escape having your organs harvested under a new identity, and retire early to a resort planet. ");
                             Console.ReadKey();
-                            gameWin = true;
-                            return gameWin;
+                            boi.iswin = true;
+                            return boi.iswin;
                         }
                         break;
                     case ConsoleKey.D2:
                         {
-                            return gameWin;
+                            return boi.iswin;
                         }
                         break;
 
@@ -388,9 +390,9 @@ Last Updated: September 17, 2018
 
 
                 }
-                return gameWin;
+                return boi.iswin;
             }
-            return gameWin;
+            return boi.iswin;
 
 
         }

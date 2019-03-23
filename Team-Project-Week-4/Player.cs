@@ -34,6 +34,7 @@ public class Player
     public string LastName;
     public double playerMoney;
     public bool isDead;
+    public bool iswin;
     public double timeElapsed;
     public double PlanetTradeMult;
    

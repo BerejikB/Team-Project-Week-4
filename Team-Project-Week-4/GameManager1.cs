@@ -56,7 +56,42 @@ namespace Team_Project_Week_4
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
             return textToEnter;
         }
-  
+        public void GameOver()
+        {
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            WriteCenterScreen("GAME OVER");
+            WriteCenterScreen(@"      
+                     _______________
+                    /               \
+                   /                 \
+                  /                   \
+                  |   XXXX     XXXX   |
+                  |   XXXX     XXXX   |
+                  |   XXX       XXX   |
+                  |         X         |
+                  \__      XXX     __/
+                    |\     XXX     /|
+                    | |           | |
+                    | I I I I I I I |
+                    |  I I I I I I  |
+                     \_           _/
+                      \_         _/
+                        \_______/
+");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ReadKey();
+            StartMenu();
+            
+
+
+
+
+        }
+
         public void GoToSpot()
         {
 
@@ -168,9 +203,9 @@ namespace Team_Project_Week_4
                 case ConsoleKey.D5:
 
                     if (i == 16)
-                    { Story.EscapeToResort(boi.playerMoney, gameWin); }
+                    { Story.EscapeToResort(boi.playerMoney, boi); }
                     if (i == 0)
-                    { Story.BuyContract(boi.playerMoney, gameWin); }
+                    { Story.BuyContract(boi.playerMoney, boi); }
                         break;
 
             }
@@ -369,36 +404,16 @@ namespace Team_Project_Week_4
             {
                 if(boi.isDead )
                 {
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    
-                    WriteCenterScreen("GAME OVER");
-                    WriteCenterScreen(@"      
-                     _______________
-                    /               \
-                   /                 \
-                  /                   \
-                  |   XXXX     XXXX   |
-                  |   XXXX     XXXX   |
-                  |   XXX       XXX   |
-                  |         X         |
-                  \__      XXX     __/
-                    |\     XXX     /|
-                    | |           | |
-                    | I I I I I I I |
-                    |  I I I I I I  |
-                     \_           _/
-                      \_         _/
-                        \_______/
-");
-                    Console.ResetColor();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.ReadKey();
-                    StartMenu();
-                    break;
-
+                    GameOver();
                 }
-                if (gameWin == true)
+                if (boi.playerAge >= 40)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Space Shippers Inc is coming for your organs......................");
+                    Console.ReadKey();
+                    GameOver();
+                }
+                if (boi.iswin == true)
                 {
                     Console.Clear();
                     Console.WriteLine("Congratulations! You Win!");
