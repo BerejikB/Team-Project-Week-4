@@ -29,16 +29,16 @@ namespace Team_Project_Week_4
             Console.ReadKey();
             Console.WriteLine($"You decide you don’t want to continue being a {Profession} anymore, and try your luck in the space shipping business. ");
             Console.ReadKey();
-            RecruiterDialogue();
+            RecruiterDialogue(FirstName);
 
         }
-        public void RecruiterDialogue()
+        public void RecruiterDialogue(string FirstName)
         {
             Console.WriteLine("You call a recruiter for Space Shippers Inc");
             Console.ReadKey();
             Console.WriteLine("You are greeted by a friendly AI. ");
             Console.ReadKey();
-            Console.WriteLine("Hello {name}. Thank you for your interest in Space Shippers Inc, ");
+            Console.WriteLine($"Hello {FirstName}. Thank you for your interest in Space Shippers Inc, ");
             Console.ReadKey();
             Console.WriteLine("We can sign you right away. You will be provided with a standard company ship and $2500. ");
             Console.ReadKey();
