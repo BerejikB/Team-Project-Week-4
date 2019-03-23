@@ -8,6 +8,15 @@ namespace Team_Project_Week_4
 {
     class RandomEvents
     {
+        Player boi;
+        Ship Shipo;
+        public RandomEvents(Player boi, Ship shipo)
+        {
+            this.boi = boi;
+            this.Shipo = shipo;
+        }
+
+       
         Random rnd = new Random();
         public void NumOfEvents()
         {
@@ -22,7 +31,7 @@ namespace Team_Project_Week_4
 
         }
 
-        public void EventType()
+        public void EventType(Player boi, Ship Shipo)
         {
             //switch statement for random selection of event
             int eventType = rnd.Next(1, 5);

@@ -92,6 +92,21 @@ namespace Team_Project_Week_4
 
         }
 
+        public void EventChecker()
+        {
+          int randy = rnd.Next(1, 10);
+
+            if(randy == 7)
+            { Events.EventType( boi, Shipo); }
+
+
+
+
+
+
+
+
+        }
         public void GoToSpot()
         {
 
@@ -112,6 +127,7 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         letmeleave = false;
+                        EventChecker();
                         Shipo.AgeCalculator(this.LocationX, this.LocationY);                        
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
