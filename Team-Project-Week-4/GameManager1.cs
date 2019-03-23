@@ -97,7 +97,11 @@ namespace Team_Project_Week_4
           int randy = rnd.Next(1, 10);
 
             if(randy == 7)
-            { Events.EventType( boi, Shipo); }
+            {
+                Console.Clear();
+                Console.WriteLine("Your ship computer drops you out of warp because of an imminent collision......");
+                Events.EventType( boi, Shipo);
+            }
 
 
 
@@ -311,15 +315,11 @@ namespace Team_Project_Week_4
 
 
             //User input for main menu
-            int mainMenuSelect = 0;
+            
             ConsoleKeyInfo userKey;
             userKey = Console.ReadKey(true);
 
-            try
-            {
-                mainMenuSelect = int.Parse(Console.ReadLine());
-            }
-            catch (Exception) { Console.WriteLine("try again"); }
+            
 
             switch (userKey.Key)
             {

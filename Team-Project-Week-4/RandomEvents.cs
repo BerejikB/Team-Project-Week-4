@@ -69,15 +69,52 @@ namespace Team_Project_Week_4
         {
             //distress call method
             //if distress call is answered, get free repair, or upgrade if no need for repairs, or free beer
-            //
+            int randoMoney = rnd.Next(7, 5000);
+            Console.Clear();
+            Console.WriteLine("You ship computer detects the debris of a destroyed ship");
+            Console.ReadKey();
+            Console.WriteLine($"You manage to find ${randoMoney} in salvage");
+            boi.playerMoney += randoMoney;
+            Console.ReadKey();
+
         }
 
         public void Raid()
         {
             //distress call method
             //if distress call is answered, dialogue for hiding in a secret compartment while your ship gets damaged, robbed
-            //
+            Console.WriteLine("Your warp has been interdicted!");
+            Console.ReadKey();
+            Console.WriteLine("You ship computer alerts you to small boarding vessles approaching");
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1) Defend yourself 2) Try to flee");
+            ConsoleKeyInfo userKey;
+            userKey = Console.ReadKey(true);
+
+
+
+            switch (userKey.Key)
+            {
+                case ConsoleKey.D1:
+                    {
+                        Console.Clear();
+                        int defenceChance = rnd.Next(0, 12);
+                        if (boi.playerSecurity >= defenceChance) ;
+                        { Console.WriteLine("With your superior tactics, and knowledge of each and every passageway, nook and cranny of your ship, you manage to repel the boarding party"); }
+                        else{ Console.WriteLine("The boarders overwhelmed you........"); boi.isDead = true; }
+                    }
+                    break;
+
+                case ConsoleKey.D2:
+                    {
+
+                        
+                    }
+                    break;
+
+            }
         }
+
 
         public void Malfunction()
         {
