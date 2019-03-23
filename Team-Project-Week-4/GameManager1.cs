@@ -140,6 +140,7 @@ namespace Team_Project_Week_4
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
                         boi.playerAge += Shipo.TimeToTravel(this.LocationX, this.LocationY) ;
+                        Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY);
                         break;
 
                     case ConsoleKey.N:

@@ -12,11 +12,11 @@ namespace Team_Project_Week_4
     {
 
         public string shipName;
-        public int shipHealth = 8;
+        public int shipHealth = 10;
         public double engineLevel = 6;
         public string shipStatus = "In Working Order";
         public double warpVelocity;
-
+        public int fuelLevel = 100;
        public Player boi;
        
         public Ship()
@@ -242,12 +242,10 @@ namespace Team_Project_Week_4
             }
         }
 
-        public void CalculateFuel()
+        public int CalculateFuelConsumption(int x, int y)
         {
-            //TODO: Fuel
-            //LY/FuelUnit
-
-
+            int fuelConsumed = Convert.ToInt32(TravelDistance(x, y) * 2);
+            return fuelConsumed;
         }
     }
 }
