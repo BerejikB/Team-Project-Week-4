@@ -123,7 +123,7 @@ public class xmlLoader
         stats.LastName = Convert.ToString(Player.SelectSingleNode("LastName").InnerText);
         stats.playerMoney = Convert.ToDouble(Player.SelectSingleNode("playerMoney").InnerText);
         stats.isDead = bool.Parse(Convert.ToString(Player.SelectSingleNode("isDead").InnerText));
-        stats.playerAge = Convert.ToInt32(Player.SelectSingleNode("playerAge").InnerText);
+        stats.playerAge = Convert.ToDouble(Player.SelectSingleNode("playerAge").InnerText);
         stats.playerLocation.playerX = Convert.ToInt32(Player.SelectSingleNode("playerX").InnerText);
         stats.playerLocation.playerY = Convert.ToInt32(Player.SelectSingleNode("playerY").InnerText);
 

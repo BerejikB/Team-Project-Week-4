@@ -177,6 +177,17 @@ namespace Team_Project_Week_4
             GenerateItemsSold();
             
         }
+        public void AddLootBox(int randoItem, int randoItemNo)
+
+        {
+            for (int i = 0; i < randoItemNo; i++)
+            {
+
+                PlayerInventory[randoItem].Playerquantity ++ ;
+            }
+
+
+        }
         public void SelectItem(Player boi )
         {
            

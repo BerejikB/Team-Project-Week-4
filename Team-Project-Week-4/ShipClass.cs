@@ -17,10 +17,11 @@ namespace Team_Project_Week_4
         public string shipStatus = "In Working Order";
         public double warpVelocity;
 
-        public Player boi;
+       public Player boi;
        
         public Ship()
         {
+            
         }
 
        
@@ -146,7 +147,7 @@ namespace Team_Project_Week_4
 
         }
 
-        public void RepairShip()
+        public void RepairShip(Player boi)
         {
             if (shipStatus != "In Perfect Condition")
             {
@@ -184,7 +185,7 @@ namespace Team_Project_Week_4
             }
         }
 
-        public void DamageShip()
+        public void DamageShip(Player boi)
         {
             if (shipHealth > 1)
             {
@@ -197,7 +198,7 @@ namespace Team_Project_Week_4
 
         }
 
-        public void UpgradeShip()
+        public void UpgradeShip(Player boi)
         {
 
 

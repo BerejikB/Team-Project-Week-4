@@ -9,13 +9,13 @@ namespace Team_Project_Week_4
     class RandomEvents
     {
         Player boi;
-        Ship Shipo;
-        Market PlayerItems;
-        public RandomEvents(Player boi, Ship shipo, Market playerItems)
+        Ship shipo;
+        Market playerItems;
+        public RandomEvents(Player Boi, Ship Shipo, Market PlayerItems)
         {
-            this.boi = boi;
-            this.Shipo = shipo;
-            this.PlayerItems = playerItems;
+            this.boi = Boi;
+            this.shipo = Shipo;
+            this.playerItems = PlayerItems;
         }
 
        
@@ -41,22 +41,22 @@ namespace Team_Project_Week_4
             {
                 case 1:
                     {
-                        LootBox();
+                        LootBox(PlayerItems);
                         break;
                     }
                 case 2:
                     {
-                        Raid();
+                        Raid(boi, shipo);
                         break;
                     }
                 case 3:
                     {
-                        Malfunction();
+                        Malfunction(Shipo);
                         break;
                     }
                 case 4:
                     {
-                        Wormhole();
+                        Wormhole(boi);
                         break;
                     }
             }
@@ -67,22 +67,22 @@ namespace Team_Project_Week_4
             Console.Clear();
             Console.WriteLine("");
         }
-        public void LootBox()
+        public void LootBox(Market playerItems)
         {
             //distress call method
             //if distress call is answered, get free repair, or upgrade if no need for repairs, or free beer
             int randoItem = rnd.Next(0, 10);
-            int randoItemNo = rnd.Next(0, 8);
+            int randoItemNo = rnd.Next(1, 8);
             Console.Clear();
             Console.WriteLine("You ship computer detects the debris of a destroyed ship");
             Console.ReadKey();
-            PlayerItems.PlayerInventory[randoItem].Planetquantity += randoItemNo;
-            Console.WriteLine($"You manage to find {randoItemNo} {PlayerItems.PlayerInventory[randoItem].name} in salvage");
+            Console.WriteLine($"You manage to find {randoItemNo} {playerItems.PlayerInventory[randoItem].name} in salvage");
             Console.ReadKey();
+            playerItems.AddLootBox(randoItem, randoItemNo);
 
         }
 
-        public void Raid()
+        public void Raid(Player boi, Ship ship)
         {
             //distress call method
             //if distress call is answered, dialogue for hiding in a secret compartment while your ship gets damaged, robbed
@@ -109,10 +109,13 @@ namespace Team_Project_Week_4
 
                         {
                             Console.WriteLine("With your superior tactics, and knowledge of each and every passageway, nook and cranny of your ship, you manage to repel the boarding party");
+                            Console.ReadKey();
                         }
-                        else
+                        else {  Console.WriteLine("The boarders overwhelmed you........"); boi.isDead = true;
+                            Console.ReadKey();
+                        }
                                           
-                          Console.WriteLine("The boarders overwhelmed you........"); boi.isDead = true;
+                          
                           
                         
                     }
@@ -122,8 +125,9 @@ namespace Team_Project_Week_4
                     {
 
                         Console.WriteLine("You manage to get back into warp, but due to the forced and sudden startup of yous systems, you have damaged your ship badly. ");
-                        Shipo.DamageShip();
-                        Shipo.DamageShip();
+                        shipo.DamageShip(boi);
+                        shipo.DamageShip(boi);
+                        Console.ReadKey();
                     }
                     break;
 
@@ -131,7 +135,7 @@ namespace Team_Project_Week_4
         }
 
 
-        public void Malfunction()
+        public void Malfunction(Ship shipo)
         {
             Console.Clear();
             Console.WriteLine("You somehow managed to run straight into a space rock.");
@@ -139,12 +143,14 @@ namespace Team_Project_Week_4
             Console.WriteLine("Your ship computer scolds you");
             Console.ReadKey();
             Console.WriteLine("You should probably fix the damage at the next planet you arrive at");
+            shipo.DamageShip(boi);
+            Console.ReadKey();
             //dialogue with switch statement for determining type of malfunction from small set of options
             //drops ship health 
             //notify that repairs can be made at the nearest planet
         }
 
-        public void Wormhole()
+        public void Wormhole(Player boi)
         {
             boi.playerLocation.playerX = rnd.Next(2, 119);
             boi.playerLocation.playerY = rnd.Next(4, 25);

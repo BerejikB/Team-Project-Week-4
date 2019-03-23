@@ -94,12 +94,13 @@ namespace Team_Project_Week_4
 
         public void EventChecker()
         {
-          int randy = rnd.Next(1, 10);
+          int randy = rnd.Next(1, 5);
 
-            if(randy == 7)
+            if(randy == 3)
             {
                 Console.Clear();
                 Console.WriteLine("Your ship computer drops you out of warp because of an imminent collision......");
+                Console.ReadKey();
                 Events.EventType( boi, Shipo, PlanetMarket);
             }
 
@@ -111,6 +112,7 @@ namespace Team_Project_Week_4
 
 
         }
+
         public void GoToSpot()
         {
 
@@ -172,7 +174,10 @@ namespace Team_Project_Week_4
 
         public void PlanetMenu(int i)
         {
-            
+            if (boi.isDead)
+            {
+                GameOver();
+            }
 
             letmeleave = false;
             Console.Clear();
@@ -207,13 +212,13 @@ namespace Team_Project_Week_4
                     break;
                 case ConsoleKey.D2:
                     {
-                        Shipo.RepairShip();
+                        Shipo.RepairShip(boi);
                         PlanetMenu(i);
                     }
                     break;
                 case ConsoleKey.D3:
                     {
-                        Shipo.UpgradeShip();
+                        Shipo.UpgradeShip(boi);
                         PlanetMenu(i);
                     }
                     break;
@@ -521,9 +526,9 @@ namespace Team_Project_Week_4
                         Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         SetPlayer();
-                        YouAreHere();
                         DrawPlanet();
                         DrawEarth();
+                        YouAreHere();
 
                         
 
