@@ -63,23 +63,27 @@ namespace Team_Project_Week_4
 
             Console.Clear();
             Console.WriteLine($"Your ship is capable of Warp Factor {Shipo.engineLevel}");
-            Console.WriteLine($"This will take {Shipo.TimeToTravel(this.LocationX, this.LocationY)}");
+            Console.WriteLine($"This will take {(Shipo.TimeToTravel(this.LocationX, this.LocationY) * 365)} days");
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
+
+            ConsoleKeyInfo userinputboi;
+            userinputboi = Console.ReadKey(true);
+
             try
             {
-                char userinput = char.Parse(Console.ReadLine().ToLower());
+               
 
-                switch (userinput)
+                switch (userinputboi.Key)
 
                 {
-                    case 'y':
+                    case ConsoleKey.Y:
                         Shipo.AgeCalculator(this.LocationX, this.LocationY);                        
                         this.boi.playerLocation.playerX = LocationX;
                         this.boi.playerLocation.playerY = LocationY;
 
                         break;
 
-                    case 'n':
+                    case ConsoleKey.N:
                         break;
 
                 }

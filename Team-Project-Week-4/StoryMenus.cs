@@ -9,9 +9,21 @@ namespace Team_Project_Week_4
     class StoryMenus
     {
         public void StartGameInterView()
-        { Console.Write("You are a "); }
+
+        {
+            Console.Write("You are a ");
+        }
 
 
+
+        public void WinConditon()
+
+        {
+            Console.Write("You are a ");
+        }
         
     }
+
+
+
 }

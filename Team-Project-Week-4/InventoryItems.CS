@@ -9,6 +9,7 @@ namespace Team_Project_Week_4
     public class NoItems : Exception { }
     public class NoMoney : Exception { }
     public class PlanetBroke : Exception { }
+    public class PlayerBoughtItem : Exception { }
     public class PlanetNoItems : Exception { }
     public class Item
     {
@@ -140,7 +141,7 @@ namespace Team_Project_Week_4
         public int numSold = 0;
         List<Item> allItemsSold = new List<Item>() { InventoryItems.Beer, InventoryItems.Goat, InventoryItems.Gold, InventoryItems.SandWiches, InventoryItems.Water, InventoryItems.ConsumerElectronics, InventoryItems.IndustrialComponents, InventoryItems.RawIron, InventoryItems.NuclearMaterial, InventoryItems.HazardousWaste };
         List<Item> PlayerInventory = new List<Item>() { InventoryItems.Beer, InventoryItems.Goat, InventoryItems.Gold, InventoryItems.SandWiches, InventoryItems.Water, InventoryItems.ConsumerElectronics, InventoryItems.IndustrialComponents, InventoryItems.RawIron, InventoryItems.NuclearMaterial, InventoryItems.HazardousWaste };
-
+       public  bool PlayerBought = false;
         public void PrintItemsSold()
         {
             Console.WriteLine("Your Inventory:");
@@ -174,6 +175,7 @@ namespace Team_Project_Week_4
             localeconomy = economy;
             localvalueMultiplier = valueMultiplier;
             GenerateItemsSold();
+            
         }
         public void SelectItem(Player boi )
         {
@@ -186,7 +188,7 @@ namespace Team_Project_Week_4
             Console.WriteLine($"Current Wallet   ${ boi.playerMoney} You have {PlayerInventory[r].Playerquantity} {PlayerInventory[r].name} ");
             Console.WriteLine($"Your Speech skill will give a {playerspeechmult}% bonus.");
             Console.WriteLine($"The Planet's Economy is {localeconomy} ");
-            Console.WriteLine($"Planet has ${allItemsSold[0].PlanetMoney}. Planet has {allItemsSold[r].Planetquantity} {allItemsSold[r].name}s which sells for ${allItemsSold[r].price}");
+            Console.WriteLine($"Planet has ${allItemsSold[0].PlanetMoney}. Planet has {allItemsSold[r].Planetquantity} {allItemsSold[r].name}s which sells for ${allItemsSold[r].price * localvalueMultiplier}");
             Console.WriteLine("Press Right arrow to buy, press Left arrow to Sell, press Up and Down arrow to select");
             Console.WriteLine($"{allItemsSold[r].name} Selected");
             ConsoleKeyInfo userinputboi;
@@ -212,6 +214,7 @@ namespace Team_Project_Week_4
                     break;
                 case ConsoleKey.RightArrow:
                     {
+
                         BuyItem(boi);
                         //SelectItem(boi);
                     }
@@ -236,6 +239,7 @@ namespace Team_Project_Week_4
         {
             try
             {
+                PlayerBought = true;
                 if (boi.playerMoney <= allItemsSold[r].price)
                 { throw new NoMoney { }; }
                 if (allItemsSold[r].Planetquantity <= 0)
@@ -246,6 +250,7 @@ namespace Team_Project_Week_4
                 double playermult = playerspch *= .02;
                 double addin = playermult *= itemprice;
                 double finalprice = itemprice -= addin;
+                finalprice *= localvalueMultiplier;
                 PlayerInventory[r].Playerquantity++;
                 allItemsSold[r].Planetquantity--;
                 boi.playerMoney -= finalprice;
@@ -278,6 +283,8 @@ namespace Team_Project_Week_4
         {
             try
             {
+                if (PlayerBought == true)
+                { throw new PlayerBoughtItem { }; }
                 if (PlayerInventory[r].Playerquantity <= 0)
                 { throw new NoItems { }; }
                 if (allItemsSold[0].PlanetMoney <= allItemsSold[r].price)
@@ -288,7 +295,7 @@ namespace Team_Project_Week_4
                 double playermult = playerspch *= .02;
                 double addin = playermult *= itemprice;
                 double finalprice = itemprice += addin;
-
+                finalprice *= localvalueMultiplier;
                 boi.playerMoney += finalprice;
                 PlayerInventory[r].Playerquantity--;
                 allItemsSold[r].Planetquantity++;
@@ -301,7 +308,7 @@ namespace Team_Project_Week_4
             }
             catch (PlanetBroke)
             {
-                                
+
                 SelectItem(boi);
 
 
@@ -311,6 +318,12 @@ namespace Team_Project_Week_4
                 PlayerInventory[r].Playerquantity = 0;
                 //allItemsSold[r].Planetquantity--;
                 //boi.playerMoney -= allItemsSold[r].price;
+                SelectItem(boi);
+            }
+            catch (PlayerBoughtItem)
+            {
+                Console.WriteLine("A Planet will not buy back items it just sold to you.");
+                Console.ReadKey();
                 SelectItem(boi);
             }
             
