@@ -26,7 +26,7 @@ public class SetAttribMenu
     StoryMenus Story = new StoryMenus();
     List<Item> GameItems = new List<Item>();
     Market PlanetMarket = new Market();
-    
+    public int SaveSlotsetter = 0;
     Player playerAttribs;
     Ship NewShipo;
 
@@ -35,6 +35,54 @@ public class SetAttribMenu
         
         this.playerAttribs = boi;
         this.NewShipo = shipo;
+    }
+
+
+    public void SelectSaveSlot()
+    {
+
+
+        while (SaveSlotsetter == 0)
+        {
+            try
+            {
+                Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
+                Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
+                Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
+                ConsoleKeyInfo userinputboi;
+                userinputboi = Console.ReadKey(true);
+
+
+                switch (userinputboi.Key)
+                {
+                    case ConsoleKey.D1:
+                        {
+                            SaveSlotsetter = 1;
+                        }
+                        break;
+                    case ConsoleKey.D2:
+                        {
+                            SaveSlotsetter = 2;
+                        }
+
+                        break;
+                    case ConsoleKey.D3:
+                        {
+                            SaveSlotsetter = 3;
+                        }
+                        break;
+                }
+            }
+            catch (Exception) { Console.WriteLine("try again"); }
+        }
+
+        
+
+
+
+
+
+
     }
 
 
@@ -422,11 +470,46 @@ public class SetAttribMenu
         {
             case 'y':
                 {
-                  SaveFunct.WriteXML(playerAttribs);
-                  SaveFunct.WriteXMLWorld(GameWorld);
-                  SaveFunct.WriteXMLShip(NewShipo);
-                  SaveFunct.WriteXMLInventory(PlanetMarket);
-                   Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
+
+                    if (File.Exists($"player{SaveSlotsetter}.xml"))
+                    {
+
+                        Console.WriteLine($"Are you sure you want to overwrite Save {SaveSlotsetter}?");
+
+                        ConsoleKeyInfo userinputboi;
+                        userinputboi = Console.ReadKey(true);
+
+
+                        switch (userinputboi.Key)
+                        {
+                            case ConsoleKey.Y:
+                                {
+                                    SaveFunct.WriteXML(SaveSlotsetter, playerAttribs);
+                                    SaveFunct.WriteXMLWorld(SaveSlotsetter, GameWorld);
+                                    SaveFunct.WriteXMLShip(SaveSlotsetter, NewShipo);
+                                    SaveFunct.WriteXMLInventory(SaveSlotsetter, PlanetMarket);
+                                    Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
+                                }
+                                break;
+                            case ConsoleKey.N:
+                                {
+
+                                    Review();
+                                }
+                                break;
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        SaveFunct.WriteXML(SaveSlotsetter, playerAttribs);
+                        SaveFunct.WriteXMLWorld(SaveSlotsetter, GameWorld);
+                        SaveFunct.WriteXMLShip(SaveSlotsetter, NewShipo);
+                        SaveFunct.WriteXMLInventory(SaveSlotsetter, PlanetMarket);
+                        Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
+                    }
                 }
                 break;
             case 'n':

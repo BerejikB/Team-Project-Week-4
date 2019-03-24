@@ -19,107 +19,80 @@ using System.Runtime.Serialization;
 public class xmlSaver
 {
 
-    public int? SaveSlotsetter = null;
+    public int SaveSlotsetter = 0 ;
 
-    public int SaveSlot()
+    //public int SaveSlot()
+    //{
+    //    while (SaveSlotsetter == null)
+    //    {
+    //        try
+    //        {
+    //            Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
+    //            Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
+    //            Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
+    //            ConsoleKeyInfo userinputboi;
+    //            userinputboi = Console.ReadKey(true);
+
+
+    //            switch (userinputboi.Key)
+    //            {
+    //                case ConsoleKey.D1:
+    //                    {
+    //                        SaveSlotsetter = 1;
+    //                    }
+    //                    break;
+    //                case ConsoleKey.D2:
+    //                    {
+    //                        SaveSlotsetter = 2;
+    //                    }
+
+    //                    break;
+    //                case ConsoleKey.D3:
+    //                    {
+    //                        SaveSlotsetter = 3;
+    //                    }
+    //                    break;
+    //            }
+    //        }
+    //        catch (Exception) { Console.WriteLine("try again"); }
+    //    }
+
+    //    return (int)SaveSlotsetter;
+    //}
+
+    public void WriteXML(int save, Player playerStats)
     {
-        while (SaveSlotsetter == null)
-        {
-            try
-            {
-                Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
-                Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
-                Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
-                ConsoleKeyInfo userinputboi;
-                userinputboi = Console.ReadKey(true);
-
-
-                switch (userinputboi.Key)
-                {
-                    case ConsoleKey.D1:
-                        {
-                            SaveSlotsetter = 1;
-                        }
-                        break;
-                    case ConsoleKey.D2:
-                        {
-                            SaveSlotsetter = 2;
-                        }
-
-                        break;
-                    case ConsoleKey.D3:
-                        {
-                            SaveSlotsetter = 3;
-                        }
-                        break;
-                }
-            }
-            catch (Exception) { Console.WriteLine("try again"); }
-        }
-
-        return (int)SaveSlotsetter;
-    }
-
-    public void WriteXML(Player playerStats)
-    {
-        if (File.Exists($"player{SaveSlotsetter}.xml"))
-        {
-
-            Console.WriteLine($"Are you sure you want to overwrite Save {SaveSlotsetter}?");
-
-            ConsoleKeyInfo userinputboi;
-            userinputboi = Console.ReadKey(true);
-
-
-            switch (userinputboi.Key)
-            {
-                case ConsoleKey.Y:
-                    {
-
-                    }
-                    break;
-                case ConsoleKey.N:
-                    {
-
-                        SaveSlot();
-                    }
-                    break;
-            }
-
-
-        }
-
-
+        
 
         try
         {
             XmlSerializer writer = new XmlSerializer(typeof(Player));
 
-            System.IO.StreamWriter file = new StreamWriter($"Player{SaveSlot()}.xml");
+            System.IO.StreamWriter file = new StreamWriter($"Player{save}.xml");
             writer.Serialize(file, playerStats);
 
 
             file.Close();
         }
-        catch (Exception) { WriteXML(playerStats); }
+        catch (Exception) { WriteXML(save, playerStats); }
         Console.WriteLine("Character saved");
         Console.WriteLine();
 
     }
 
-    public void WriteXMLWorld(World WorldState)
+    public void WriteXMLWorld(int save, World WorldState)
     {
         try
         {
             XmlSerializer writer = new XmlSerializer(typeof(World));
 
-            System.IO.StreamWriter file = new StreamWriter($"WorldState{SaveSlot()}.xml");
+            System.IO.StreamWriter file = new StreamWriter($"WorldState{save}.xml");
 
 
             writer.Serialize(file, WorldState);
             file.Close();
         }
-        catch (Exception) { WriteXMLWorld(WorldState); }
+        catch (Exception) { WriteXMLWorld(save, WorldState); }
         Console.WriteLine("World saved");
         Console.WriteLine();
 
@@ -127,13 +100,13 @@ public class xmlSaver
 
     }
 
-    public void WriteXMLShip(Ship Shipo)
+    public void WriteXMLShip(int save, Ship Shipo)
     {
         //try
         //{
         XmlSerializer writer = new XmlSerializer(typeof(Ship));
 
-        System.IO.StreamWriter file = new StreamWriter($"Ship{SaveSlot()}.xml");
+        System.IO.StreamWriter file = new StreamWriter($"Ship{save}.xml");
         writer.Serialize(file, Shipo);
         file.Close();
         // }
@@ -143,11 +116,11 @@ public class xmlSaver
 
     }
 
-    public void WriteXMLInventory(Market PlayerInventory)
+    public void WriteXMLInventory(int save, Market PlayerInventory)
     {
             XmlSerializer writer = new XmlSerializer(typeof(Market));
 
-            System.IO.StreamWriter file = new StreamWriter($"PlayerInventory{SaveSlot()}.xml");
+            System.IO.StreamWriter file = new StreamWriter($"PlayerInventory{save}.xml");
 
 
             writer.Serialize(file, PlayerInventory);

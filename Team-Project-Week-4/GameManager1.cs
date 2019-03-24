@@ -34,7 +34,7 @@ namespace Team_Project_Week_4
         public int PlanetIndex;
         public bool gameWin = false;
         public bool letmeleave = false;
-        public int? SelectedSave;
+        public int SelectedSave;
         public GameManager()
         {
 
@@ -99,9 +99,9 @@ namespace Team_Project_Week_4
         public void AutoSave()
         {
             load.SaveSlotsetter = SelectedSave;
-            save.WriteXML(boi);
-            save.WriteXMLInventory(PlanetMarket);
-            save.WriteXMLShip(Shipo);
+            save.WriteXML(SelectedSave, boi);
+            save.WriteXMLInventory(SelectedSave, PlanetMarket);
+            save.WriteXMLShip(SelectedSave, Shipo);
         }
 
         public void EventChecker()
@@ -442,7 +442,7 @@ namespace Team_Project_Week_4
             this.boi = load.LoadXML(load.SaveSlot());
             this.Shipo = load.LoadXMLShip(load.SaveSlot());
             this.PlayerInventory = load.LoadXMLInventory(load.SaveSlot());
-            this.SelectedSave = load.SaveSlotsetter;
+            this.SelectedSave = (int)load.SaveSlotsetter;
             load.SaveSlotsetter = SelectedSave;
             bool gameRunning = true;
            
@@ -541,9 +541,7 @@ namespace Team_Project_Week_4
 
                             case ConsoleKey.Escape:
                                 Console.Clear();
-                                save.WriteXML(boi);
-                                save.WriteXMLInventory(PlanetMarket);
-                                save.WriteXMLShip(Shipo);
+                                AutoSave();
                                 gameRunning = false;
                                 break;
 
