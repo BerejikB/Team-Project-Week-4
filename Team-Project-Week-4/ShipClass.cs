@@ -86,22 +86,35 @@ namespace Team_Project_Week_4
 
         public void AgeCalculator(int x, int y)
         {
-            boi.playerAge += TimeToTravel(x, y);
+            boi.playerAge += TimeToTravel( x, y);
         }
 
-        public double TimeToTravel(int x, int y)
 
-
+        public double TimeToTravelDays(int x, int y)
 
         {
 
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
-            double travelTime = Math.Round(lightYearTravelTime * TravelDistance(x, y), 12 - boi.playerPiloting);
+            double travelTime = lightYearTravelTime *= TravelDistance(x, y);
+            travelTime -= (12 - boi.playerPiloting);
+            travelTime *= 365;
             return travelTime;
         }
 
-        public double TravelDistance(int x, int y)
+
+        public double TimeToTravel( int x, int y)
+
+        {
+
+            WarpFactor();
+            double lightYearTravelTime = 1 / warpVelocity;
+            double travelTime = lightYearTravelTime * TravelDistance( x, y);
+            travelTime -= (12 - boi.playerPiloting);
+            return travelTime;
+        }
+
+        public double TravelDistance( int x, int y)
         {
             int diffX = boi.playerLocation.playerX - x;
             int diffY = boi.playerLocation.playerY - y;
@@ -246,9 +259,9 @@ namespace Team_Project_Week_4
             }
         }
 
-        public int CalculateFuelConsumption(int x, int y)
+        public int CalculateFuelConsumption(Player boi, int x, int y)
         {
-            int fuelConsumed = Convert.ToInt32(TravelDistance(x, y) /2);
+            int fuelConsumed = Convert.ToInt32(TravelDistance( x, y) /2);
             return fuelConsumed;
         }
 

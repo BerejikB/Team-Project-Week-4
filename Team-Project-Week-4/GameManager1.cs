@@ -96,6 +96,14 @@ namespace Team_Project_Week_4
 
         }
 
+        public void AutoSave()
+        {
+            load.SaveSlotsetter = SelectedSave;
+            save.WriteXML(boi);
+            save.WriteXMLInventory(PlanetMarket);
+            save.WriteXMLShip(Shipo);
+        }
+
         public void EventChecker()
         {
           int randy = rnd.Next(1, 4);
@@ -106,8 +114,7 @@ namespace Team_Project_Week_4
                 Console.WriteLine("Your ship computer drops you out of warp because of an imminent collision......");
                 Console.ReadKey();
                 Events.EventType( boi, Shipo, PlanetMarket);
-                load.SaveSlotsetter = SelectedSave;
-                save.WriteXMLInventory(PlanetMarket);
+                AutoSave();
             }
 
         }
@@ -117,7 +124,7 @@ namespace Team_Project_Week_4
 
             Console.Clear();
             Console.WriteLine($"Your ship is capable of Warp Factor {Shipo.engineLevel} and you have {Shipo.fuelLevel}/100 fuel left");
-            Console.WriteLine($"This will take {(Shipo.TimeToTravel(this.LocationX, this.LocationY) * 365)} days and {Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY)} fuel)");            
+            Console.WriteLine($"This will take {Math.Ceiling((Shipo.TimeToTravelDays( this.LocationX, this.LocationY)))} days and {Shipo.CalculateFuelConsumption(boi, this.LocationX, this.LocationY)} fuel)");            
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
             
             ConsoleKeyInfo userinputboi;
@@ -132,14 +139,14 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         letmeleave = false;
-                        if (Shipo.fuelLevel >= Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY))
+                        if (Shipo.fuelLevel >= Shipo.CalculateFuelConsumption( boi, this.LocationX, this.LocationY))
                         {
                             EventChecker();
                             Shipo.AgeCalculator(this.LocationX, this.LocationY);
                             this.boi.playerLocation.playerX = LocationX;
                             this.boi.playerLocation.playerY = LocationY;
                             boi.playerAge += Shipo.TimeToTravel(this.LocationX, this.LocationY);
-                            Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(this.LocationX, this.LocationY);
+                            Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(boi, this.LocationX, this.LocationY);
                         }
                         else
                         {
@@ -238,6 +245,7 @@ namespace Team_Project_Week_4
                 
                 case ConsoleKey.D5:
                     letmeleave = true;
+                    AutoSave();
                     break;
 
                 case ConsoleKey.D6:
@@ -253,7 +261,7 @@ namespace Team_Project_Week_4
 
         public void GoToMarket(int i, List<Item> PlayerInventory)
         {
-            load.SaveSlotsetter = SelectedSave;
+            
             Market Store = new Market();
             Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
@@ -266,7 +274,8 @@ namespace Team_Project_Week_4
             PlanetMarket.PlanetMarket( Planets[planetIndex].valueMultiplier, Planets[planetIndex].economy);
             PlanetMarket.InitMarket(SelectedSave);
             PlanetMarket.SelectItem(boi);
-            save.WriteXMLInventory(PlanetMarket);
+            AutoSave();
+            
 
 
         }
@@ -436,10 +445,10 @@ namespace Team_Project_Week_4
             this.SelectedSave = load.SaveSlotsetter;
             load.SaveSlotsetter = SelectedSave;
             bool gameRunning = true;
+           
             boi.playerX = boi.playerLocation.playerX;
             boi.playerY = boi.playerLocation.playerY;
-            LocationX = boi.playerLocation.playerX;
-            LocationY = boi.playerLocation.playerY;
+
             ConsoleKeyInfo userKey;
 
             while (gameRunning)
@@ -463,8 +472,9 @@ namespace Team_Project_Week_4
                 }
                 if (Console.KeyAvailable)
                 {
-                    
 
+                    boi.playerX = boi.playerLocation.playerX;
+                    boi.playerY = boi.playerLocation.playerY;
                     userKey = Console.ReadKey(true);
                     try
                     {

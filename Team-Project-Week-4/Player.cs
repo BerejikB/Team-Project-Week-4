@@ -21,6 +21,7 @@ public class Player
     //public int playerY;
 
     public int playerX;
+    
     public int playerY;
 
     public int playerSecurity;  //chance to defend self
