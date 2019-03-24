@@ -4,6 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.IO;
+using Team_Project_Week_4;
+using System.Xml.Serialization;
+using System.Xml.Linq;
+
+using System.Xml;
+
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+
 namespace Team_Project_Week_4
 {
 
@@ -103,8 +113,48 @@ namespace Team_Project_Week_4
             save.WriteXMLInventory(SelectedSave, PlanetMarket);
             save.WriteXMLShip(SelectedSave, Shipo);
         }
+        public void LoadGame()
+        {
 
-        public void EventChecker()
+            {
+
+                try
+                {
+                    Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
+                    Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
+                    Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
+                    ConsoleKeyInfo userinputboi;
+                    userinputboi = Console.ReadKey(true);
+
+
+                    switch (userinputboi.Key)
+                    {
+                        case ConsoleKey.D1:
+                            {
+                                SelectedSave = 1;
+                            }
+                            break;
+                        case ConsoleKey.D2:
+                            {
+                                SelectedSave = 2;
+                            }
+
+                            break;
+                        case ConsoleKey.D3:
+                            {
+                                SelectedSave = 3;
+                            }
+                            break;
+                    }
+                }
+                catch (Exception) { Console.WriteLine("try again"); }
+            }
+
+        }
+
+
+    
+         public void EventChecker()
         {
           int randy = rnd.Next(1, 4);
 
@@ -115,6 +165,10 @@ namespace Team_Project_Week_4
                 Console.ReadKey();
                 Events.EventType( boi, Shipo, PlanetMarket);
                 AutoSave();
+                SetPlayer();
+                DrawPlanet();
+                DrawEarth();
+                YouAreHere();
             }
 
         }
@@ -141,12 +195,15 @@ namespace Team_Project_Week_4
                         letmeleave = false;
                         if (Shipo.fuelLevel >= Shipo.CalculateFuelConsumption( boi, this.LocationX, this.LocationY))
                         {
-                            EventChecker();
                             Shipo.AgeCalculator(this.LocationX, this.LocationY);
                             this.boi.playerLocation.playerX = LocationX;
                             this.boi.playerLocation.playerY = LocationY;
+
+                            boi.playerX = boi.playerLocation.playerX;
+                            boi.playerY = boi.playerLocation.playerY;
                             boi.playerAge += Shipo.TimeToTravel(this.LocationX, this.LocationY);
                             Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(boi, this.LocationX, this.LocationY);
+                            EventChecker();
                         }
                         else
                         {
@@ -270,6 +327,7 @@ namespace Team_Project_Week_4
 
             
 
+            PlanetMarket.InitMarket(SelectedSave);
             Store.PrintItemsSold();
             PlanetMarket.PlanetMarket( Planets[planetIndex].valueMultiplier, Planets[planetIndex].economy);
             PlanetMarket.InitMarket(SelectedSave);
@@ -312,6 +370,7 @@ namespace Team_Project_Week_4
             Console.Write("[ ]");
             LocationX = Planets[planetIndex].locx;
             LocationY = Planets[planetIndex].locy;
+            
         }
 
         public void DrawEvent()
@@ -367,6 +426,7 @@ namespace Team_Project_Week_4
 
                 case ConsoleKey.D2:
                     {
+                        LoadGame();
                         RunLoop();
                         //StartMenu();
                     }
@@ -421,7 +481,7 @@ namespace Team_Project_Week_4
 
         public void PrintStat()
         {
-            this.boi = load.LoadXML(load.SaveSlot());
+            this.boi = load.LoadXML(load.SaveSlotsetter);
             Console.WriteLine($"You are {boi.FirstName} {boi.LastName}, the {boi.Profession}");
             Console.WriteLine($"Your curent attributes are:");
             Console.WriteLine($"Wallet : ${boi.playerMoney}");
@@ -437,15 +497,15 @@ namespace Team_Project_Week_4
         public void RunLoop()
         {
             Console.Clear();
-            this.GameWorld = load.LoadXMLWorld(load.SaveSlot());
-            this.Planets = load.LoadXMLPlanets(load.SaveSlot()); 
-            this.boi = load.LoadXML(load.SaveSlot());
-            this.Shipo = load.LoadXMLShip(load.SaveSlot());
-            this.PlayerInventory = load.LoadXMLInventory(load.SaveSlot());
+            this.GameWorld = load.LoadXMLWorld(SelectedSave);
+            this.Planets = load.LoadXMLPlanets(SelectedSave); 
+            this.boi = load.LoadXML(SelectedSave);
+            this.Shipo = load.LoadXMLShip(SelectedSave);
+            this.PlayerInventory = load.LoadXMLInventory(SelectedSave);
             this.SelectedSave = (int)load.SaveSlotsetter;
             load.SaveSlotsetter = SelectedSave;
             bool gameRunning = true;
-           
+
             boi.playerX = boi.playerLocation.playerX;
             boi.playerY = boi.playerLocation.playerY;
 
@@ -473,8 +533,7 @@ namespace Team_Project_Week_4
                 if (Console.KeyAvailable)
                 {
 
-                    boi.playerX = boi.playerLocation.playerX;
-                    boi.playerY = boi.playerLocation.playerY;
+                   
                     userKey = Console.ReadKey(true);
                     try
                     {
@@ -553,6 +612,8 @@ namespace Team_Project_Week_4
                         Console.Clear();
                         Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)} Ship Health: {Shipo.shipHealth} Engine Level: {Shipo.engineLevel} Fuel Level: {Shipo.fuelLevel}/100");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
+                        
+
                         SetPlayer();
                         DrawPlanet();
                         DrawEarth();

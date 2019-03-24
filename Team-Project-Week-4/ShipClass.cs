@@ -16,7 +16,7 @@ namespace Team_Project_Week_4
         public double engineLevel = 6;
         public string shipStatus = "In Working Order";
         public double warpVelocity;
-        public int fuelLevel = 100;
+        public double fuelLevel = 100;
        public Player boi;
        
         public Ship()
@@ -24,7 +24,14 @@ namespace Team_Project_Week_4
             
         }
 
-       
+        public double PlayerPilotingBonus()
+        {
+            double bonus;
+            double i;
+            i = boi.playerPiloting / 36;
+            bonus = i + 1;
+            return bonus;
+        }
 
         public void ShipStatus()
         {
@@ -97,8 +104,9 @@ namespace Team_Project_Week_4
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
             double travelTime = lightYearTravelTime *= TravelDistance(x, y);
-            travelTime -= (12 - boi.playerPiloting);
+            travelTime /= PlayerPilotingBonus();
             travelTime *= 365;
+            
             return travelTime;
         }
 
@@ -110,7 +118,7 @@ namespace Team_Project_Week_4
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
             double travelTime = lightYearTravelTime * TravelDistance( x, y);
-            travelTime -= (12 - boi.playerPiloting);
+            travelTime /= PlayerPilotingBonus();
             return travelTime;
         }
 
@@ -259,16 +267,17 @@ namespace Team_Project_Week_4
             }
         }
 
-        public int CalculateFuelConsumption(Player boi, int x, int y)
+        public double CalculateFuelConsumption(Player boi, int x, int y)
         {
-            int fuelConsumed = Convert.ToInt32(TravelDistance( x, y) /2);
+            double fuelConsumed = Convert.ToInt32(TravelDistance( x, y) /2);
+            fuelConsumed /= PlayerPilotingBonus();
             return fuelConsumed;
         }
 
         public void BuyFuel(Player boi)
         {
             Console.Clear();
-            int topOffFuel = 100 - fuelLevel;
+            double topOffFuel = 100 - fuelLevel;
             Console.WriteLine($"It will cost you ${topOffFuel} to top off on fuel. ");
             Console.WriteLine($"Are you sure you want to top off on fuel for ${topOffFuel}? Y/N");
             ConsoleKeyInfo userinputboi;

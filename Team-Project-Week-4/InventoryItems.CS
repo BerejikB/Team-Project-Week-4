@@ -168,11 +168,11 @@ namespace Team_Project_Week_4
 
         }
 
-        public void InitMarket(int? SelectedSave)
+        public void InitMarket(int SelectedSave)
         {
             
-            save = Convert.ToInt32(SelectedSave); 
-
+            
+            save = SelectedSave;
             this.PlayerInventory = load.LoadXMLInventory(save);
            
         }

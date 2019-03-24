@@ -154,6 +154,8 @@ namespace Team_Project_Week_4
         {
             boi.playerLocation.playerX = rnd.Next(2, 119);
             boi.playerLocation.playerY = rnd.Next(4, 25);
+            boi.playerX = boi.playerLocation.playerX;
+            boi.playerY = boi.playerLocation.playerY;
             Console.Clear();
             Console.WriteLine("Your ship computer informs you that somehow you managed to run right into a wormhole....");
             Console.ReadKey();

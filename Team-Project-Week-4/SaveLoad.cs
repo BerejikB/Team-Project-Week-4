@@ -140,47 +140,47 @@ public class xmlSaver
 
 public class xmlLoader
 {
-    public int? SaveSlotsetter = null;
+    public int SaveSlotsetter = 0;
 
 
-   public int SaveSlot()
-    {
-        while (SaveSlotsetter == null)
-        {
-            try
-            {
-                Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
-                Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
-                Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
-                ConsoleKeyInfo userinputboi;
-                userinputboi = Console.ReadKey(true);
+   //public int SaveSlot()
+   // {
+   //     while (SaveSlotsetter == null)
+   //     {
+   //         try
+   //         {
+   //             Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
+   //             Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
+   //             Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
+   //             ConsoleKeyInfo userinputboi;
+   //             userinputboi = Console.ReadKey(true);
 
 
-                switch (userinputboi.Key)
-                {
-                    case ConsoleKey.D1:
-                        {
-                            SaveSlotsetter = 1;
-                        }
-                        break;
-                    case ConsoleKey.D2:
-                        {
-                            SaveSlotsetter = 2;
-                        }
+   //             switch (userinputboi.Key)
+   //             {
+   //                 case ConsoleKey.D1:
+   //                     {
+   //                         SaveSlotsetter = 1;
+   //                     }
+   //                     break;
+   //                 case ConsoleKey.D2:
+   //                     {
+   //                         SaveSlotsetter = 2;
+   //                     }
 
-                        break;
-                    case ConsoleKey.D3:
-                        {
-                            SaveSlotsetter = 3;
-                        }
-                        break;
-                }
-            }
-            catch (Exception) { Console.WriteLine("try again"); }
-        }
+   //                     break;
+   //                 case ConsoleKey.D3:
+   //                     {
+   //                         SaveSlotsetter = 3;
+   //                     }
+   //                     break;
+   //             }
+   //         }
+   //         catch (Exception) { Console.WriteLine("try again"); }
+   //     }
 
-        return (int)SaveSlotsetter;
-    }
+   //     return (int)SaveSlotsetter;
+   // }
 
    public Player LoadXML(int SaveSlotsetter)
     {
@@ -188,7 +188,7 @@ public class xmlLoader
         
 
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-        doc.Load($"player{SaveSlot()}.xml");
+        doc.Load($"player{SaveSlotsetter}.xml");
         var Player = doc.SelectSingleNode("Player");
         stats.playerSecurity = Convert.ToInt32(Player.SelectSingleNode("playerSecurity").InnerText);
         stats.playerSpeech = Convert.ToInt32(Player.SelectSingleNode("playerSpeech").InnerText);
@@ -212,7 +212,7 @@ public class xmlLoader
     {
         World WorldState = new World();
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-        doc.Load($"WorldState{SaveSlot()}.xml");
+        doc.Load($"WorldState{SaveSlotsetter}.xml");
         var EarthStatus = doc.SelectSingleNode("World");
         
         WorldState.EarthX = Convert.ToInt32(EarthStatus.SelectSingleNode("EarthX").InnerText);
@@ -228,7 +228,7 @@ public class xmlLoader
         
         List<PlanetGen> Planets = new List<PlanetGen>();
 
-        XDocument xdoc = XDocument.Load($"WorldState{SaveSlot()}.xml");
+        XDocument xdoc = XDocument.Load($"WorldState{SaveSlotsetter}.xml");
 
         List<PlanetGen> Planet = (from lv1 in xdoc.Descendants("PlanetGen")
                                    select new PlanetGen
@@ -250,7 +250,7 @@ public class xmlLoader
         Market NewMarket = new Market();
         List<Item> PlayerInventory = new List<Item>();
         List<Item> LoaderPlayerInventory = new List<Item>();
-        XDocument xdoc = XDocument.Load($"PlayerInventory{SaveSlot()}.xml");
+        XDocument xdoc = XDocument.Load($"PlayerInventory{SaveSlotsetter}.xml");
         
         LoaderPlayerInventory = (from lv1 in xdoc.Descendants("Item")
                               select new Item
@@ -273,7 +273,7 @@ public class xmlLoader
         Shipo.boi = boi;
 
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-        doc.Load($"Ship{SaveSlot()}.xml");
+        doc.Load($"Ship{SaveSlotsetter}.xml");
         var ShipStatus = doc.SelectSingleNode("Ship");
 
         Shipo.shipHealth = Convert.ToInt32(ShipStatus.SelectSingleNode("shipHealth").InnerText);
