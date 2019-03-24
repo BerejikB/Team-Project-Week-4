@@ -252,8 +252,9 @@ namespace Team_Project_Week_4
             return fuelConsumed;
         }
 
-        public void BuyFuel()
+        public void BuyFuel(Player boi)
         {
+            Console.Clear();
             int topOffFuel = 100 - fuelLevel;
             Console.WriteLine($"It will cost you ${topOffFuel} to top off on fuel. ");
             Console.WriteLine($"Are you sure you want to top off on fuel for ${topOffFuel}? Y/N");

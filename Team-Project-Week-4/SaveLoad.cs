@@ -8,6 +8,12 @@ using Team_Project_Week_4;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 
+using System.Xml;
+
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+
+
 
 
 public class xmlSaver
@@ -21,8 +27,32 @@ public class xmlSaver
         {
             try
             {
-                Console.WriteLine("Select Save Slot");
-                SaveSlotsetter = int.Parse(Console.ReadLine());
+                Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
+                Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
+                Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
+                ConsoleKeyInfo userinputboi;
+                userinputboi = Console.ReadKey(true);
+
+
+                switch (userinputboi.Key)
+                {
+                    case ConsoleKey.D1:
+                        {
+                            SaveSlotsetter = 1;
+                        }
+                        break;
+                    case ConsoleKey.D2:
+                        {
+                            SaveSlotsetter = 2;
+                        }
+
+                        break;
+                    case ConsoleKey.D3:
+                        {
+                            SaveSlotsetter = 3;
+                        }
+                        break;
+                }
             }
             catch (Exception) { Console.WriteLine("try again"); }
         }
@@ -32,6 +62,35 @@ public class xmlSaver
 
     public void WriteXML(Player playerStats)
     {
+        if (File.Exists($"player{SaveSlotsetter}.xml"))
+        {
+
+            Console.WriteLine($"Are you sure you want to overwrite Save {SaveSlotsetter}?");
+
+            ConsoleKeyInfo userinputboi;
+            userinputboi = Console.ReadKey(true);
+
+
+            switch (userinputboi.Key)
+            {
+                case ConsoleKey.Y:
+                    {
+
+                    }
+                    break;
+                case ConsoleKey.N:
+                    {
+
+                        SaveSlot();
+                    }
+                    break;
+            }
+
+
+        }
+
+
+
         try
         {
             XmlSerializer writer = new XmlSerializer(typeof(Player));
@@ -63,7 +122,7 @@ public class xmlSaver
         catch (Exception) { WriteXMLWorld(WorldState); }
         Console.WriteLine("World saved");
         Console.WriteLine();
-        Console.ReadKey();
+
 
 
     }
@@ -84,23 +143,20 @@ public class xmlSaver
 
     }
 
-
-    public void WriteXMLInventory(Item PlayerInventory)
+    public void WriteXMLInventory(Market PlayerInventory)
     {
-        try
-        {
-            XmlSerializer writer = new XmlSerializer(typeof(Item));
+            XmlSerializer writer = new XmlSerializer(typeof(Market));
 
             System.IO.StreamWriter file = new StreamWriter($"PlayerInventory{SaveSlot()}.xml");
 
 
             writer.Serialize(file, PlayerInventory);
             file.Close();
-        }
-        catch (Exception) { WriteXMLInventory(PlayerInventory); }
-        Console.WriteLine("World saved");
+        
+        
+        Console.WriteLine("Inventory saved");
         Console.WriteLine();
-        Console.ReadKey();
+       
 
 
     }
@@ -113,14 +169,39 @@ public class xmlLoader
 {
     public int? SaveSlotsetter = null;
 
-    public int SaveSlot()
+
+   public int SaveSlot()
     {
         while (SaveSlotsetter == null)
         {
             try
             {
-                Console.WriteLine("Select Save Slot");
-                SaveSlotsetter = int.Parse(Console.ReadLine());
+                Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
+                Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
+                Console.WriteLine($"Select Save Slot 3 {File.Exists("player3.xml")}");
+                ConsoleKeyInfo userinputboi;
+                userinputboi = Console.ReadKey(true);
+
+
+                switch (userinputboi.Key)
+                {
+                    case ConsoleKey.D1:
+                        {
+                            SaveSlotsetter = 1;
+                        }
+                        break;
+                    case ConsoleKey.D2:
+                        {
+                            SaveSlotsetter = 2;
+                        }
+
+                        break;
+                    case ConsoleKey.D3:
+                        {
+                            SaveSlotsetter = 3;
+                        }
+                        break;
+                }
             }
             catch (Exception) { Console.WriteLine("try again"); }
         }
@@ -128,9 +209,10 @@ public class xmlLoader
         return (int)SaveSlotsetter;
     }
 
-    public Player LoadXML(int SaveSlotsetter)
+   public Player LoadXML(int SaveSlotsetter)
     {
         Player stats = new Player();
+        
 
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
         doc.Load($"player{SaveSlot()}.xml");
@@ -148,11 +230,12 @@ public class xmlLoader
         stats.playerAge = Convert.ToDouble(Player.SelectSingleNode("playerAge").InnerText);
         stats.playerLocation.playerX = Convert.ToInt32(Player.SelectSingleNode("playerX").InnerText);
         stats.playerLocation.playerY = Convert.ToInt32(Player.SelectSingleNode("playerY").InnerText);
-
+           
+        
         return stats;
     }
 
-    public World LoadXMLWorld(int SaveSlotsetter)
+   public World LoadXMLWorld(int SaveSlotsetter)
     {
         World WorldState = new World();
         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
@@ -167,7 +250,7 @@ public class xmlLoader
 
     }
 
-    public List<PlanetGen> LoadXMLPlanets(int SaveSlotsetter)
+   public List<PlanetGen> LoadXMLPlanets(int SaveSlotsetter)
     {
         
         List<PlanetGen> Planets = new List<PlanetGen>();
@@ -191,11 +274,12 @@ public class xmlLoader
 
    public List<Item> LoadXMLInventory(int SaveSlotsetter)
    {
+        Market NewMarket = new Market();
         List<Item> PlayerInventory = new List<Item>();
-    
+        List<Item> LoaderPlayerInventory = new List<Item>();
         XDocument xdoc = XDocument.Load($"PlayerInventory{SaveSlot()}.xml");
-
-        List<Item> PlayerInventoryLoaded = (from lv1 in xdoc.Descendants("Market")
+        
+        LoaderPlayerInventory = (from lv1 in xdoc.Descendants("Item")
                               select new Item
                               {
                                   name = lv1.Element("name").Value,
@@ -206,11 +290,10 @@ public class xmlLoader
 
                               }).ToList();
 
-        return PlayerInventory;
+        return LoaderPlayerInventory;
     }
 
-
-    public Ship LoadXMLShip(int SaveSlotsetter)
+   public Ship LoadXMLShip(int SaveSlotsetter)
     {
         Player boi = LoadXML(SaveSlotsetter);
         Ship Shipo = new Ship();
@@ -223,7 +306,7 @@ public class xmlLoader
         Shipo.shipHealth = Convert.ToInt32(ShipStatus.SelectSingleNode("shipHealth").InnerText);
         Shipo.shipStatus = Convert.ToString(ShipStatus.SelectSingleNode("shipStatus").InnerText);
         Shipo.engineLevel = Convert.ToInt32(ShipStatus.SelectSingleNode("engineLevel").InnerText);
-
+        Shipo.fuelLevel = Convert.ToInt32(ShipStatus.SelectSingleNode("fuelLevel").InnerText);
 
         return Shipo;
 

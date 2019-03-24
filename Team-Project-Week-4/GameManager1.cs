@@ -24,6 +24,7 @@ namespace Team_Project_Week_4
         World GameWorld;
         Item PlayerItems;
         List<Item> PlayerInventory;
+        Market Market;
         
                
         Random rnd = new Random();
@@ -33,6 +34,7 @@ namespace Team_Project_Week_4
         public int PlanetIndex;
         public bool gameWin = false;
         public bool letmeleave = false;
+        public int? SelectedSave;
         public GameManager()
         {
 
@@ -104,14 +106,9 @@ namespace Team_Project_Week_4
                 Console.WriteLine("Your ship computer drops you out of warp because of an imminent collision......");
                 Console.ReadKey();
                 Events.EventType( boi, Shipo, PlanetMarket);
+                load.SaveSlotsetter = SelectedSave;
+                save.WriteXMLInventory(PlanetMarket);
             }
-
-
-
-
-
-
-
 
         }
 
@@ -146,7 +143,9 @@ namespace Team_Project_Week_4
                         }
                         else
                         {
+                            Console.Clear();
                             Console.WriteLine("You do not have enough fuel to make this trip. Either buy fuel before leaving or pick a closer planet.");
+                            Console.ReadKey();
                         }
                         break;
 
@@ -218,7 +217,7 @@ namespace Team_Project_Week_4
                 case ConsoleKey.D1:
                     {
                         PlanetMarket.PlanetMarket(Planets[PlanetIndex].valueMultiplier, Planets[PlanetIndex].economy);
-                        Market(i);
+                        GoToMarket(i, PlayerInventory);
                     }
                     break;
                 case ConsoleKey.D2:
@@ -234,7 +233,7 @@ namespace Team_Project_Week_4
                     }
                     break;
                 case ConsoleKey.D4:
-                    Shipo.BuyFuel();
+                    Shipo.BuyFuel(boi);
                     break;
                 
                 case ConsoleKey.D5:
@@ -252,19 +251,23 @@ namespace Team_Project_Week_4
             }
         }
 
-        public void Market(int i)
+        public void GoToMarket(int i, List<Item> PlayerInventory)
         {
+            load.SaveSlotsetter = SelectedSave;
             Market Store = new Market();
             Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)}  ");
             Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
             Console.WriteLine($"You are at {Planets[i].name}");
             Console.WriteLine($"The economy is  {Planets[i].economy}");
-            
-            Store.PrintItemsSold();
 
+            
+
+            Store.PrintItemsSold();
             PlanetMarket.PlanetMarket( Planets[planetIndex].valueMultiplier, Planets[planetIndex].economy);
+            PlanetMarket.InitMarket(SelectedSave);
             PlanetMarket.SelectItem(boi);
-                     
+            save.WriteXMLInventory(PlanetMarket);
+
 
         }
 
@@ -430,8 +433,9 @@ namespace Team_Project_Week_4
             this.boi = load.LoadXML(load.SaveSlot());
             this.Shipo = load.LoadXMLShip(load.SaveSlot());
             this.PlayerInventory = load.LoadXMLInventory(load.SaveSlot());
+            this.SelectedSave = load.SaveSlotsetter;
+            load.SaveSlotsetter = SelectedSave;
             bool gameRunning = true;
-
             boi.playerX = boi.playerLocation.playerX;
             boi.playerY = boi.playerLocation.playerY;
             LocationX = boi.playerLocation.playerX;
@@ -528,7 +532,8 @@ namespace Team_Project_Week_4
                             case ConsoleKey.Escape:
                                 Console.Clear();
                                 save.WriteXML(boi);
-
+                                save.WriteXMLInventory(PlanetMarket);
+                                save.WriteXMLShip(Shipo);
                                 gameRunning = false;
                                 break;
 
@@ -538,7 +543,7 @@ namespace Team_Project_Week_4
 
                         }
                         Console.Clear();
-                        Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)} Ship Health: {Shipo.shipHealth} Engine Level: {Shipo.engineLevel} ");
+                        Console.WriteLine($" Name: {boi.FirstName}   Wallet: {boi.playerMoney}  Age: {Math.Floor(boi.playerAge)} Ship Health: {Shipo.shipHealth} Engine Level: {Shipo.engineLevel} Fuel Level: {Shipo.fuelLevel}/100");
                         Console.WriteLine($"X Coord:{LocationX}   Y Coord:{LocationY}     Player Location X:{boi.playerLocation.playerX} Y:{boi.playerLocation.playerY}");
                         SetPlayer();
                         DrawPlanet();

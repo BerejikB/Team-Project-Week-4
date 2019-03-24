@@ -5,6 +5,11 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 public class SkillTooLow : Exception
 {
@@ -19,14 +24,15 @@ public class SetAttribMenu
 {        
     World GameWorld = new World();
     StoryMenus Story = new StoryMenus();
-    Item GameItems = new Item();
+    List<Item> GameItems = new List<Item>();
     Market PlanetMarket = new Market();
-
+    
     Player playerAttribs;
     Ship NewShipo;
 
     public SetAttribMenu(Player boi, Ship shipo)
     {
+        
         this.playerAttribs = boi;
         this.NewShipo = shipo;
     }
@@ -34,6 +40,7 @@ public class SetAttribMenu
 
     public void TestPlayerMakerXML()
     {
+        
         GameWorld.PlanetGenerator();
         playerAttribs.playerLocation.playerX = GameWorld.EarthX;
         playerAttribs.playerLocation.playerY = GameWorld.EarthY;
@@ -46,7 +53,7 @@ public class SetAttribMenu
         playerAttribs.pointsAvail = 7;
         playerAttribs.playerAge = 20;
 
-
+        NewShipo.fuelLevel = 100;
         NewShipo.shipHealth = 8;
         NewShipo.engineLevel = 6;
         NewShipo.shipStatus = "In Working Order";
@@ -418,8 +425,8 @@ public class SetAttribMenu
                   SaveFunct.WriteXML(playerAttribs);
                   SaveFunct.WriteXMLWorld(GameWorld);
                   SaveFunct.WriteXMLShip(NewShipo);
-                    SaveFunct.WriteXMLInventory(GameItems);
-                    Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
+                  SaveFunct.WriteXMLInventory(PlanetMarket);
+                   Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
                 }
                 break;
             case 'n':

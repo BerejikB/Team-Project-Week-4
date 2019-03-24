@@ -4,6 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.IO;
+using Team_Project_Week_4;
+using System.Xml.Serialization;
+using System.Xml.Linq;
+
+using System.Xml;
+
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+
+
+
 namespace Team_Project_Week_4
 {
     public class NoItems : Exception { }
@@ -126,16 +138,25 @@ namespace Team_Project_Week_4
     public class Market
     {
         public int GlobalPlanetIndex;
-               
+
         string localeconomy;
         double localvalueMultiplier;
 
         public Random Rando = new Random();
         public int r = 0;
         public int numSold = 0;
-        public List<Item> allItemsSold = new List<Item>() { InventoryItems.Beer, InventoryItems.Goat, InventoryItems.Gold, InventoryItems.SandWiches, InventoryItems.Water, InventoryItems.ConsumerElectronics, InventoryItems.IndustrialComponents, InventoryItems.RawIron, InventoryItems.NuclearMaterial, InventoryItems.HazardousWaste };
         public List<Item> PlayerInventory = new List<Item>() { InventoryItems.Beer, InventoryItems.Goat, InventoryItems.Gold, InventoryItems.SandWiches, InventoryItems.Water, InventoryItems.ConsumerElectronics, InventoryItems.IndustrialComponents, InventoryItems.RawIron, InventoryItems.NuclearMaterial, InventoryItems.HazardousWaste };
-        public  bool PlayerBought = false;
+        public bool PlayerBought = false;
+        public string name;
+        public double price;
+        public int volume;
+        public int Playerquantity;
+        public int save;
+        xmlLoader load = new xmlLoader();
+        xmlSaver saver = new xmlSaver();
+        [XmlIgnore]
+        public List<Item> allItemsSold = new List<Item>() { InventoryItems.Beer, InventoryItems.Goat, InventoryItems.Gold, InventoryItems.SandWiches, InventoryItems.Water, InventoryItems.ConsumerElectronics, InventoryItems.IndustrialComponents, InventoryItems.RawIron, InventoryItems.NuclearMaterial, InventoryItems.HazardousWaste };
+
         public void PrintItemsSold()
         {
             Console.WriteLine("Your Inventory:");
@@ -147,7 +168,14 @@ namespace Team_Project_Week_4
 
         }
 
+        public void InitMarket(int? SelectedSave)
+        {
+            
+            save = Convert.ToInt32(SelectedSave); 
 
+            this.PlayerInventory = load.LoadXMLInventory(save);
+           
+        }
         public void GenerateItemsSold()
         {
             PlayerBought = false;
@@ -163,8 +191,6 @@ namespace Team_Project_Week_4
         }
 
 
-
-
         public void PlanetMarket(double valueMultiplier, string economy)
         {
             localeconomy = economy;
@@ -172,6 +198,7 @@ namespace Team_Project_Week_4
             GenerateItemsSold();
             
         }
+
         public void AddLootBox(int randoItem, int randoItemNo)
 
         {
@@ -179,10 +206,12 @@ namespace Team_Project_Week_4
             {
 
                 PlayerInventory[randoItem].Playerquantity ++ ;
+                
             }
 
 
         }
+
         public void SelectItem(Player boi )
         {
            
@@ -336,6 +365,7 @@ namespace Team_Project_Week_4
            
         }
 
+        
        
 
     }
