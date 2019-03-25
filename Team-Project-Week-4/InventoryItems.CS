@@ -176,20 +176,20 @@ namespace Team_Project_Week_4
             this.PlayerInventory = load.LoadXMLInventory(save);
            
         }
+
         public void GenerateItemsSold()
         {
             PlayerBought = false;
             for (int x = 9; x >= 0; x--)
             {
-                int itemno = Rando.Next(0, 30);
-                int planetmoney = Rando.Next(0, 3719);
+                int itemno = Rando.Next(0, 69);
+                int planetmoney = Rando.Next(0, 900000);
                 allItemsSold[0].PlanetMoney = planetmoney;
                 allItemsSold[x].Planetquantity = itemno;
                 Console.WriteLine(allItemsSold[x].name);
             }
 
         }
-
 
         public void PlanetMarket(double valueMultiplier, string economy)
         {
@@ -261,6 +261,11 @@ namespace Team_Project_Week_4
                     }
                     break;
 
+                    case ConsoleKey.Tab:
+                        {
+                            
+                        }
+                        break;
                 }
 
             }

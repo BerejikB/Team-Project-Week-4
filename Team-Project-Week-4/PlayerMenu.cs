@@ -26,7 +26,7 @@ public class SetAttribMenu
     StoryMenus Story = new StoryMenus();
     List<Item> GameItems = new List<Item>();
     Market PlanetMarket = new Market();
-    public int SaveSlotsetter = 1;
+    int? savor = null;
     Player playerAttribs;
     Ship NewShipo;
 
@@ -38,13 +38,12 @@ public class SetAttribMenu
     }
 
 
-    public void SelectSaveSlot()
+    public int SelectSaveSlot()
     {
 
+        while (savor == null)
 
-        while (SaveSlotsetter == 0)
-        {
-            try
+        try
             {
                 Console.WriteLine($"Select Save Slot 1 {File.Exists("player1.xml")}");
                 Console.WriteLine($"Select Save Slot 2 {File.Exists("player2.xml")}");
@@ -57,26 +56,32 @@ public class SetAttribMenu
                 {
                     case ConsoleKey.D1:
                         {
-                            SaveSlotsetter = 1;
+                            savor = 1;
+                            return (int)savor;
                         }
-                        break;
+                        
                     case ConsoleKey.D2:
                         {
-                            SaveSlotsetter = 2;
+                            savor = 2;
+                            return (int)savor;
                         }
 
-                        break;
+                        
                     case ConsoleKey.D3:
                         {
-                            SaveSlotsetter = 3;
+                            savor = 3;
+                            return (int)savor;
                         }
-                        break;
+                        
                 }
-            }
+            } 
             catch (Exception) { Console.WriteLine("try again"); }
-        }
-
+            
+           
         
+        return (int)savor;
+
+
 
 
 
@@ -85,10 +90,9 @@ public class SetAttribMenu
 
     }
 
-
-    public void TestPlayerMakerXML()
+    public void TestPlayerMakerXML(int SaveSlot)
     {
-        
+        if (savor == null) { SelectSaveSlot(); }
         GameWorld.PlanetGenerator();
         playerAttribs.playerLocation.playerX = GameWorld.EarthX;
         playerAttribs.playerLocation.playerY = GameWorld.EarthY;
@@ -137,13 +141,13 @@ public class SetAttribMenu
 
                 case ConsoleKey.N:
                     {
-                        TestPlayerMakerXML();
+                        TestPlayerMakerXML(SaveSlot);
                     }
                     break;
 
                 default:
                     {
-                        TestPlayerMakerXML();
+                        TestPlayerMakerXML(SaveSlot);
                     }
                     break;
 
@@ -471,10 +475,10 @@ public class SetAttribMenu
             case 'y':
                 {
 
-                    if (File.Exists($"player{SaveSlotsetter}.xml"))
+                    if (File.Exists($"player{SelectSaveSlot()}.xml"))
                     {
 
-                        Console.WriteLine($"Are you sure you want to overwrite Save {SaveSlotsetter}?");
+                        Console.WriteLine($"Are you sure you want to overwrite Save {SelectSaveSlot()}?");
 
                         ConsoleKeyInfo userinputboi;
                         userinputboi = Console.ReadKey(true);
@@ -484,10 +488,10 @@ public class SetAttribMenu
                         {
                             case ConsoleKey.Y:
                                 {
-                                    SaveFunct.WriteXML(SaveSlotsetter, playerAttribs);
-                                    SaveFunct.WriteXMLWorld(SaveSlotsetter, GameWorld);
-                                    SaveFunct.WriteXMLShip(SaveSlotsetter, NewShipo);
-                                    SaveFunct.WriteXMLInventory(SaveSlotsetter, PlanetMarket);
+                                    SaveFunct.WriteXML(SelectSaveSlot(), playerAttribs);
+                                    SaveFunct.WriteXMLWorld(SelectSaveSlot(), GameWorld);
+                                    SaveFunct.WriteXMLShip(SelectSaveSlot(), NewShipo);
+                                    SaveFunct.WriteXMLInventory(SelectSaveSlot(), PlanetMarket);
                                     Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
                                 }
                                 break;
@@ -504,10 +508,10 @@ public class SetAttribMenu
                     }
                     else
                     {
-                        SaveFunct.WriteXML(SaveSlotsetter, playerAttribs);
-                        SaveFunct.WriteXMLWorld(SaveSlotsetter, GameWorld);
-                        SaveFunct.WriteXMLShip(SaveSlotsetter, NewShipo);
-                        SaveFunct.WriteXMLInventory(SaveSlotsetter, PlanetMarket);
+                        SaveFunct.WriteXML(SelectSaveSlot(), playerAttribs);
+                        SaveFunct.WriteXMLWorld(SelectSaveSlot(), GameWorld);
+                        SaveFunct.WriteXMLShip(SelectSaveSlot(), NewShipo);
+                        SaveFunct.WriteXMLInventory(SelectSaveSlot(), PlanetMarket);
                         Story.StartGameInterView(playerAttribs.FirstName, playerAttribs.Profession, playerAttribs.playerMoney);
                     }
                 }

@@ -97,41 +97,45 @@ namespace Team_Project_Week_4
             userKey = Console.ReadKey(true);
 
 
-
-            switch (userKey.Key)
+            try
             {
-                case ConsoleKey.D1:
-                    {
-                        Console.Clear();
-                        int defenceChance = rnd.Next(0, 12);
-
-                        if (boi.playerSecurity >= defenceChance)
-
+                switch (userKey.Key)
+                {
+                    case ConsoleKey.D1:
                         {
-                            Console.WriteLine("With your superior tactics, and knowledge of each and every passageway, nook and cranny of your ship, you manage to repel the boarding party");
+                            Console.Clear();
+                            int defenceChance = rnd.Next(0, 12);
+
+                            if (boi.playerSecurity >= defenceChance)
+
+                            {
+                                Console.WriteLine("With your superior tactics, and knowledge of each and every passageway, nook and cranny of your ship, you manage to repel the boarding party");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                Console.WriteLine("The boarders overwhelmed you........"); boi.isDead = true;
+                                Console.ReadKey();
+                            }
+
+
+
+
+                        }
+                        break;
+
+                    case ConsoleKey.D2:
+                        {
+
+                            Console.WriteLine("You manage to get back into warp, but due to the forced and sudden startup of yous systems, you have damaged your ship badly. ");
+                            shipo.DamageShip(boi);
+                            shipo.DamageShip(boi);
                             Console.ReadKey();
                         }
-                        else {  Console.WriteLine("The boarders overwhelmed you........"); boi.isDead = true;
-                            Console.ReadKey();
-                        }
-                                          
-                          
-                          
-                        
-                    }
-                    break;
-
-                case ConsoleKey.D2:
-                    {
-
-                        Console.WriteLine("You manage to get back into warp, but due to the forced and sudden startup of yous systems, you have damaged your ship badly. ");
-                        shipo.DamageShip(boi);
-                        shipo.DamageShip(boi);
-                        Console.ReadKey();
-                    }
-                    break;
-
+                        break;
+                }
             }
+            catch { Console.WriteLine("Try Again"); }
         }
 
 

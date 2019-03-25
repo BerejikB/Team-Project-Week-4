@@ -44,7 +44,7 @@ namespace Team_Project_Week_4
         public int PlanetIndex;
         public bool gameWin = false;
         public bool letmeleave = false;
-        public int SelectedSave;
+        public int? SelectedSave = null;
         public GameManager()
         {
 
@@ -64,12 +64,13 @@ namespace Team_Project_Week_4
             LocationX = 0;
             LocationY = 0;
     }
-
+        
         public string WriteCenterScreen(string textToEnter)
         {
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
             return textToEnter;
         }
+
         public void GameOver()
         {
 
@@ -108,14 +109,16 @@ namespace Team_Project_Week_4
 
         public void AutoSave()
         {
-            load.SaveSlotsetter = SelectedSave;
-            save.WriteXML(SelectedSave, boi);
-            save.WriteXMLInventory(SelectedSave, PlanetMarket);
-            save.WriteXMLShip(SelectedSave, Shipo);
+            SelectedSave = (int)LoadGame() ;
+            save.WriteXML((int)SelectedSave, boi);
+            save.WriteXMLInventory((int)SelectedSave, PlanetMarket);
+            save.WriteXMLShip((int)SelectedSave, Shipo);
         }
-        public void LoadGame()
-        {
 
+        public int? LoadGame()
+        {
+        
+            while ( SelectedSave == null)
             {
 
                 try
@@ -132,29 +135,31 @@ namespace Team_Project_Week_4
                         case ConsoleKey.D1:
                             {
                                 SelectedSave = 1;
+                                return SelectedSave;
                             }
                             break;
                         case ConsoleKey.D2:
                             {
                                 SelectedSave = 2;
+                                return SelectedSave;
                             }
 
                             break;
                         case ConsoleKey.D3:
                             {
                                 SelectedSave = 3;
+                                return SelectedSave;
                             }
                             break;
                     }
                 }
                 catch (Exception) { Console.WriteLine("try again"); }
             }
+            return SelectedSave;
 
         }
-
-
     
-         public void EventChecker()
+        public void EventChecker()
         {
           int randy = rnd.Next(1, 4);
 
@@ -178,7 +183,7 @@ namespace Team_Project_Week_4
 
             Console.Clear();
             Console.WriteLine($"Your ship is capable of Warp Factor {Shipo.engineLevel} and you have {Shipo.fuelLevel}/100 fuel left");
-            Console.WriteLine($"This will take {Math.Ceiling((Shipo.TimeToTravelDays( this.LocationX, this.LocationY)))} days and {Shipo.CalculateFuelConsumption(boi, this.LocationX, this.LocationY)} fuel)");            
+            Console.WriteLine($"This will take {Math.Ceiling((Shipo.TimeToTravelDays(boi.playerLocation.playerX, boi.playerLocation.playerY, this.LocationX, this.LocationY)))} days and {Shipo.CalculateFuelConsumption(boi, boi.playerLocation.playerX, boi.playerLocation.playerY, this.LocationX, this.LocationY)} fuel)");            
             Console.WriteLine($"Are you sure you want to travel to X:{LocationX}  Y:{LocationY}?  Y/N");
             
             ConsoleKeyInfo userinputboi;
@@ -193,16 +198,16 @@ namespace Team_Project_Week_4
                 {
                     case ConsoleKey.Y:
                         letmeleave = false;
-                        if (Shipo.fuelLevel >= Shipo.CalculateFuelConsumption( boi, this.LocationX, this.LocationY))
+                        if (Shipo.fuelLevel >= Shipo.CalculateFuelConsumption(boi, boi.playerLocation.playerX, boi.playerLocation.playerY,  this.LocationX, this.LocationY))
                         {
-                            Shipo.AgeCalculator(this.LocationX, this.LocationY);
+                            Shipo.AgeCalculator(boi.playerLocation.playerX, boi.playerLocation.playerY, this.LocationX, this.LocationY);
+                            Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(boi, boi.playerLocation.playerX, boi.playerLocation.playerY,  this.LocationX, this.LocationY);
                             this.boi.playerLocation.playerX = LocationX;
                             this.boi.playerLocation.playerY = LocationY;
 
                             boi.playerX = boi.playerLocation.playerX;
                             boi.playerY = boi.playerLocation.playerY;
-                            boi.playerAge += Shipo.TimeToTravel(this.LocationX, this.LocationY);
-                            Shipo.fuelLevel -= Shipo.CalculateFuelConsumption(boi, this.LocationX, this.LocationY);
+                            boi.playerAge += Shipo.TimeToTravel(boi.playerLocation.playerX, boi.playerY = boi.playerLocation.playerY, this.LocationX, this.LocationY);
                             EventChecker();
                         }
                         else
@@ -281,7 +286,7 @@ namespace Team_Project_Week_4
                 case ConsoleKey.D1:
                     {
                         PlanetMarket.PlanetMarket(Planets[PlanetIndex].valueMultiplier, Planets[PlanetIndex].economy);
-                        GoToMarket(i, PlayerInventory);
+                        GoToMarket( i, PlayerInventory);
                     }
                     break;
                 case ConsoleKey.D2:
@@ -327,10 +332,10 @@ namespace Team_Project_Week_4
 
             
 
-            PlanetMarket.InitMarket(SelectedSave);
+            PlanetMarket.InitMarket((int)SelectedSave);
             Store.PrintItemsSold();
             PlanetMarket.PlanetMarket( Planets[planetIndex].valueMultiplier, Planets[planetIndex].economy);
-            PlanetMarket.InitMarket(SelectedSave);
+            PlanetMarket.InitMarket((int)SelectedSave);
             PlanetMarket.SelectItem(boi);
             AutoSave();
             
@@ -359,6 +364,8 @@ namespace Team_Project_Week_4
 
         public void YouAreHere()
         {
+            boi.playerX = boi.playerLocation.playerX;
+                boi.playerY = boi.playerLocation.playerY;
             Console.SetCursorPosition(boi.playerLocation.playerX , boi.playerLocation.playerY);
             Console.Write("X");
             
@@ -437,9 +444,9 @@ namespace Team_Project_Week_4
             {
                 case ConsoleKey.D1:
                     {
-
+                        LoadGame();
                         SetAttribMenu NewPlayer = new SetAttribMenu(boi, Shipo);
-                        NewPlayer.TestPlayerMakerXML();
+                        NewPlayer.TestPlayerMakerXML((int)SelectedSave);
                         //StartMenu();
                     }
                     break;
@@ -501,7 +508,7 @@ namespace Team_Project_Week_4
 
         public void PrintStat()
         {
-            this.boi = load.LoadXML(load.SaveSlotsetter);
+            this.boi = load.LoadXML((int)LoadGame());
             Console.WriteLine($"You are {boi.FirstName} {boi.LastName}, the {boi.Profession}");
             Console.WriteLine($"Your curent attributes are:");
             Console.WriteLine($"Wallet : ${boi.playerMoney}");
@@ -517,13 +524,13 @@ namespace Team_Project_Week_4
         public void RunLoop()
         {
             Console.Clear();
-            this.GameWorld = load.LoadXMLWorld(SelectedSave);
-            this.Planets = load.LoadXMLPlanets(SelectedSave); 
-            this.boi = load.LoadXML(SelectedSave);
-            this.Shipo = load.LoadXMLShip(SelectedSave);
-            this.PlayerInventory = load.LoadXMLInventory(SelectedSave);
-            this.SelectedSave = (int)load.SaveSlotsetter;
-            load.SaveSlotsetter = SelectedSave;
+            this.GameWorld = load.LoadXMLWorld((int)SelectedSave);
+            this.Planets = load.LoadXMLPlanets((int)SelectedSave); 
+            this.boi = load.LoadXML((int)SelectedSave);
+            this.Shipo = load.LoadXMLShip((int)SelectedSave);
+            this.PlayerInventory = load.LoadXMLInventory((int)SelectedSave);
+            
+            SelectedSave = (int)LoadGame();
             bool gameRunning = true;
 
             boi.playerX = boi.playerLocation.playerX;

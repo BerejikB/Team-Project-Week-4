@@ -19,8 +19,7 @@ using System.Runtime.Serialization;
 public class xmlSaver
 {
 
-    public int SaveSlotsetter = 0 ;
-
+    
     //public int SaveSlot()
     //{
     //    while (SaveSlotsetter == null)
@@ -140,7 +139,7 @@ public class xmlSaver
 
 public class xmlLoader
 {
-    public int SaveSlotsetter = 0;
+    
 
 
    //public int SaveSlot()

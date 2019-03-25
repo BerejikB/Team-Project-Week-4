@@ -48,7 +48,7 @@ namespace Team_Project_Week_4
             ConsoleKeyInfo userinputboi;
             userinputboi = Console.ReadKey(true);
 
-
+            try {
             switch (userinputboi.Key)
             {
                 case ConsoleKey.D1:
@@ -61,9 +61,9 @@ namespace Team_Project_Week_4
                         WhatsTheCatch();
                     }
                     break;
-
-
-            }
+                 
+                }
+            } catch (Exception){ RecruiterDialogue(FirstName); }
         }
         public void SignMeUp()
         {

@@ -17,7 +17,8 @@ namespace Team_Project_Week_4
         public string shipStatus = "In Working Order";
         public double warpVelocity;
         public double fuelLevel = 100;
-       public Player boi;
+        public double distanceToTravel;
+        public Player boi;
        
         public Ship()
         {
@@ -91,41 +92,39 @@ namespace Team_Project_Week_4
 
         }
 
-        public void AgeCalculator(int x, int y)
+        public void AgeCalculator(int boix, int boiy, int x, int y)
         {
-            boi.playerAge += TimeToTravel( x, y);
+            boi.playerAge += TimeToTravel(boix, boiy, x, y);
         }
 
-
-        public double TimeToTravelDays(int x, int y)
+        public double TimeToTravelDays(int boix, int boiy, int x, int y)
 
         {
-
+           
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
-            double travelTime = lightYearTravelTime *= TravelDistance(x, y);
+            double travelTime = lightYearTravelTime *= TravelDistance(boix, boiy, x, y);
             travelTime /= PlayerPilotingBonus();
             travelTime *= 365;
             
             return travelTime;
         }
 
-
-        public double TimeToTravel( int x, int y)
+        public double TimeToTravel(int boix, int boiy, int x, int y)
 
         {
-
+           
             WarpFactor();
             double lightYearTravelTime = 1 / warpVelocity;
-            double travelTime = lightYearTravelTime * TravelDistance( x, y);
+            double travelTime = lightYearTravelTime * TravelDistance(boix, boiy, x, y);
             travelTime /= PlayerPilotingBonus();
             return travelTime;
         }
 
-        public double TravelDistance( int x, int y)
+        public double TravelDistance(int boix, int boiy,  int x, int y)
         {
-            int diffX = boi.playerLocation.playerX - x;
-            int diffY = boi.playerLocation.playerY - y;
+            int diffX = boix - x;
+            int diffY = boiy - y;
             int newX;
             int newY;
             if (diffX >= 0)
@@ -267,9 +266,9 @@ namespace Team_Project_Week_4
             }
         }
 
-        public double CalculateFuelConsumption(Player boi, int x, int y)
+        public double CalculateFuelConsumption(Player boi, int boix, int boiy,  int x, int y)
         {
-            double fuelConsumed = Convert.ToInt32(TravelDistance( x, y) /2);
+            double fuelConsumed = Convert.ToInt32(TravelDistance(boix, boiy, x,y) / 2);
             fuelConsumed /= PlayerPilotingBonus();
             return fuelConsumed;
         }
