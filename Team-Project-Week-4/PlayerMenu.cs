@@ -26,7 +26,7 @@ public class SetAttribMenu
     StoryMenus Story = new StoryMenus();
     List<Item> GameItems = new List<Item>();
     Market PlanetMarket = new Market();
-    public int SaveSlotsetter = 0;
+    public int SaveSlotsetter = 1;
     Player playerAttribs;
     Ship NewShipo;
 
